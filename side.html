@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <!--Import side.css-->
+    <link type="text/css" rel="stylesheet" href="css/side.css" />
+    <!--Import public.css-->
+    <link type="text/css" rel="stylesheet" href="css/public.css" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Objection</title>
+</head>
+
+<body style="font-family: 'PingFangSC-regular', sans-serif;">
+    <!-- HACKED -->
+    <main>
+    <div class="container center" style="height:80vh;">
+        <div class="row" style="margin-top: 4vh;">
+            <h1 class="col s12 m12 l10 offset-l1"><span>Waiting</span></h1>
+        </div>
+        <div class="row">
+            <!--img id="sideLogo" class="col s6 offset-s3 m6 offset-m3 l4 offset-l4" src="images/phone app design p1logo.png" alt="team_logo"/-->
+            <!--h2 id="sideName" class="col s12 m12 l10 offset-l1"><span></span></h2-->
+            <h3 id="wrongUsername" class="col s12 m12 l10 offset-l1"><span>Invalid username. Please go back to check your username again.</span></h3>
+            <h3 id="rightUsername" class="col s12 m12 l10 offset-l1"><span id="dots">Waiting for question</span></h3>
+        </div>
+        <!--<div class="row" style="margin-top: 3vh; text-align: center;">
+            <a href="game.html" target="_self"><img src="images/phone app design p2 next button.png" alt="next_button" style="width:30vh;"></a>
+        </div>-->
+    </div>   
+    </main>
+    
+    <span class="hide" id="username">{{ username }}</span>
+    
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/side.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+builtins:
+# Deferred is required to use google.appengine.ext.deferred.
+- deferred: on
+
+handlers:
+- url: /css
+  static_dir: css
+
+- url: /js
+  static_dir: js
+
+- url: /fonts
+  static_dir: fonts
+  http_headers:
+    Access-Control-Allow-Origin: "*"
+     
+
+- url: /images
+  static_dir: images
+  http_headers:
+    Access-Control-Allow-Origin: "*"
+
+- url: /.*
+  script: main.app
+
+
+libraries:
+ - name: webapp2
+   version: latest
+
+ - name: jinja2
+   version: latest

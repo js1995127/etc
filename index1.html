@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/game.css"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+      <title>Login</title>
+      
+      <style>
+          html{
+              background-color: #faf7e4;
+              color: #5f5248;   
+          }  
+      </style>
+    </head>
+
+    <body>
+      <!-- HACKED -->
+      <main>
+        <div hidden id="regtitle" style="margin:0 auto; text-align: center; padding:2vh 2vh; font-size: 4.2vh;">
+            
+        </div>
+
+        <div class="" style="height:50vh; margin-top:0vh;">
+            <div id="matchdescription" class="row" style="margin-top:5%; margin-bottom:1%; text-align: center;">
+                <!--img id="sideLogo" class="col s4 offset-s4 m4 offset-m4 l2 offset-l5" src="images/phone app design p1logo.png" 
+                    alt="side_logo" /-->
+                <!-- <h2 class="col s12 m12 l10 offset-l1" style="margin-top:0; margin-bottom:0; text-align:center;">
+                    <span>
+                        Introduction:
+                        </br>
+                        How would you place the students? In this exercise, you will be given a list of new law school graduates who need to be paired up with one of the department heads in the firm. Each student and mentor have a short bio that you can look at and decide which pair would be the best fit. Please select the best pair on your phone. (Mentors can have more than one student)
+                    </span>
+                    <img src="images/mentor match introduction.png">
+                </h2> -->
+                <img src="images/mentor match introduction.png">
+            </div>
+            <div hidden id="match" class="row" style="margin:0;">
+                <div id="matchimgdiv" class="matchimgdiv">
+                    <img class="matchimg" src="images/student-1.png">
+                </div>
+                <a style="cursor: pointer; float: left; width: 20%;">
+                    <div class="userinfo" >
+                        <p>A</p>
+                    </div>
+                </a>
+                <a style="cursor: pointer; float: left; width: 20%;">
+                    <div class="userinfo">
+                        <p>B</p>
+                    </div>
+                </a>
+                <a style="cursor: pointer; float: left; width: 20%;">
+                    <div class="userinfo">
+                        <p>C</p>
+                    </div>
+                </a>
+                <a style="cursor: pointer; float: left; width: 20%;">
+                    <div class="userinfo">
+                        <p>D</p>
+                    </div>
+                </a>
+                <a style="cursor: pointer; float: left; width: 20%;">
+                    <div class="userinfo">
+                        <p>E</p>
+                    </div>
+                </a>
+            </div>
+            <div id="submitbtn">
+              <div class="row" style="margin-top:10%; text-align: center;">
+                  <a id="userinfoSubmit"><img src="images/next-color.png" alt="post_confirm_button" style="width:50vh; cursor: pointer;"></a>
+                  <p hidden id="user">{{username}}</p>
+              </div>
+            </div>
+        </div>
+      </main>
+
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script type="text/javascript" src="js/match.js"></script>
+      <script type="text/javascript" src="js/cookie.js"></script>
+    </body>
+  </html>

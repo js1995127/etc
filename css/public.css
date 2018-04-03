@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document for public styles*/
+
+html{
+  background-color: #faf7e4;
+  color: #5f5248;
+}
+/*@font-face{
+  font-family: axonFont;
+  font-style: bold;
+  src: url(http://etc-axon.appspot.com/fonts/orbitron/orbitron-bold.ttf),
+       url(http://etc-axon.appspot.com/fonts/orbitron/orbitron-bold.woff);
+}
+@font-face{
+  font-family: axonFont;
+  font-style: light;
+  src: url(http://etc-axon.appspot.com/fonts/orbitron/orbitron-light.ttf),
+       url(http://etc-axon.appspot.com/fonts/orbitron/orbitron-light.woff);
+}*/
+@font-face{
+  font-family: axonFont;
+  font-style: normal;
+  src: url(http://etc-axon.appspot.com/fonts/electrolize/Electrolize-Regular.ttf),
+       url(http://etc-axon.appspot.com/fonts/electrolize/Electrolize-Regular.woff),
+	   url(http://etc-axon.appspot.com/fonts/electrolize/Electrolize-Regular.woff2),
+	   url(http://etc-axon.appspot.com/fonts/electrolize/Electrolize-Regular.eot);
+}
+@font-face{
+  font-family: axonContentFont;
+  font-style: normal;
+  src: url(http://etc-axon.appspot.com/fonts/LTYPE/LTYPE.ttf),
+       url(http://etc-axon.appspot.com/fonts/LTYPE/LTYPE.woff),
+	   url(http://etc-axon.appspot.com/fonts/LTYPE/LTYPE.woff2),
+	   url(http://etc-axon.appspot.com/fonts/LTYPE/LTYPE.eot);
+}

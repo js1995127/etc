@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+      <title>Login</title>
+      
+      <style>
+          html{
+              background-color: #faf7e4;
+              color: #5f5248;   
+          }  
+      </style>
+    </head>
+
+    <body>
+      <!-- HACKED -->
+      <main>
+        <div class="container center" style="height:50vh; margin-top:20vh;">
+            <!--div class="row">
+                <img class="col s12 m8 offset-m2 l8 offset-l2" 
+                    src="images/phone app design p1logo.png" alt="axon_logo"/>
+            </div-->
+            <div class="row" style="margin-top:5vh;">
+                <form class="col s12" name="login_username" action="mailto:yangaq.10@hotmail.com" method="post" enctype="text/plain">
+                    <div class="row" style="min-height:20vh;">
+                        <!--div class="col s8 offset-s1 m6 offset-m3 l6 offset-l3 input-field">
+                            <input id="user" name="user" type="text" class="validate" placeholder="Enter username" style="color:#5f5248; height:7vh; font-size:4vh;">
+                        </div-->
+                        <input id="user" name="user" type="hidden" value="{{username}}">
+                        <!--div class="col s2 m1 l1">
+                            <a id="usernameSubmit" href="">
+                                <img src="images/phone app design p1click.png" alt="button" style="height:10vh;">
+                            </a>
+                        </div-->
+                        <div class="row" style="margin-top:30%; text-align: center;">
+                            <a id="usernameSubmit"><img src="images/submit.png" alt="post_confirm_button" style="width:32vh;"></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </main>
+
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script type="text/javascript" src="js/index.js"></script>
+      <script type="text/javascript" src="js/cookie.js"></script>
+    </body>
+  </html>

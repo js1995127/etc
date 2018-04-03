@@ -1,0 +1,9 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "C:/Users/yuxingw1/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/gcloud.cmd",
+    "isShellCommand": false,
+    "args": ["-q", "app", "deploy", "app.yaml", "worker.yaml"],
+    "showOutput": "always"
+}
