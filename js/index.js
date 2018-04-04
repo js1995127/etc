@@ -24,7 +24,7 @@ $(document).ready(function() {
 
     var selected = false;
     var selection_to_post;
-    var step = 0;
+    var step = -4;
     $('.userinfo').click(function() {
         console.log(selected);
         if (selected === false) {
@@ -41,8 +41,31 @@ $(document).ready(function() {
             $(this).children('p').css({"color":"#faf6e4"});
         }
     });
-
+    //temp variable for store information for future use 
+    var teamName;
+    var personName;
     $('#userinfoSubmit').click(function() {
+        //This is new pages for our projects
+        //This is page 1
+        if (step === -4) { 
+            $('#teamName').hide();
+            $('#personName').show();
+            teamName = $('#team_infor').val();
+            step++;
+        } else if (step === -3) {
+            $('#personName').hide();
+            $('#welcome_page').show();
+            personName = $('#person_infor').val();
+            step++;
+        } else if (step === -2) {
+            $('#welcome_page').hide();
+            $('#store_page').show();
+            step++;
+        } else if (step === -1) {
+            $('#store_page').hide();
+            $('#gender').show();
+            step++;
+        }
         if(selected === true && step <= 2) {
             var newusername = $(this).closest('div').children('p').text().toLowerCase();
             $.ajax({
@@ -57,6 +80,7 @@ $(document).ready(function() {
                     console.log('GOT EM');
                 }
             });
+
             if(step === 2) {
                 selected = true;
                 //$('#userinfoSubmit').children('img').attr('src','../images/next-grey.png');
@@ -69,8 +93,7 @@ $(document).ready(function() {
                 // step++;
                 StoreUser();
                 window.location.href = 'side';
-            }
-            else if(step === 1) {
+            } else if(step === 1) {
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','../images/next-grey.png');
                 $('#age').hide();
