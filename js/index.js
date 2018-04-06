@@ -167,7 +167,7 @@ $(document).ready(function() {
                 })
                 $('#regtitle').html("Choose Your Source");
                 step = step + 2;
-            }  else if (step === 3) {
+            } else if (step === 3) {
                 countStore();
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -178,30 +178,9 @@ $(document).ready(function() {
                 })
                 $('#regtitle').html("Choose A Photo");
                 step++;
-            } 
-            // else if (step === 4) {
-            //     selected = false;
-            //     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            //     $('#photo').hide();
-            //     $('#postmedia').show();
-            //     $('.userinfo').each(function(i) {
-            //         $(this).css({"width":"85%"});
-            //     })
-            //     $('#regtitle').html("Where To Post?");
-            //     step++;
-            // } 
-            else if (step === 4) {
+            } else if (step === 4) {
                 countStore();
                 selected = false;
-                if (img_selected == 1) {
-                    $('<img src="images/image_1.jpg" style="height: 100px">').appendTo($("#media_page_images"));
-                } else if (img_selected == 2) {
-                    $('<img src="images/image_2.jpg" style="height: 100px">').appendTo($("#media_page_images"));
-                } else if (img_selected == 3) {
-                    $('<img src="images/image_3.jpg" style="height: 100px">').appendTo($("#media_page_images"));
-                } else if (img_selected == 4) {
-                    $('<img src="images/image_4.jpg" style="height: 100px">').appendTo($("#media_page_images"));
-                } 
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#photo').hide();
                 $('#media_page').show();
@@ -209,8 +188,17 @@ $(document).ready(function() {
                     $(this).css({"width":"85%"});
                 })
                 $('#title_selected').append(String(hashtags_selected));
-                $('#media_page').append(String(title_selected));
+                $('#media_page').append('<p>' + String(title_selected) + '<p/>');
                 $('#regtitle').html("FaceBook");
+                if (img_selected == 1) {
+                    $("#media_page").append('<img src="images/image_1.jpg" style="height: 100px">');
+                } else if (img_selected == 2) {
+                    $("#media_page").append('<img src="images/image_2.jpg" style="height: 100px">');
+                } else if (img_selected == 3) {
+                    $("#media_page").append('<img src="images/image_3.jpg" style="height: 100px">');
+                } else if (img_selected == 4) {
+                    $("#media_page").append('<img src="images/image_4.jpg" style="height: 100px">');
+                } 
                 step++;
             }        
         } else if(selected === true) {
@@ -227,43 +215,6 @@ $(document).ready(function() {
                     console.log('GOT EM');
                 }
             });
-            // if(step === 8) {
-            //     //StoreUser();
-            //     window.location.href = 'side';
-            // }
-            // if(step === 7) {
-            //     selected = false;
-            //     $('#matchimgdiv').children('img').attr('src','images/student-5.png');
-            //     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            //     step++;
-            // }
-            // else if(step === 6) {
-            //     selected = false;
-            //     $('#matchimgdiv').children('img').attr('src','images/student-4.png');
-            //     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            //     step++;
-            // }
-            // else if(step === 5) {
-            //     selected = false;
-            //     $('#matchimgdiv').children('img').attr('src','images/student-3.png');
-            //     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            //     step++;
-            // }
-            // else if(step === 4) {
-            //     //StoreUser();
-            //     selected = false;
-            //     $('#matchimgdiv').children('img').attr('src','images/student-2.png');
-            //     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            //     step++;
-            // }
-            // else if(step === 3) {
-            //     StoreUser();
-            //     selected = false;
-            //     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            //     $('#matchdescription').hide();
-            //     $('#match').show();
-            //     step++;
-            // }
             $('.userinfo').each(function(i) {
                 $(this).css({"background-color":"#faf6e4"});
                 $(this).children('p').css({"color":"#5f5248"});
@@ -340,16 +291,16 @@ $(document).ready(function() {
             } 
             calculation = calculation + (source * 0.2);
         } else if (step === 4) {
-            if (str === 'im1') {
+            if (String(selection_to_post) === 'Picture 1') {
                 img = 1;
                 img_selected = 1;
-            } else if (str === 'im2') {
+            } else if (String(selection_to_post) === 'Picture 2') {
                 img = 2;
                 img_selected = 2;
-            } else if (str === 'im3') {
+            } else if (String(selection_to_post) === 'Picture 3') {
                 img = 2;
                 img_selected = 3;
-            } else if (str === 'im4') {
+            } else if (String(selection_to_post) === 'Picture 4') {
                 img = 3;
                 img_selected = 4;
             }
@@ -357,11 +308,7 @@ $(document).ready(function() {
         }
        
     }
-    //pass the name of person to paragraphs 
-    // function getPersonName() {
-      
 
-    // }
     // store username and userType in local storage
     function StoreUser() {
         // check if the browser supports local storage
