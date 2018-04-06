@@ -25,6 +25,8 @@ $(document).ready(function() {
     var selection_to_post;
     var step = -5;
     var point = 0;
+    var hashtags_selected;
+    var title_selected;  
     //could get the value from thing that got selected
     $('.userinfo').click(function() {
         if (selected === false) {
@@ -116,7 +118,7 @@ $(document).ready(function() {
             $('#res').append(String(point));
             step++;
         }
-        if(selected === true && step > -2) {
+        if(selected === true && step > -3) {
             var newusername = $(this).closest('div').children('p').text().toLowerCase();
             $.ajax({
                 url: '/',
@@ -136,12 +138,14 @@ $(document).ready(function() {
                 $('#title').hide();
                 $('#hashtag').show();
                 $('#regtitle').html("Choose Your Hashtags");
+                title_selected = selection_to_post;
                 step++; 
             } else if(step === 0) {
                 countStore();
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#hashtag').hide();
+                hashtags_selected = selection_to_post;
                 $('#age').show();
                 $('#regtitle').html("Target Audience");
                 step++;
@@ -188,6 +192,8 @@ $(document).ready(function() {
                 $('.userinfo').each(function(i) {
                     $(this).css({"width":"85%"});
                 })
+                $('#title_selected').append(String(hashtags_selected));
+                $('#media_page').append(String(title_selected));
                 $('#regtitle').html("FaceBook");
                 step++;
             }        
