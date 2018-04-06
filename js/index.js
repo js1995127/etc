@@ -76,8 +76,35 @@ $(document).ready(function() {
             $('#regtitle').html("Choose Your Title");
             step++;
         } else if (step === 5) {
-            point = (calculation * 40) + (0.2 * target_audience);
-            console.log(point);
+            console.log(calculation);
+            var ratio = (calculation / 3).toFixed(1);
+            console.log(ratio);
+            console.log(target_audience);
+            if (target_audience === 1) {
+                var view1 = (ratio * (800 * 0.05 * 2) * 1.06 * 0.2);
+                var view2 = (ratio * (800 * 0.1 * 1) * 1.06 * 0.26);
+                var view3 = (ratio * (800 * 0.6 * 1) * 1.06 * 0.33);
+                var view4 = (ratio * (800 * 0.25 * 1) * 1.06 * 0.21);
+                point = (view1 + view2 + view3 + view4).toFixed();
+            } else if (target_audience === 2) {
+                var view1 = (ratio * (800 * 0.05 * 1) * 0.95 * 0.2);
+                var view2 = (ratio * (800 * 0.1 * 2) * 0.95 * 0.26);
+                var view3 = (ratio * (800 * 0.6 * 1) * 0.95 * 0.33);
+                var view4 = (ratio * (800 * 0.25 * 1) * 0.95 * 0.21);
+                point = (view1 + view2 + view3 + view4).toFixed();
+            } else if (target_audience === 3) {
+                var view1 = (ratio * (800 * 0.05 * 1) * 0.91 * 0.2);
+                var view2 = (ratio * (800 * 0.1 * 1) * 0.91 * 0.26);
+                var view3 = (ratio * (800 * 0.6 * 2) * 0.91 * 0.33);
+                var view4 = (ratio * (800 * 0.25 * 1) * 0.91 * 0.21);
+                point = (view1 + view2 + view3 + view4).toFixed();
+            } else if (target_audience === 4) {
+                var view1 = (ratio * (800 * 0.05 * 1) * 1.02 * 0.2);
+                var view2 = (ratio * (800 * 0.1 * 1) * 1.02 * 0.26);
+                var view3 = (ratio * (800 * 0.6 * 1) * 1.02 * 0.33);
+                var view4 = (ratio * (800 * 0.25 * 2) * 1.02 * 0.21);
+                point = (view1 + view2 + view3 + view4).toFixed();
+            }
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
             $('#media_page').hide();
             $('#res').show();
@@ -128,24 +155,12 @@ $(document).ready(function() {
                     $(this).css({"width":"85%"});
                 })
                 $('#regtitle').html("Choose Your Source");
-                step++;
-            } else if (step === 2) {
+                step = step + 2;
+            }  else if (step === 3) {
                 countStore();
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#source').hide();
-                $('#post_time').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
-                $('#regtitle').html("Post Time");
-                step++;
-            } else if (step === 3) {
-                //post time?
-                //countStore();
-                selected = false;
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#post_time').hide();
                 $('#photo').show();
                 $('.userinfo').each(function(i) {
                     $(this).css({"width":"85%"});
@@ -285,15 +300,14 @@ $(document).ready(function() {
             calculation = calculation + (hashtags * 0.2);
         } else if (step === 1) {
             if (str === 'Tee') {
-                target_audience = 0.2;
+                target_audience = 1;
             } else if (str === 'You') {
-                target_audience = 0.3;
+                target_audience = 2;
             } else if (str === 'Mid') {
-                target_audience = 0.2;
+                target_audience = 3;
             } else if (str === 'Sen') {
-                target_audience = 0.3;
+                target_audience = 4;
             }
-            target_audience = 800;
         } else if (step === 2) {
             if (str === 'Per') {
                 source = 1;
