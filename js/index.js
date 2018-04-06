@@ -50,7 +50,7 @@ $(document).ready(function() {
     var point;
     var calculation = 0; 
     var target_audience = 0;
-
+    var img_selected; 
     $('#userinfoSubmit').click(function() {
         //This is new pages for our projects
         //This is page 1
@@ -115,7 +115,14 @@ $(document).ready(function() {
             })
             $('#userinfoSubmit').hide();
             $('#regtitle').html("Final Result");
-            $('#res').append(String(point));
+            $('#res').append('<p>' + String(point) + '<p/>');
+            if (point < 150) {
+                $('#res').append('<img src="images/less.png" style="height: 100px">');
+            } else if (point < 250 && point >= 150) {
+                $('#res').append('<img src="images/normal.png" style="height: 100px">');
+            } else {
+                $('#res').append('<img src="images/more.png" style="height: 100px">');
+            }
             step++;
         }
         if(selected === true && step > -3) {
@@ -186,6 +193,15 @@ $(document).ready(function() {
             else if (step === 4) {
                 countStore();
                 selected = false;
+                if (img_selected == 1) {
+                    $('<img src="images/image_1.jpg" style="height: 100px">').appendTo($("#media_page_images"));
+                } else if (img_selected == 2) {
+                    $('<img src="images/image_2.jpg" style="height: 100px">').appendTo($("#media_page_images"));
+                } else if (img_selected == 3) {
+                    $('<img src="images/image_3.jpg" style="height: 100px">').appendTo($("#media_page_images"));
+                } else if (img_selected == 4) {
+                    $('<img src="images/image_4.jpg" style="height: 100px">').appendTo($("#media_page_images"));
+                } 
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#photo').hide();
                 $('#media_page').show();
@@ -326,12 +342,16 @@ $(document).ready(function() {
         } else if (step === 4) {
             if (str === 'im1') {
                 img = 1;
+                img_selected = 1;
             } else if (str === 'im2') {
                 img = 2;
+                img_selected = 2;
             } else if (str === 'im3') {
                 img = 2;
+                img_selected = 3;
             } else if (str === 'im4') {
                 img = 3;
+                img_selected = 4;
             }
             calculation = calculation + (img * 0.3);
         }
