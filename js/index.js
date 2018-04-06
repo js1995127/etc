@@ -24,6 +24,7 @@ $(document).ready(function() {
     var selected = false;
     var selection_to_post;
     var step = -5;
+    var point = 0;
     //could get the value from thing that got selected
     $('.userinfo').click(function() {
         if (selected === false) {
@@ -44,23 +45,25 @@ $(document).ready(function() {
 
     //temp variable for store information for future use 
     var teamName;
-    var personName;
     var point;
+    var calculation = 0; 
+    var target_audience = 0;
+
     $('#userinfoSubmit').click(function() {
         //This is new pages for our projects
         //This is page 1
+        console.log(step);
         if (step === -5) { 
             $('#teamName').hide();
             $('#personName').show();
             teamName = $('#team_infor').val();
+            $(".person_name_span").append(' ' + String(teamName));
+            $('#regtitle').html("");
             step++;
         } else if (step === -4) {
             $('#personName').hide();
             $('#welcome_page').show();
             $('#regtitle').html("Welcome");
-            personName = $('#person_infor').val();
-            //insert its name into the parapraph
-            $("#person_name_span").append(' ' + String(personName));
             step++;
         } else if (step === -3) {
             $('#welcome_page').hide();
@@ -71,6 +74,19 @@ $(document).ready(function() {
             $('#story_page').hide();
             $('#title').show();
             $('#regtitle').html("Choose Your Title");
+            step++;
+        } else if (step === 5) {
+            point = (calculation * 40) + (0.2 * target_audience);
+            console.log(point);
+            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+            $('#media_page').hide();
+            $('#res').show();
+            $('.userinfo').each(function(i) {
+                $(this).css({"width":"85%"});
+            })
+            $('#userinfoSubmit').hide();
+            $('#regtitle').html("Final Result");
+            $('#res').append(String(point));
             step++;
         }
         if(selected === true && step > -2) {
@@ -88,11 +104,14 @@ $(document).ready(function() {
                 }
             });
             if (step === -1) {
+                selected = false;
+                countStore();
                 $('#title').hide();
                 $('#hashtag').show();
                 $('#regtitle').html("Choose Your Hashtags");
                 step++; 
             } else if(step === 0) {
+                countStore();
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#hashtag').hide();
@@ -100,6 +119,7 @@ $(document).ready(function() {
                 $('#regtitle').html("Target Audience");
                 step++;
             } else if(step === 1) {
+                countStore();
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#age').hide();
@@ -110,6 +130,7 @@ $(document).ready(function() {
                 $('#regtitle').html("Choose Your Source");
                 step++;
             } else if (step === 2) {
+                countStore();
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#source').hide();
@@ -120,6 +141,8 @@ $(document).ready(function() {
                 $('#regtitle').html("Post Time");
                 step++;
             } else if (step === 3) {
+                //post time?
+                //countStore();
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#post_time').hide();
@@ -142,27 +165,17 @@ $(document).ready(function() {
             //     step++;
             // } 
             else if (step === 4) {
+                countStore();
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#postmedia').hide();
+                $('#photo').hide();
                 $('#media_page').show();
                 $('.userinfo').each(function(i) {
                     $(this).css({"width":"85%"});
                 })
                 $('#regtitle').html("FaceBook");
                 step++;
-            } else if (step === 5) {
-                selected = false;
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#media_page').hide();
-                $('#res').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
-                $('#userinfoSubmit').hide();
-                $('#regtitle').html("Final Result");
-                step++;
-            }       
+            }        
         } else if(selected === true) {
             var newusername = $(this).closest('div').children('p').text().toLowerCase();
             $.ajax({
@@ -220,6 +233,90 @@ $(document).ready(function() {
             })
         }
     });
+
+
+    function countStore() {
+         var str = String(selection_to_post).substring(0,3);
+         var title_of_news = 0;
+         var hashtags = 0;
+         var source = 0;
+         var img = 0;
+        if (step === -1) {
+            if (str === 'Dil') {
+                title_of_news = title_of_news + 1;
+            } else if  (str === 'Pro') {
+                title_of_news = title_of_news + 2;
+            } else if (str === 'Sec') {
+                title_of_news = title_of_news + 2;
+            } else if (str === 'Stu') {
+                title_of_news = title_of_news + 3;
+            } else if (str === 'Tal') {
+                title_of_news = title_of_news + 3;
+            } else if (str === 'Fir') {
+                title_of_news = title_of_news + 3;
+            }   
+            calculation = calculation + (title_of_news * 0.3);
+        } else if (step === 0) {
+            if (str === 'De-') {
+                hashtags = hashtags + 1;
+            } else if  (str === 'Non') {
+                hashtags = hashtags + 1;
+            } else if (str === 'Pea') {
+                hashtags = hashtags + 1;
+            } else if (str === 'Sec') {
+                hashtags = hashtags + 1;
+            } else if (str === 'Its') {
+                hashtags = hashtags + 2;
+            } else if (str === 'Any') {
+                hashtags = hashtags + 2;
+            } else if  (str === 'Ims') {
+                hashtags = hashtags + 3;
+            } else if (str === 'Mor') {
+                hashtags = hashtags + 3;
+            } else if (str === 'Apo') {
+                hashtags = hashtags + 3;
+            } else if (str === 'NoR') {
+                hashtags = hashtags + 3;
+            } else if (str === 'Fir') {
+                hashtags = hashtags + 3;
+            } else if (str === 'Sho') {
+                hashtags = hashtags + 3;
+            } 
+            calculation = calculation + (hashtags * 0.2);
+        } else if (step === 1) {
+            if (str === 'Tee') {
+                target_audience = 0.2;
+            } else if (str === 'You') {
+                target_audience = 0.3;
+            } else if (str === 'Mid') {
+                target_audience = 0.2;
+            } else if (str === 'Sen') {
+                target_audience = 0.3;
+            }
+            target_audience = 800;
+        } else if (step === 2) {
+            if (str === 'Per') {
+                source = 1;
+            } else if (str === 'The') {
+                source = 2;
+            } else if (str === 'Dep') {
+                source = 3;
+            } 
+            calculation = calculation + (source * 0.2);
+        } else if (step === 4) {
+            if (str === 'im1') {
+                img = 1;
+            } else if (str === 'im2') {
+                img = 2;
+            } else if (str === 'im3') {
+                img = 2;
+            } else if (str === 'im4') {
+                img = 3;
+            }
+            calculation = calculation + (img * 0.3);
+        }
+       
+    }
     //pass the name of person to paragraphs 
     // function getPersonName() {
       
