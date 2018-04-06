@@ -88,26 +88,28 @@ h3 span{
 .userinfo
 {
   text-align: center;
-  border: 2px solid #5f5248;
-  border-radius: 30px;
+  border: 0px solid #5f5248;
+  border-radius: 5px;
   width: 40%;
+  height: 15%;
   margin: 18px auto;
-  line-height: 11px;
-  color: #5f5248;
-  font-family: 'PingFangSC-regular', sans-serif;
-  font-size: 20px;
+  line-height: 20px;
+  color: #FFF;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  background-color: #06F;
 }
 .userinfo a
 {
-  color: #5f5248;
+  color: #00F;
 }
 .userinfoClick
 {
-  background: #fff;
+  background-color: #06F;
 }
 .userinfoClick a
 {
-  color: #000;
+  color: #00F；
 }
 .userinfo img
 {
