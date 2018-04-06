@@ -21,7 +21,6 @@ $(document).ready(function() {
         StoreUser();
         window.location.href = 'side';
     });
-
     var selected = false;
     var selection_to_post;
     var step = -5;
@@ -30,7 +29,6 @@ $(document).ready(function() {
         if (selected === false) {
             selected = true;
             selection_to_post = $(this).children('p').text();
-            console.log(selection_to_post);
             $(this).css({"background-color":"#5f5248"})
             $(this).children('p').css({"color":"#faf6e4"});
             $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
@@ -41,10 +39,13 @@ $(document).ready(function() {
             $(this).css({"background-color":"#5f5248"});
             $(this).children('p').css({"color":"#faf6e4"});
         }
+        console.log(selection_to_post);
     });
+
     //temp variable for store information for future use 
     var teamName;
     var personName;
+    var point;
     $('#userinfoSubmit').click(function() {
         //This is new pages for our projects
         //This is page 1
@@ -58,6 +59,8 @@ $(document).ready(function() {
             $('#welcome_page').show();
             $('#regtitle').html("Welcome");
             personName = $('#person_infor').val();
+            //insert its name into the parapraph
+            $("#person_name_span").append(' ' + String(personName));
             step++;
         } else if (step === -3) {
             $('#welcome_page').hide();
@@ -85,7 +88,6 @@ $(document).ready(function() {
                 }
             });
             if (step === -1) {
-                console.log(step);
                 $('#title').hide();
                 $('#hashtag').show();
                 $('#regtitle').html("Choose Your Hashtags");
@@ -127,17 +129,19 @@ $(document).ready(function() {
                 })
                 $('#regtitle').html("Choose A Photo");
                 step++;
-            } else if (step === 4) {
-                selected = false;
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#photo').hide();
-                $('#postmedia').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
-                $('#regtitle').html("Where To Post?");
-                step++;
-            } else if (step === 5) {
+            } 
+            // else if (step === 4) {
+            //     selected = false;
+            //     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+            //     $('#photo').hide();
+            //     $('#postmedia').show();
+            //     $('.userinfo').each(function(i) {
+            //         $(this).css({"width":"85%"});
+            //     })
+            //     $('#regtitle').html("Where To Post?");
+            //     step++;
+            // } 
+            else if (step === 4) {
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#postmedia').hide();
@@ -147,7 +151,7 @@ $(document).ready(function() {
                 })
                 $('#regtitle').html("FaceBook");
                 step++;
-            } else if (step === 6) {
+            } else if (step === 5) {
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#media_page').hide();
@@ -216,7 +220,11 @@ $(document).ready(function() {
             })
         }
     });
-    
+    //pass the name of person to paragraphs 
+    // function getPersonName() {
+      
+
+    // }
     // store username and userType in local storage
     function StoreUser() {
         // check if the browser supports local storage
