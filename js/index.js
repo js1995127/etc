@@ -202,14 +202,9 @@ $(document).ready(function() {
                 $('.userinfo').each(function(i) {
                     $(this).css({"width":"85%"});
                 })
-<<<<<<< HEAD
-                $('#media_page').append('<p>' + String(title_selected) + '<p/>');
-                $('#media_page').append('<p>' + String(hashtags_selected) + '<p/>');
-=======
 				$('#media_page').append('<p style="text-align: center;">' + String(hashtags_selected) + '<p/>');
                 $('#media_page').append('<p style="text-align: center;">' + String(title_selected) + '<p/>');
 			
->>>>>>> 3fc2639ce8e4b652f5b4c9fdd4ec8e2f938047ff
                 $('#regtitle').html("FaceBook");
                 if (img_selected == 1) {
                     $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;"></div>');
