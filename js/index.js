@@ -45,6 +45,20 @@ $(document).ready(function() {
         console.log(selection_to_post);
     });
 
+    $('.picture_info').click(function() {
+        if (selected === false) {
+            selected = true;
+            selection_to_post = $(this).children('img').attr('src').split('/').pop();
+            // $(this).css({"background-color":"#5f5248"})
+
+            $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
+        } else if (selected === true) {
+             selection_to_post = $(this).children('img').attr('src').split('/').pop();
+            // $(this).css({"background-color":"#5f5248"});
+        }
+        console.log(selection_to_post);
+    });
+
     //temp variable for store information for future use 
     var teamName;
     var point;
@@ -65,6 +79,7 @@ $(document).ready(function() {
         } else if (step === -4) {
             $('#personName').hide();
             $('#welcome_page').show();
+            
             $('#regtitle').html("Welcome");
             step++;
         } else if (step === -3) {
@@ -187,8 +202,8 @@ $(document).ready(function() {
                 $('.userinfo').each(function(i) {
                     $(this).css({"width":"85%"});
                 })
-                $('#title_selected').append(String(hashtags_selected));
                 $('#media_page').append('<p>' + String(title_selected) + '<p/>');
+                $('#media_page').append('<p>' + String(hashtags_selected) + '<p/>');
                 $('#regtitle').html("FaceBook");
                 if (img_selected == 1) {
                     $("#media_page").append('<img src="images/image_1.jpg" style="height: 100px">');
@@ -291,24 +306,24 @@ $(document).ready(function() {
             } 
             calculation = calculation + (source * 0.2);
         } else if (step === 4) {
-            if (String(selection_to_post) === 'Picture 1') {
+            if (String(selection_to_post) === 'image_1.jpg') {
                 img = 1;
                 img_selected = 1;
-            } else if (String(selection_to_post) === 'Picture 2') {
+            } else if (String(selection_to_post) === 'image_2.jpg') {
                 img = 2;
                 img_selected = 2;
-            } else if (String(selection_to_post) === 'Picture 3') {
+            } else if (String(selection_to_post) === 'image_3.jpg') {
                 img = 2;
                 img_selected = 3;
-            } else if (String(selection_to_post) === 'Picture 4') {
+            } else if (String(selection_to_post) === 'image_4.jpg') {
                 img = 3;
                 img_selected = 4;
             }
+            console.log(img_selected);
             calculation = calculation + (img * 0.3);
         }
        
     }
-
     // store username and userType in local storage
     function StoreUser() {
         // check if the browser supports local storage
