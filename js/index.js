@@ -33,14 +33,14 @@ $(document).ready(function() {
             selected = true;
             selection_to_post = $(this).children('p').text();
             $(this).css({"background-color":"#5f5248"})
-            $(this).children('p').css({"color":"#faf6e4"});
+            $(this).children('p').css({"color":"#fff"});
             $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
         } else if (selected === true) {
             selection_to_post = $(this).children('p').text();
-            $(this).closest('a').siblings().children('div').css({"background-color":"#faf6e4"})
-            $(this).closest('a').siblings().children('div').children('p').css({"color":"#5f5248"});
+            $(this).closest('a').siblings().children('div').css({"background-color":"#3B75B3"})
+            $(this).closest('a').siblings().children('div').children('p').css({"color":"#fff"});
             $(this).css({"background-color":"#5f5248"});
-            $(this).children('p').css({"color":"#faf6e4"});
+            $(this).children('p').css({"color":"#fff"});
         }
         console.log(selection_to_post);
     });
@@ -130,7 +130,7 @@ $(document).ready(function() {
             })
             $('#userinfoSubmit').hide();
             $('#regtitle').html("Final Result");
-            $('#res').append('<p>' + String(point) + '<p/>');
+            $('#res').append('<h1>' + String(point) + '<h1/>');
             if (point < 150) {
                 $('#res').append('<img src="images/less.png" style="height: 100px">');
             } else if (point < 250 && point >= 150) {
@@ -202,7 +202,7 @@ $(document).ready(function() {
                 $('.userinfo').each(function(i) {
                     $(this).css({"width":"85%"});
                 })
-				$('#media_page').append('<p style="text-align: center;">' + String(hashtags_selected) + '<p/>');
+				$('#media_page').append('<p style="text-align: center;color:#03a9f4;">' + String(hashtags_selected) + '<p/>');
                 $('#media_page').append('<p style="text-align: center;">' + String(title_selected) + '<p/>');
 			
                 $('#regtitle').html("FaceBook");
@@ -232,8 +232,8 @@ $(document).ready(function() {
                 }
             });
             $('.userinfo').each(function(i) {
-                $(this).css({"background-color":"#faf6e4"});
-                $(this).children('p').css({"color":"#5f5248"});
+                $(this).css({"background-color":"#3B75B3"});
+                $(this).children('p').css({"color":"#757575"});
             })
         }
     });
