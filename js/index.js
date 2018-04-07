@@ -202,17 +202,23 @@ $(document).ready(function() {
                 $('.userinfo').each(function(i) {
                     $(this).css({"width":"85%"});
                 })
+<<<<<<< HEAD
                 $('#media_page').append('<p>' + String(title_selected) + '<p/>');
                 $('#media_page').append('<p>' + String(hashtags_selected) + '<p/>');
+=======
+				$('#media_page').append('<p style="text-align: center;">' + String(hashtags_selected) + '<p/>');
+                $('#media_page').append('<p style="text-align: center;">' + String(title_selected) + '<p/>');
+			
+>>>>>>> 3fc2639ce8e4b652f5b4c9fdd4ec8e2f938047ff
                 $('#regtitle').html("FaceBook");
                 if (img_selected == 1) {
-                    $("#media_page").append('<img src="images/image_1.jpg" style="height: 100px">');
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;"></div>');
                 } else if (img_selected == 2) {
-                    $("#media_page").append('<img src="images/image_2.jpg" style="height: 100px">');
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;"></div>');
                 } else if (img_selected == 3) {
-                    $("#media_page").append('<img src="images/image_3.jpg" style="height: 100px">');
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;"></div>');
                 } else if (img_selected == 4) {
-                    $("#media_page").append('<img src="images/image_4.jpg" style="height: 100px">');
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;"></div>');
                 } 
                 step++;
             }        
