@@ -75,6 +75,7 @@ $(document).ready(function() {
             teamName = $('#team_infor').val();
             $(".person_name_span").append(' ' + String(teamName));
             $('#regtitle').html("");
+			
             step++;
         } else if (step === -4) {
             $('#personName').hide();
@@ -86,11 +87,13 @@ $(document).ready(function() {
             $('#welcome_page').hide();
             $('#story_page').show();
             $('#regtitle').html("");
+			 
             step++;
         } else if (step === -2) {
             $('#story_page').hide();
             $('#title').show();
             $('#regtitle').html("Choose Your Title");
+			$('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
             step++;
         } else if (step === 5) {
             console.log(calculation);
@@ -202,8 +205,8 @@ $(document).ready(function() {
                 $('.userinfo').each(function(i) {
                     $(this).css({"width":"85%"});
                 })
-				$('#media_page').append('<p style="text-align: center;color:#03a9f4;">' + String(hashtags_selected) + '<p/>');
-                $('#media_page').append('<p style="text-align: center;">' + String(title_selected) + '<p/>');
+				$('#media_page').append('<p style="color:#03a9f4; font-weight:bold;margin-left: 12%;">' + String(hashtags_selected) + '<p/>');
+                $('#media_page').append('<p style="font-weight:bold;margin-left: 12%;">' + String(title_selected) + '<p/>');
 			
                 $('#regtitle').html("FaceBook");
                 if (img_selected == 1) {
