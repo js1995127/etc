@@ -86,112 +86,59 @@ $(document).ready(function() {
             $('#regtitle').html("");	 
             step++;
 
-        } 
-        if ()
-        if (step === -2) {
+        } else if (step === -2) {
             $('#story_page').hide();
             $('#title').show();
             $('#regtitle').html("Choose Your Title");
-			$('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            step++;
-        } else if (step === 5) {
-            var ratio = (calculation / 3).toFixed(1);
-            if (target_audience === 1) {
-                var view1 = (ratio * (800 * 0.05 * 2) * 1.06 * 0.2);
-                var view2 = (ratio * (800 * 0.1 * 1) * 1.06 * 0.26);
-                var view3 = (ratio * (800 * 0.6 * 1) * 1.06 * 0.33);
-                var view4 = (ratio * (800 * 0.25 * 1) * 1.06 * 0.21);
-                point = (view1 + view2 + view3 + view4).toFixed();
-            } else if (target_audience === 2) {
-                var view1 = (ratio * (800 * 0.05 * 1) * 0.95 * 0.2);
-                var view2 = (ratio * (800 * 0.1 * 2) * 0.95 * 0.26);
-                var view3 = (ratio * (800 * 0.6 * 1) * 0.95 * 0.33);
-                var view4 = (ratio * (800 * 0.25 * 1) * 0.95 * 0.21);
-                point = (view1 + view2 + view3 + view4).toFixed();
-            } else if (target_audience === 3) {
-                var view1 = (ratio * (800 * 0.05 * 1) * 0.91 * 0.2);
-                var view2 = (ratio * (800 * 0.1 * 1) * 0.91 * 0.26);
-                var view3 = (ratio * (800 * 0.6 * 2) * 0.91 * 0.33);
-                var view4 = (ratio * (800 * 0.25 * 1) * 0.91 * 0.21);
-                point = (view1 + view2 + view3 + view4).toFixed();
-            } else if (target_audience === 4) {
-                var view1 = (ratio * (800 * 0.05 * 1) * 1.02 * 0.2);
-                var view2 = (ratio * (800 * 0.1 * 1) * 1.02 * 0.26);
-                var view3 = (ratio * (800 * 0.6 * 1) * 1.02 * 0.33);
-                var view4 = (ratio * (800 * 0.25 * 2) * 1.02 * 0.21);
-                point = (view1 + view2 + view3 + view4).toFixed();
-            }
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $('#media_page').hide();
-            $('#res').show();
-            $('.userinfo').each(function(i) {
-                $(this).css({"width":"85%"});
-            })
-            $('#userinfoSubmit').hide();
-            $('#regtitle').html("Final Result");
-            $('#res').append('<h1>' + String(point) + '<h1/>');
-            if (point < 150) {
-                $('#res').append('<img src="images/less.png" style="height: 100px">');
-            } else if (point < 250 && point >= 150) {
-                $('#res').append('<img src="images/normal.png" style="height: 100px">');
-            } else {
-                $('#res').append('<img src="images/more.png" style="height: 100px">');
-            }
-            //pass the data to the server by using ajax 
-            $.ajax({
-                url: '/',
-                type: 'POST',
-                data: JSON.stringify({'point': point, 
-                   'username': teamName}), 
-                dataType: 'json',
-                cache: false,
-                contentType: 'application/json;charset=UTF-8',
-                success: function() {
-                    console.log('GOT EM');
-                }
-            });
             step++;
-        } else if (step === -1) {
+        }
+        if (step > -2 && selected === true) {
+             if (step === -1) {
                 selected = false;
                 countStore();
+                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#title').hide();
                 $('#hashtag').show();
                 $('#regtitle').html("Choose Your Hashtags");
                 title_selected = selection_to_post;
                 console.log(title_selected);
                 step++; 
-        } else if(step === 0) {
-            countStore();
-            selected = false;
-            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $('#hashtag').hide();
-            hashtags_selected = selection_to_post;
-            $('#age').show();
-            $('#regtitle').html("Target Audience");
-            step++;
-        } else if(step === 1) {
-            countStore();
-            selected = false;
-            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $('#age').hide();
-            $('#source').show();
-            $('.userinfo').each(function(i) {
-                $(this).css({"width":"85%"});
-            })
-            $('#regtitle').html("Choose Your Source");
-            step = step + 2;
-        } else if (step === 3) {
-            countStore();
-            selected = false;
-            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $('#source').hide();
-            $('#photo').show();
-            $('.userinfo').each(function(i) {
-                $(this).css({"width":"85%"});
-            })
-            $('#regtitle').html("Choose A Photo");
-            step++;
-        } else if (step === 4) {
+            } else if(step === 0) {
+                countStore();
+                selected = false;
+                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+                $('#hashtag').hide();
+                hashtags_selected = selection_to_post;
+                $('#age').show();
+                $('#regtitle').html("Target Audience");
+                step++;
+            } else if(step === 1) {
+                countStore();
+                selected = false;
+                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+                $('#age').hide();
+                $('#source').show();
+                $('.userinfo').each(function(i) {
+                    $(this).css({"width":"85%"});
+                })
+                $('#regtitle').html("Choose Your Source");
+                step = step + 2;
+            } else if (step === 3) {
+                countStore();
+                selected = false;
+                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+                $('#source').hide();
+                $('#photo').show();
+                $('.userinfo').each(function(i) {
+                    $(this).css({"width":"85%"});
+                })
+                $('#regtitle').html("Choose A Photo");
+                step++;
+            }
+        
+        } 
+        if (step === 4) {
             countStore();
             selected = false;
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -214,7 +161,64 @@ $(document).ready(function() {
                 $("#media_page").append('<div style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;"></div>');
             } 
             step++;
-        }        
+        } else if (step === 5) {
+                var ratio = (calculation / 3).toFixed(1);
+                if (target_audience === 1) {
+                    var view1 = (ratio * (800 * 0.05 * 2) * 1.06 * 0.2);
+                    var view2 = (ratio * (800 * 0.1 * 1) * 1.06 * 0.26);
+                    var view3 = (ratio * (800 * 0.6 * 1) * 1.06 * 0.33);
+                    var view4 = (ratio * (800 * 0.25 * 1) * 1.06 * 0.21);
+                    point = (view1 + view2 + view3 + view4).toFixed();
+                } else if (target_audience === 2) {
+                    var view1 = (ratio * (800 * 0.05 * 1) * 0.95 * 0.2);
+                    var view2 = (ratio * (800 * 0.1 * 2) * 0.95 * 0.26);
+                    var view3 = (ratio * (800 * 0.6 * 1) * 0.95 * 0.33);
+                    var view4 = (ratio * (800 * 0.25 * 1) * 0.95 * 0.21);
+                    point = (view1 + view2 + view3 + view4).toFixed();
+                } else if (target_audience === 3) {
+                    var view1 = (ratio * (800 * 0.05 * 1) * 0.91 * 0.2);
+                    var view2 = (ratio * (800 * 0.1 * 1) * 0.91 * 0.26);
+                    var view3 = (ratio * (800 * 0.6 * 2) * 0.91 * 0.33);
+                    var view4 = (ratio * (800 * 0.25 * 1) * 0.91 * 0.21);
+                    point = (view1 + view2 + view3 + view4).toFixed();
+                } else if (target_audience === 4) {
+                    var view1 = (ratio * (800 * 0.05 * 1) * 1.02 * 0.2);
+                    var view2 = (ratio * (800 * 0.1 * 1) * 1.02 * 0.26);
+                    var view3 = (ratio * (800 * 0.6 * 1) * 1.02 * 0.33);
+                    var view4 = (ratio * (800 * 0.25 * 2) * 1.02 * 0.21);
+                    point = (view1 + view2 + view3 + view4).toFixed();
+                }
+                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+                $('#media_page').hide();
+                $('#res').show();
+                $('.userinfo').each(function(i) {
+                    $(this).css({"width":"85%"});
+                })
+                $('#userinfoSubmit').hide();
+                $('#regtitle').html("Final Result");
+                $('#res').append('<h1>' + String(point) + '<h1/>');
+                if (point < 150) {
+                    $('#res').append('<img src="images/less.png" style="height: 100px">');
+                } else if (point < 250 && point >= 150) {
+                    $('#res').append('<img src="images/normal.png" style="height: 100px">');
+                } else {
+                    $('#res').append('<img src="images/more.png" style="height: 100px">');
+                }
+                //pass the data to the server by using ajax 
+                $.ajax({
+                    url: '/',
+                    type: 'POST',
+                    data: JSON.stringify({'point': point, 
+                       'username': teamName}), 
+                    dataType: 'json',
+                    cache: false,
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function() {
+                        console.log('GOT EM');
+                    }
+                });
+                step++;
+            }       
         // } 
         // else if(selected === true) {
         //     var newusername = $(this).closest('div').children('p').text().toLowerCase();
