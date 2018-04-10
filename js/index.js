@@ -50,7 +50,6 @@ $(document).ready(function() {
             selected = true;
             selection_to_post = $(this).children('img').attr('src').split('/').pop();
             // $(this).css({"background-color":"#5f5248"})
-
             $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
         } else if (selected === true) {
              selection_to_post = $(this).children('img').attr('src').split('/').pop();
@@ -58,6 +57,22 @@ $(document).ready(function() {
         }
         console.log(selection_to_post);
     });
+
+
+    //initial state of the button
+     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+        //get the first letter of  username 
+    $('#team_infor').on("input", function(e) {
+        var temp = $(e.target).val();
+        if (temp.length !== 0) {
+            $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
+            var first_letter = temp[0];
+            $('#first_letter').text(first_letter);
+        } else {
+            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+        }  
+    })
+
 
     //temp variable for store information for future use 
     var teamName;
@@ -68,6 +83,7 @@ $(document).ready(function() {
     $('#userinfoSubmit').click(function() {
         //This is new pages for our projects
         //This is page 1
+        console.log(step);
         if (step === -5) { 
             $('#teamName').hide();
             $('#personName').show();
@@ -92,8 +108,7 @@ $(document).ready(function() {
             $('#regtitle').html("Choose Your Title");
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
             step++;
-        }
-        if (step > -2 && selected === true) {
+        } else if (step > -2 && step < 5 &&  selected === true) {
              if (step === -1) {
                 selected = false;
                 countStore();
@@ -135,33 +150,31 @@ $(document).ready(function() {
                 })
                 $('#regtitle').html("Choose A Photo");
                 step++;
+            } else if (step === 4) {
+                countStore();
+                selected = false;
+                $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
+                $('#photo').hide();
+                $('#media_page').show();
+                $('.userinfo').each(function(i) {
+                    $(this).css({"width":"85%"});
+                })
+                $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;margin-left: 12%;">' + String(hashtags_selected) + '<p/>');
+                $('#media_page').append('<p style="font-weight:bold;margin-left: 12%;">' + String(title_selected) + '<p/>');
+                 console.log(title_selected);
+                $('#regtitle').html("FaceBook");
+                if (img_selected == 1) {
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;"></div>');
+                } else if (img_selected == 2) {
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;"></div>');
+                } else if (img_selected == 3) {
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;"></div>');
+                } else if (img_selected == 4) {
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;"></div>');
+                } 
+                step++;
             }
-        
-        } 
-        if (step === 4) {
-            countStore();
-            selected = false;
-            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $('#photo').hide();
-            $('#media_page').show();
-            $('.userinfo').each(function(i) {
-                $(this).css({"width":"85%"});
-            })
-			$('#media_page').append('<p style="color:#03a9f4; font-weight:bold;margin-left: 12%;">' + String(hashtags_selected) + '<p/>');
-            $('#media_page').append('<p style="font-weight:bold;margin-left: 12%;">' + String(title_selected) + '<p/>');
-		     console.log(title_selected);
-            $('#regtitle').html("FaceBook");
-            if (img_selected == 1) {
-                $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;"></div>');
-            } else if (img_selected == 2) {
-                $("#media_page").append('<div style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;"></div>');
-            } else if (img_selected == 3) {
-                $("#media_page").append('<div style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;"></div>');
-            } else if (img_selected == 4) {
-                $("#media_page").append('<div style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;"></div>');
-            } 
-            step++;
-        } else if (step === 5) {
+        }  else if (step === 5) {
                 var ratio = (calculation / 3).toFixed(1);
                 if (target_audience === 1) {
                     var view1 = (ratio * (800 * 0.05 * 2) * 1.06 * 0.2);
@@ -299,7 +312,8 @@ $(document).ready(function() {
             } else if (str === 'Sen') {
                 target_audience = 4;
             }
-        } else if (step === 2) {
+        } else if (step === 3) {
+            // console.log(str);
             if (str === 'Per') {
                 source = 1;
             } else if (str === 'The') {
@@ -307,6 +321,7 @@ $(document).ready(function() {
             } else if (str === 'Dep') {
                 source = 3;
             } 
+            // console.log(source);
             calculation = calculation + (source * 0.2);
         } else if (step === 4) {
             if (String(selection_to_post) === 'image_1.jpg') {
