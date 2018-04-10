@@ -68,38 +68,34 @@ $(document).ready(function() {
     $('#userinfoSubmit').click(function() {
         //This is new pages for our projects
         //This is page 1
-        console.log(step);
         if (step === -5) { 
             $('#teamName').hide();
             $('#personName').show();
             teamName = $('#team_infor').val();
             $(".person_name_span").append(' ' + String(teamName));
-            $('#regtitle').html("");
-			
+            $('#regtitle').html("");			
             step++;
         } else if (step === -4) {
             $('#personName').hide();
-            $('#welcome_page').show();
-            
+            $('#welcome_page').show();       
             $('#regtitle').html("Welcome");
             step++;
         } else if (step === -3) {
             $('#welcome_page').hide();
             $('#story_page').show();
-            $('#regtitle').html("");
-			 
+            $('#regtitle').html("");	 
             step++;
-        } else if (step === -2) {
+
+        } 
+        if ()
+        if (step === -2) {
             $('#story_page').hide();
             $('#title').show();
             $('#regtitle').html("Choose Your Title");
 			$('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
             step++;
         } else if (step === 5) {
-            console.log(calculation);
             var ratio = (calculation / 3).toFixed(1);
-            console.log(ratio);
-            console.log(target_audience);
             if (target_audience === 1) {
                 var view1 = (ratio * (800 * 0.05 * 2) * 1.06 * 0.2);
                 var view2 = (ratio * (800 * 0.1 * 1) * 1.06 * 0.26);
@@ -141,15 +137,12 @@ $(document).ready(function() {
             } else {
                 $('#res').append('<img src="images/more.png" style="height: 100px">');
             }
-            step++;
-        }
-        if(selected === true && step > -3) {
-            var newusername = $(this).closest('div').children('p').text().toLowerCase();
+            //pass the data to the server by using ajax 
             $.ajax({
                 url: '/',
                 type: 'POST',
-                data: JSON.stringify({'step': step, 'selection': selection_to_post, 
-                   'username': newusername}), 
+                data: JSON.stringify({'point': point, 
+                   'username': teamName}), 
                 dataType: 'json',
                 cache: false,
                 contentType: 'application/json;charset=UTF-8',
@@ -157,90 +150,92 @@ $(document).ready(function() {
                     console.log('GOT EM');
                 }
             });
-            if (step === -1) {
+            step++;
+        } else if (step === -1) {
                 selected = false;
                 countStore();
                 $('#title').hide();
                 $('#hashtag').show();
                 $('#regtitle').html("Choose Your Hashtags");
                 title_selected = selection_to_post;
+                console.log(title_selected);
                 step++; 
-            } else if(step === 0) {
-                countStore();
-                selected = false;
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#hashtag').hide();
-                hashtags_selected = selection_to_post;
-                $('#age').show();
-                $('#regtitle').html("Target Audience");
-                step++;
-            } else if(step === 1) {
-                countStore();
-                selected = false;
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#age').hide();
-                $('#source').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
-                $('#regtitle').html("Choose Your Source");
-                step = step + 2;
-            } else if (step === 3) {
-                countStore();
-                selected = false;
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#source').hide();
-                $('#photo').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
-                $('#regtitle').html("Choose A Photo");
-                step++;
-            } else if (step === 4) {
-                countStore();
-                selected = false;
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#photo').hide();
-                $('#media_page').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
-				$('#media_page').append('<p style="color:#03a9f4; font-weight:bold;margin-left: 12%;">' + String(hashtags_selected) + '<p/>');
-                $('#media_page').append('<p style="font-weight:bold;margin-left: 12%;">' + String(title_selected) + '<p/>');
-			
-                $('#regtitle').html("FaceBook");
-                if (img_selected == 1) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;"></div>');
-                } else if (img_selected == 2) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;"></div>');
-                } else if (img_selected == 3) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;"></div>');
-                } else if (img_selected == 4) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;"></div>');
-                } 
-                step++;
-            }        
-        } else if(selected === true) {
-            var newusername = $(this).closest('div').children('p').text().toLowerCase();
-            $.ajax({
-                url: '/',
-                type: 'POST',
-                data: JSON.stringify({'step': step, 'selection': selection_to_post, 
-                   'username': newusername}),
-                dataType: 'json',
-                cache: false,
-                contentType: 'application/json;charset=UTF-8',
-                success: function() {
-                    console.log('GOT EM');
-                }
-            });
+        } else if(step === 0) {
+            countStore();
+            selected = false;
+            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+            $('#hashtag').hide();
+            hashtags_selected = selection_to_post;
+            $('#age').show();
+            $('#regtitle').html("Target Audience");
+            step++;
+        } else if(step === 1) {
+            countStore();
+            selected = false;
+            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+            $('#age').hide();
+            $('#source').show();
             $('.userinfo').each(function(i) {
-                $(this).css({"background-color":"#3B75B3"});
-                $(this).children('p').css({"color":"#757575"});
+                $(this).css({"width":"85%"});
             })
-        }
+            $('#regtitle').html("Choose Your Source");
+            step = step + 2;
+        } else if (step === 3) {
+            countStore();
+            selected = false;
+            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+            $('#source').hide();
+            $('#photo').show();
+            $('.userinfo').each(function(i) {
+                $(this).css({"width":"85%"});
+            })
+            $('#regtitle').html("Choose A Photo");
+            step++;
+        } else if (step === 4) {
+            countStore();
+            selected = false;
+            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+            $('#photo').hide();
+            $('#media_page').show();
+            $('.userinfo').each(function(i) {
+                $(this).css({"width":"85%"});
+            })
+			$('#media_page').append('<p style="color:#03a9f4; font-weight:bold;margin-left: 12%;">' + String(hashtags_selected) + '<p/>');
+            $('#media_page').append('<p style="font-weight:bold;margin-left: 12%;">' + String(title_selected) + '<p/>');
+		     console.log(title_selected);
+            $('#regtitle').html("FaceBook");
+            if (img_selected == 1) {
+                $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;"></div>');
+            } else if (img_selected == 2) {
+                $("#media_page").append('<div style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;"></div>');
+            } else if (img_selected == 3) {
+                $("#media_page").append('<div style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;"></div>');
+            } else if (img_selected == 4) {
+                $("#media_page").append('<div style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;"></div>');
+            } 
+            step++;
+        }        
+        // } 
+        // else if(selected === true) {
+        //     var newusername = $(this).closest('div').children('p').text().toLowerCase();
+        //     $.ajax({
+        //         url: '/',
+        //         type: 'POST',
+        //         data: JSON.stringify({'step': step, 'selection': selection_to_post, 
+        //            'username': newusername}),
+        //         dataType: 'json',
+        //         cache: false,
+        //         contentType: 'application/json;charset=UTF-8',
+        //         success: function() {
+        //             console.log('GOT EM');
+        //         }
+        //     });
+        //     $('.userinfo').each(function(i) {
+        //         $(this).css({"background-color":"#3B75B3"});
+        //         $(this).children('p').css({"color":"#757575"});
+        //     })
+        // }
     });
-
 
     function countStore() {
          var str = String(selection_to_post).substring(0,3);

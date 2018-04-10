@@ -136,11 +136,13 @@ class Game(ndb.Model):
 
 class User(ndb.Model):
     name = ndb.StringProperty()
-    team = ndb.IntegerProperty()
-    headlines = ndb.JsonProperty()
-    gender = ndb.StringProperty()
-    age = ndb.StringProperty()
-    race = ndb.StringProperty()
+    # team = ndb.IntegerProperty()
+    point = ndb.IntegerProperty()
+    # step = ndb.IntegerProperty()
+    # headlines = ndb.JsonProperty()
+    # gender = ndb.StringProperty()
+    # age = ndb.StringProperty()
+    # race = ndb.StringProperty()
 
     #this part is useless
     @staticmethod
@@ -313,35 +315,38 @@ class User(ndb.Model):
 #mentor match selection is also handled by this handler: after step>=4
 class LoginHandler(webapp2.RequestHandler):
     def post(self):
-        global selectedNum
+        # global selectedNum
         data = json.loads(self.request.body)
-        selection = data['selection']
+        point = data['point']
         username = data['username']
-        step = data['step']
-        user = User.query(User.name == username).get()
-        if step == 0:
-            user.gender = selection
-        elif step == 1:
-            user.age = selection
-        elif step == 2:
-            user.race = selection
-        elif step >= 4:
-            match = MatchSelection.query(MatchSelection.name == 'student' + str(step - 3)).get()
-            if selection == 'A':
-                match.selA += 1
-            elif selection == 'B':
-                match.selB += 1
-            elif selection == 'C':
-                match.selC += 1
-            elif selection == 'D':
-                match.selD += 1
-            elif selection == 'E':
-                match.selE += 1
-            match.put()
-            if step == 8:
-                selectedNum += 1
-
+        # global userNum
+        user = User(name=username, point=int(point))
         user.put()
+        # user = User.query(User.name == username).get()
+        # user.point = point
+        # if step == 0:
+        #     user.gender = selection
+        # elif step == 1:
+        #     user.age = selection
+        # elif step == 2:
+        #     user.race = selection
+        # elif step >= 4:
+        #     match = MatchSelection.query(MatchSelection.name == 'student' + str(step - 3)).get()
+        #     if selection == 'A':
+        #         match.selA += 1
+        #     elif selection == 'B':
+        #         match.selB += 1
+        #     elif selection == 'C':
+        #         match.selC += 1
+        #     elif selection == 'D':
+        #         match.selD += 1
+        #     elif selection == 'E':
+        #         match.selE += 1
+        #     match.put()
+        #     if step == 8:
+        #         selectedNum += 1
+
+        # user.put()
         # login_template = JINJA_ENV.get_template('index.html')
         # self.response.out.write(login_template.render({
         #     'username': username,
@@ -349,25 +354,11 @@ class LoginHandler(webapp2.RequestHandler):
     def get(self):
         #User.testCreate()
         #Game.createGame()
-        global userNum
-        user = User(name='media' + str(userNum), team=1, headlines={
-            0: ['',''],
-            1: question1,
-            2: question2,
-            3: question3,
-            4: question4,
-            5: question5,
-            6: ['A', 'B', 'C', 'D'],
-            7: ['A', 'B', 'C', 'D'],
-            8: ['A', 'B', 'C', 'D'],
-            9: ['A', 'B', 'C', 'D'],
-            10:['A', 'B', 'C', 'D']})
-        user.put()
-        userNum += 1
-        username = user.name
+        # userNum += 1
+        # username = user.name
         login_template = JINJA_ENV.get_template('index0.html')
         self.response.out.write(login_template.render({
-            'username': username,
+            # 'username': username,
         }))
 
 class UserHandler(webapp2.RequestHandler):
