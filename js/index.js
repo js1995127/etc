@@ -175,30 +175,30 @@ $(document).ready(function() {
                 step++;
             }
         }  else if (step === 5) {
-                var ratio = (calculation / 3).toFixed(1);
+                var ratio = calculation
                 if (target_audience === 1) {
-                    var view1 = (ratio * (800 * 0.05 * 2) * 1.06 * 0.2);
-                    var view2 = (ratio * (800 * 0.1 * 1) * 1.06 * 0.26);
-                    var view3 = (ratio * (800 * 0.6 * 1) * 1.06 * 0.33);
-                    var view4 = (ratio * (800 * 0.25 * 1) * 1.06 * 0.21);
+                    var view1 = (ratio * (300000 * 0.05 * 2) * 1.03 * 0.2);
+                    var view2 = (ratio * (300000 * 0.1 * 1) * 1.03 * 0.26);
+                    var view3 = (ratio * (300000 * 0.6 * 1) * 1.03 * 0.33);
+                    var view4 = (ratio * (300000 * 0.25 * 1) * 1.03 * 0.21);
                     point = (view1 + view2 + view3 + view4).toFixed();
                 } else if (target_audience === 2) {
-                    var view1 = (ratio * (800 * 0.05 * 1) * 0.95 * 0.2);
-                    var view2 = (ratio * (800 * 0.1 * 2) * 0.95 * 0.26);
-                    var view3 = (ratio * (800 * 0.6 * 1) * 0.95 * 0.33);
-                    var view4 = (ratio * (800 * 0.25 * 1) * 0.95 * 0.21);
+                    var view1 = (ratio * (300000 * 0.05 * 1) * 1.07 * 0.2);
+                    var view2 = (ratio * (300000 * 0.1 * 2) * 1.07 * 0.26);
+                    var view3 = (ratio * (300000 * 0.6 * 1) * 1.07 * 0.33);
+                    var view4 = (ratio * (300000 * 0.25 * 1) * 1.07 * 0.21);
                     point = (view1 + view2 + view3 + view4).toFixed();
                 } else if (target_audience === 3) {
-                    var view1 = (ratio * (800 * 0.05 * 1) * 0.91 * 0.2);
-                    var view2 = (ratio * (800 * 0.1 * 1) * 0.91 * 0.26);
-                    var view3 = (ratio * (800 * 0.6 * 2) * 0.91 * 0.33);
-                    var view4 = (ratio * (800 * 0.25 * 1) * 0.91 * 0.21);
+                    var view1 = (ratio * (300000 * 0.05 * 1) * 0.91 * 0.2);
+                    var view2 = (ratio * (300000 * 0.1 * 1) * 0.91 * 0.26);
+                    var view3 = (ratio * (300000 * 0.6 * 2) * 0.91 * 0.33);
+                    var view4 = (ratio * (300000 * 0.25 * 1) * 0.91 * 0.21);
                     point = (view1 + view2 + view3 + view4).toFixed();
                 } else if (target_audience === 4) {
-                    var view1 = (ratio * (800 * 0.05 * 1) * 1.02 * 0.2);
-                    var view2 = (ratio * (800 * 0.1 * 1) * 1.02 * 0.26);
-                    var view3 = (ratio * (800 * 0.6 * 1) * 1.02 * 0.33);
-                    var view4 = (ratio * (800 * 0.25 * 2) * 1.02 * 0.21);
+                    var view1 = (ratio * (300000 * 0.05 * 1) * 1.02 * 0.2);
+                    var view2 = (ratio * (300000 * 0.1 * 1) * 1.02 * 0.26);
+                    var view3 = (ratio * (300000 * 0.6 * 1) * 1.02 * 0.33);
+                    var view4 = (ratio * (300000 * 0.25 * 2) * 1.02 * 0.21);
                     point = (view1 + view2 + view3 + view4).toFixed();
                 }
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -250,7 +250,7 @@ $(document).ready(function() {
         //     $('.userinfo').each(function(i) {
         //         $(this).css({"background-color":"#3B75B3"});
         //         $(this).children('p').css({"color":"#757575"});
-        //     })
+        //     }) 
         // }
     });
 
@@ -261,47 +261,45 @@ $(document).ready(function() {
          var source = 0;
          var img = 0;
         if (step === -1) {
-            if (str === 'Dil') {
-                title_of_news = title_of_news + 1;
+            if (str === 'Dip') {
+                title_of_news = title_of_news + 0.1;
             } else if  (str === 'Pro') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 1;
             } else if (str === 'Sec') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 1;
             } else if (str === 'Stu') {
-                title_of_news = title_of_news + 3;
+                title_of_news = title_of_news + 2;
             } else if (str === 'Tal') {
-                title_of_news = title_of_news + 3;
+                title_of_news = title_of_news + 2;
             } else if (str === 'Fir') {
-                title_of_news = title_of_news + 3;
+                title_of_news = title_of_news + 2;
             }   
-            calculation = calculation + (title_of_news * 0.3);
+            calculation = calculation + (Math.pow(title_of_news, 3) * 3);
         } else if (step === 0) {
-            if (str === 'De-') {
+            if (str === '#De') {
+                hashtags = hashtags + 0.1;
+            } else if  (str === '#No') {
+                hashtags = hashtags + 0.1;
+            } else if (str === '#Pe') {
+                hashtags = hashtags + 0.1;
+            } else if (str === '#Se') {
+                hashtags = hashtags + 0.1;
+            } else if (str === '#It') {
                 hashtags = hashtags + 1;
-            } else if  (str === 'Non') {
-                hashtags = hashtags + 1;
-            } else if (str === 'Pea') {
-                hashtags = hashtags + 1;
-            } else if (str === 'Sec') {
-                hashtags = hashtags + 1;
-            } else if (str === 'Its') {
+            } else if (str === '#Im') {
                 hashtags = hashtags + 2;
-            } else if (str === 'Any') {
+            } else if (str === '#Sh') {
                 hashtags = hashtags + 2;
-            } else if  (str === 'Ims') {
-                hashtags = hashtags + 3;
-            } else if (str === 'Mor') {
-                hashtags = hashtags + 3;
-            } else if (str === 'Apo') {
-                hashtags = hashtags + 3;
-            } else if (str === 'NoR') {
-                hashtags = hashtags + 3;
-            } else if (str === 'Fir') {
-                hashtags = hashtags + 3;
-            } else if (str === 'Sho') {
-                hashtags = hashtags + 3;
+            } else if (str === '#No') {
+                hashtags = hashtags + 2;
+            } else if (str === '#Fi') {
+                hashtags = hashtags + 2;
+            } else if (str === '#Ap') {
+                hashtags = hashtags + 2;
+            } else if (str === '#Mo') {
+                hashtags = hashtags + 2;
             } 
-            calculation = calculation + (hashtags * 0.2);
+            calculation = calculation + (Math.pow(hashtags, 3) * 2);
         } else if (step === 1) {
             if (str === 'Tee') {
                 target_audience = 1;
@@ -315,30 +313,30 @@ $(document).ready(function() {
         } else if (step === 3) {
             // console.log(str);
             if (str === 'Per') {
-                source = 1;
+                source = 0.1;
             } else if (str === 'The') {
-                source = 2;
+                source = 1;
             } else if (str === 'Dep') {
-                source = 3;
+                source = 2;
             } 
             // console.log(source);
-            calculation = calculation + (source * 0.2);
+            calculation = calculation + (Math.pow(source, 3) * 2);
         } else if (step === 4) {
             if (String(selection_to_post) === 'image_1.jpg') {
-                img = 1;
+                img = 0.1;
                 img_selected = 1;
             } else if (String(selection_to_post) === 'image_2.jpg') {
-                img = 2;
+                img = 0.1;
                 img_selected = 2;
             } else if (String(selection_to_post) === 'image_3.jpg') {
-                img = 2;
+                img = 1;
                 img_selected = 3;
             } else if (String(selection_to_post) === 'image_4.jpg') {
-                img = 3;
+                img = 2
                 img_selected = 4;
             }
             console.log(img_selected);
-            calculation = calculation + (img * 0.3);
+            calculation = calculation + (Math.pow(img, 3) * 3);
         }
        
     }
