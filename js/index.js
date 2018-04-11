@@ -210,9 +210,9 @@ $(document).ready(function() {
                 $('#userinfoSubmit').hide();
                 $('#regtitle').html("Final Result");
                 $('#res').append('<h1>' + String(point) + '<h1/>');
-                if (point < 150) {
+                if (point < 500000) {
                     $('#res').append('<img src="images/less.png" style="height: 100px">');
-                } else if (point < 250 && point >= 150) {
+                } else if (point < 500000 && point >= 5000000) {
                     $('#res').append('<img src="images/normal.png" style="height: 100px">');
                 } else {
                     $('#res').append('<img src="images/more.png" style="height: 100px">');
