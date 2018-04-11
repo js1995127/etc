@@ -440,6 +440,19 @@ class UnityReadHandler(webapp2.RequestHandler):
         }
         self.response.write(json.dumps(state))
 
+class UnityReadHandler2(webapp2.RequestHandler):
+    def get(self):
+        users = User.query()
+        names = []
+        points  =[]
+        for user in users:
+        	names.append(user.name)
+        	points.append(user.point)
+        state = {
+            'names': names,
+            'points': points,
+        }
+        self.response.write(json.dumps(state))
 #reset the game state
 class ResetHandler(webapp2.RequestHandler):
     def post(self):
@@ -634,6 +647,7 @@ app = webapp2.WSGIApplication(
         ('/admin', AdminHandler),
         ('/read-state', ReadStateHandler),
         ('/unity-read', UnityReadHandler),
+        ('/unity-read2', UnityReadHandler2),
         ('/reset', ResetHandler),
         ('/increment-headline', IncrementHeadlineHandler),
         ('/increment-round', IncrementRoundHandler),
