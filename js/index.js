@@ -27,6 +27,8 @@ $(document).ready(function() {
     var point = 0;
     var hashtags_selected;
     var title_selected;  
+    var round = 1;
+    var final_score = 0; 
     //could get the value from thing that got selected
     $('.userinfo').click(function() {
         if (selected === false) {
@@ -52,8 +54,7 @@ $(document).ready(function() {
             $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
         } else if (selected === true) {
             selection_to_post = $(this).children('img').attr('src').split('/').pop();
-            $("img").siblings("#source").css("opacity", 1);
-            console.log($("img").siblings());
+            $(".picture_info").find("img").css("opacity", 1);
             $(this).children('img').css("opacity", 0.5);
         }
     });
@@ -109,6 +110,7 @@ $(document).ready(function() {
             step++;
         } else if (step > -2 && step < 5 &&  selected === true) {
              if (step === -1) {
+                console.log("get in");
                 selected = false;
                 countStore();
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -116,7 +118,6 @@ $(document).ready(function() {
                 $('#hashtag').show();
                 $('#regtitle').html("Choose Your Hashtags");
                 title_selected = selection_to_post;
-                console.log(title_selected);
                 step++; 
             } else if(step === 0) {
                 countStore();
@@ -133,9 +134,6 @@ $(document).ready(function() {
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#age').hide();
                 $('#source').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
                 $('#regtitle').html("Choose Your Source");
                 step = step + 2;
             } else if (step === 3) {
@@ -144,9 +142,6 @@ $(document).ready(function() {
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#source').hide();
                 $('#photo').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
                 $('#regtitle').html("Choose A Photo");
                 step++;
             } else if (step === 4) {
@@ -155,12 +150,9 @@ $(document).ready(function() {
                 $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
                 $('#photo').hide();
                 $('#media_page').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
                 $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;position:absolute; left:8%;top:26%; ">' + String(hashtags_selected) + '<p/>');
                 $('#media_page').append('<p style="font-weight:bold;position:absolute; left:12%;top:32%; ">' + String(title_selected) + '<p/>');
-                 console.log(title_selected);
+
                 $('#regtitle').html("FaceBook");
                 if (img_selected == 1) {
                     $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%; "></div>');
@@ -174,6 +166,7 @@ $(document).ready(function() {
                 step++;
             }
         }  else if (step === 5) {
+                $('#media_page > p').remove();
                 console.log(target_audience);
                 var ratio = calculation
                 if (target_audience === 1) {
@@ -199,20 +192,19 @@ $(document).ready(function() {
                     var view2 = (ratio * (300000 * 0.1 * 1) * 1.02 * 0.26);
                     var view3 = (ratio * (300000 * 0.6 * 1) * 1.02 * 0.33);
                     var view4 = (ratio * (300000 * 0.25 * 2) * 1.02 * 0.21);
-                    point = view1 + view2 + view3 + view4.toFixed();
+                    point = (view1 + view2 + view3 + view4).toFixed();
                 }
                 console.log("before adding ratio" + point);
                 point = (Math.random() * (point * 0.1) + (point * 0.95)).toFixed();
                 console.log("after adding ratio" + point);
+                final_score = final_score + parseInt(point);
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#media_page').hide();
                 $('#res').show();
-                $('.userinfo').each(function(i) {
-                    $(this).css({"width":"85%"});
-                })
                 $('#userinfoSubmit').hide();
                 $('#regtitle').html("Final Result");
                 $('#res').append('<h1>' + String(point) + '<h1/>');
+                $('#res').append('<h2>' + "Your Current Total Followers are:" + String(final_score) + '<h2/>');
                 if (point < 500000) {
                     $('#res').append('<img src="images/less.png" style="height: 100px">');
                 } else if (point < 500000 && point >= 5000000) {
@@ -233,6 +225,9 @@ $(document).ready(function() {
                         console.log('GOT EM');
                     }
                 });
+                if (round  === 3) {
+                    $('#play_again').hide();
+                }
                 step++;
             }       
         // } 
@@ -256,6 +251,29 @@ $(document).ready(function() {
         //     }) 
         // }
     });
+    
+    $('#play_again').click(function(){
+        hashtags_selected = undefined;
+        title_selected = undefined;  
+        selection_to_post = undefined;
+        calculation = 0; 
+        target_audience = 0;
+        img_selected = undefined; 
+        point = 0;
+        step = -1;
+        $(".picture_info").find("img").css("opacity", 1);
+        $('img:last-child', '#res').remove();
+        $('#res > h1').remove();
+        $('#res > h2').remove();
+        $('.userinfo').css({"background-color":"#3B75B3"});
+        $('#res').hide();
+        $('#title').show();
+        $('#userinfoSubmit').show();
+        $('#regtitle').html("Choose Your Title");
+        $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+        $('.posted_content').remove();
+        round++
+     });
 
     function countStore() {
          var str = String(selection_to_post).substring(0,3);
@@ -276,7 +294,8 @@ $(document).ready(function() {
                 title_of_news = title_of_news + 2;
             } else if (str === 'Fir') {
                 title_of_news = title_of_news + 2;
-            }   
+            } 
+            console.log(title_of_news); 
             calculation = calculation + (Math.pow(title_of_news, 3) * 3);
         } else if (step === 0) {
             if (str === '#De') {
@@ -302,6 +321,7 @@ $(document).ready(function() {
             } else if (str === '#Mo') {
                 hashtags = hashtags + 2;
             } 
+            console.log(hashtags);
             calculation = calculation + (Math.pow(hashtags, 3) * 2);
         } else if (step === 1) {
             if (str === 'Tee') {
@@ -313,6 +333,7 @@ $(document).ready(function() {
             } else if (str === 'Sen') {
                 target_audience = 4;
             }
+            console.log(target_audience);
         } else if (step === 3) {
             if (str === 'hea') {
                 source = 0.1;
@@ -321,6 +342,7 @@ $(document).ready(function() {
             } else if (str === 'eag') {
                 source = 2;
             } 
+            console.log(source);
             calculation = calculation + (Math.pow(source, 3) * 2);
         } else if (step === 4) {
             if (String(selection_to_post) === 'image_1.jpg') {
@@ -341,6 +363,7 @@ $(document).ready(function() {
         }
        
     }
+
     // store username and userType in local storage
     function StoreUser() {
         // check if the browser supports local storage
