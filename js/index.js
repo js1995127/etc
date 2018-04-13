@@ -158,18 +158,18 @@ $(document).ready(function() {
                 $('.userinfo').each(function(i) {
                     $(this).css({"width":"85%"});
                 })
-                $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;margin-left: 12%;">' + String(hashtags_selected) + '<p/>');
-                $('#media_page').append('<p style="font-weight:bold;margin-left: 12%;">' + String(title_selected) + '<p/>');
+                $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;position:absolute; left:8%;top:26%; ">' + String(hashtags_selected) + '<p/>');
+                $('#media_page').append('<p style="font-weight:bold;position:absolute; left:12%;top:32%; ">' + String(title_selected) + '<p/>');
                  console.log(title_selected);
                 $('#regtitle').html("FaceBook");
                 if (img_selected == 1) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;"></div>');
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%; "></div>');
                 } else if (img_selected == 2) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;"></div>');
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 } else if (img_selected == 3) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;"></div>');
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 } else if (img_selected == 4) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;"></div>');
+                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 } 
                 step++;
             }
