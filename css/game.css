@@ -88,15 +88,16 @@ h3 span{
 .userinfo
 {
   text-align: center;
-  border: 0px solid #5f5248;
+  border: 1px solid #85849f;
   width: 85%;
-  height: 15%;
-  margin: 10px auto;
+  height: 10%;
+  margin: 3% auto;
   line-height: 110%;
   color: #FFF;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   background-color:#3B75B3;
+  border-radius: 5px;
 }
 .userinfo a
 {
