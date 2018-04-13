@@ -81,6 +81,7 @@ $(document).ready(function() {
     var calculation = 0; 
     var target_audience = 0;
     var img_selected; 
+    var source_option = 1;
     $('#userinfoSubmit').click(function() {
         //This is new pages for our projects
         //This is page 1
@@ -150,6 +151,14 @@ $(document).ready(function() {
                 $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
                 $('#photo').hide();
                 $('#media_page').show();
+                console.log($("#media_page > h1:first"));
+                if (source_option === 2) {
+                    $('#media_page').find('img:first').attr('src', 'images/fake.png')
+                    $("#media_page > h1:first").text().replace(' ' + 'The Outsider');
+                } else if (source_option === 3) {
+                    $('#media_page').find('img:first').attr('src', 'images/eagle.png')
+                    $("#media_page > h1:first").text().replace(' ' + 'DeptOfDefence');
+                }
                 $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;position:absolute; left:8%;top:26%; ">' + String(hashtags_selected) + '<p/>');
                 $('#media_page').append('<p style="font-weight:bold;position:absolute; left:12%;top:32%; ">' + String(title_selected) + '<p/>');
 
@@ -337,10 +346,13 @@ $(document).ready(function() {
         } else if (step === 3) {
             if (str === 'hea') {
                 source = 0.1;
+                source_option = 1;
             } else if (str === 'fak') {
                 source = 1;
+                source_option = 2;
             } else if (str === 'eag') {
                 source = 2;
+                source_option = 3;
             } 
             console.log(source);
             calculation = calculation + (Math.pow(source, 3) * 2);
