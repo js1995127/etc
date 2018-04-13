@@ -42,26 +42,26 @@ $(document).ready(function() {
             $(this).css({"background-color":"#5f5248"});
             $(this).children('p').css({"color":"#fff"});
         }
-        console.log(selection_to_post);
     });
 
     $('.picture_info').click(function() {
         if (selected === false) {
             selected = true;
             selection_to_post = $(this).children('img').attr('src').split('/').pop();
-            // $(this).css({"background-color":"#5f5248"})
+            $(this).children('img').css("opacity", 0.5);
             $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
         } else if (selected === true) {
-             selection_to_post = $(this).children('img').attr('src').split('/').pop();
-            // $(this).css({"background-color":"#5f5248"});
+            selection_to_post = $(this).children('img').attr('src').split('/').pop();
+            $("img").siblings("#source").css("opacity", 1);
+            console.log($("img").siblings());
+            $(this).children('img').css("opacity", 0.5);
         }
-        console.log(selection_to_post);
     });
 
 
     //initial state of the button
-     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-        //get the first letter of  username 
+    $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+    //get the first letter of  username 
     $('#team_infor').on("input", function(e) {
         var temp = $(e.target).val();
         if (temp.length !== 0) {
@@ -83,25 +83,24 @@ $(document).ready(function() {
     $('#userinfoSubmit').click(function() {
         //This is new pages for our projects
         //This is page 1
-        console.log(step);
         if (step === -5) { 
             $('#teamName').hide();
             $('#personName').show();
+            $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
             teamName = $('#team_infor').val();
             $(".person_name_span").append(' ' + String(teamName));
-            $('#regtitle').html("");			
-            step++;
+            $('#regtitle').html("Ready To Play");			
+            step = step + 2;
         } else if (step === -4) {
             $('#personName').hide();
             $('#welcome_page').show();       
             $('#regtitle').html("Welcome");
             step++;
         } else if (step === -3) {
-            $('#welcome_page').hide();
+            $('#personName').hide();
             $('#story_page').show();
-            $('#regtitle').html("");	 
+            $('#regtitle').html("Hot News");	 
             step++;
-
         } else if (step === -2) {
             $('#story_page').hide();
             $('#title').show();
@@ -175,6 +174,7 @@ $(document).ready(function() {
                 step++;
             }
         }  else if (step === 5) {
+                console.log(target_audience);
                 var ratio = calculation
                 if (target_audience === 1) {
                     var view1 = (ratio * (300000 * 0.05 * 2) * 1.03 * 0.2);
@@ -199,8 +199,11 @@ $(document).ready(function() {
                     var view2 = (ratio * (300000 * 0.1 * 1) * 1.02 * 0.26);
                     var view3 = (ratio * (300000 * 0.6 * 1) * 1.02 * 0.33);
                     var view4 = (ratio * (300000 * 0.25 * 2) * 1.02 * 0.21);
-                    point = (view1 + view2 + view3 + view4).toFixed();
+                    point = view1 + view2 + view3 + view4.toFixed();
                 }
+                console.log("before adding ratio" + point);
+                point = (Math.random() * (point * 0.1) + (point * 0.95)).toFixed();
+                console.log("after adding ratio" + point);
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#media_page').hide();
                 $('#res').show();
@@ -311,15 +314,13 @@ $(document).ready(function() {
                 target_audience = 4;
             }
         } else if (step === 3) {
-            // console.log(str);
-            if (str === 'Per') {
+            if (str === 'hea') {
                 source = 0.1;
-            } else if (str === 'The') {
+            } else if (str === 'fak') {
                 source = 1;
-            } else if (str === 'Dep') {
+            } else if (str === 'eag') {
                 source = 2;
             } 
-            // console.log(source);
             calculation = calculation + (Math.pow(source, 3) * 2);
         } else if (step === 4) {
             if (String(selection_to_post) === 'image_1.jpg') {
