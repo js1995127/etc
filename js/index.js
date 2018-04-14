@@ -151,13 +151,19 @@ $(document).ready(function() {
                 $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
                 $('#photo').hide();
                 $('#media_page').show();
-                console.log($("#media_page > h1:first"));
                 if (source_option === 2) {
+                    console.log("get in to the media page");
                     $('#media_page').find('img:first').attr('src', 'images/fake.png')
-                    $("#media_page > h1:first").text().replace(' ' + 'The Outsider');
+                    $('#media_page').find('h1').text('The OutSider');
+                    $('#media_page').find('h2').text('A Self-Published News Site');
                 } else if (source_option === 3) {
                     $('#media_page').find('img:first').attr('src', 'images/eagle.png')
-                    $("#media_page > h1:first").text().replace(' ' + 'DeptOfDefence');
+                    $('#media_page').find('h1').text('DeptOfDefence');
+                    $('#media_page').find('h2').text('A Fake Version of Offical Account');
+                } else {
+                    $('#media_page').find('img:first').attr('src', 'images/head.png')
+                    $('#media_page').find('h1').text(teamName);
+                    $('#media_page').find('h2').text('Your Personal Account');
                 }
                 $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;position:absolute; left:8%;top:26%; ">' + String(hashtags_selected) + '<p/>');
                 $('#media_page').append('<p style="font-weight:bold;position:absolute; left:12%;top:32%; ">' + String(title_selected) + '<p/>');
@@ -212,8 +218,12 @@ $(document).ready(function() {
                 $('#res').show();
                 $('#userinfoSubmit').hide();
                 $('#regtitle').html("Final Result");
-                $('#res').append('<h1>' + String(point) + '<h1/>');
-                $('#res').append('<h2>' + "Your Current Total Followers are:" + String(final_score) + '<h2/>');
+                $('#res > h2').append(String(point));
+                $('#res > h3').append(String(final_score));
+
+                if (round === 3) {
+                    $('#play_again').hide();
+                }
                 if (point < 500000) {
                     $('#res').append('<img src="images/less.png" style="height: 100px">');
                 } else if (point < 500000 && point >= 5000000) {
@@ -234,31 +244,8 @@ $(document).ready(function() {
                         console.log('GOT EM');
                     }
                 });
-                if (round  === 3) {
-                    $('#play_again').hide();
-                }
                 step++;
             }       
-        // } 
-        // else if(selected === true) {
-        //     var newusername = $(this).closest('div').children('p').text().toLowerCase();
-        //     $.ajax({
-        //         url: '/',
-        //         type: 'POST',
-        //         data: JSON.stringify({'step': step, 'selection': selection_to_post, 
-        //            'username': newusername}),
-        //         dataType: 'json',
-        //         cache: false,
-        //         contentType: 'application/json;charset=UTF-8',
-        //         success: function() {
-        //             console.log('GOT EM');
-        //         }
-        //     });
-        //     $('.userinfo').each(function(i) {
-        //         $(this).css({"background-color":"#3B75B3"});
-        //         $(this).children('p').css({"color":"#757575"});
-        //     }) 
-        // }
     });
     
     $('#play_again').click(function(){
@@ -272,8 +259,9 @@ $(document).ready(function() {
         step = -1;
         $(".picture_info").find("img").css("opacity", 1);
         $('img:last-child', '#res').remove();
-        $('#res > h1').remove();
-        $('#res > h2').remove();
+        $('#res > h1').empty();
+        $('#res > h2').empty();
+        $('#res > h3').empty();
         $('.userinfo').css({"background-color":"#3B75B3"});
         $('#res').hide();
         $('#title').show();
@@ -329,7 +317,9 @@ $(document).ready(function() {
                 hashtags = hashtags + 2;
             } else if (str === '#Mo') {
                 hashtags = hashtags + 2;
-            } 
+            } else if (str === '#Tr') {
+                hashtags = hashtags + 2;
+            }
             console.log(hashtags);
             calculation = calculation + (Math.pow(hashtags, 3) * 2);
         } else if (step === 1) {
