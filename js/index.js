@@ -99,9 +99,9 @@ $(document).ready(function() {
                 contentType: 'application/json;charset=UTF-8',
                 success: function(state) {
                     if (state['error'] == 'true') {
+                        $('#erro').remove();
                         $('#teamName').append('<div id="erro" style="text-align: center; font-size:25px; color:#FE1717;">Username already existed. Please use a different username</div>');
                         $('#erro').fadeOut(1500);
-                        $('#erro').remove();
                     } else {
                         $('#teamName').hide();
                         $('#personName').show();
