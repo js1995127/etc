@@ -322,12 +322,15 @@ class LoginHandler(webapp2.RequestHandler):
         data = json.loads(self.request.body)
         step = data['step']
         username = data['username']
-        erro = ""
         user = User.query(User.name == username).get()
         if int(step) == -5:
             if user is not None:
-                erro = "The Username Has Already Existed"
-        else:point = data['point']
+                state = {'error': 'true'}
+            else:
+                state = {'error': 'false'}
+            self.response.write(json.dumps(state))
+        else:
+            point = data['point']
             img = data['img']
             source = data['source']
             title = data['title']
@@ -346,7 +349,7 @@ class LoginHandler(webapp2.RequestHandler):
     def get(self):
         login_template = JINJA_ENV.get_template('index0.html')
         self.response.out.write(login_template.render({
-            'erro': erro,
+            # 'erro': erro,
         }))
 
 class UserHandler(webapp2.RequestHandler):

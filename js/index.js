@@ -97,16 +97,21 @@ $(document).ready(function() {
                 dataType: 'json',
                 cache: false,
                 contentType: 'application/json;charset=UTF-8',
-                success: function() {
-                    console.log('GOT EM');
+                success: function(state) {
+                    if (state['error'] == 'true') {
+                        $('#teamName').append('<div id="erro" style="text-align: center; font-size:25px; color:#FE1717;">Username already existed. Please use a different username</div>');
+                        $('#erro').fadeOut(1500);
+                        $('#erro').remove();
+                    } else {
+                        $('#teamName').hide();
+                        $('#personName').show();
+                        $('#userinfoSubmit').children('img').attr('src','images/next-color.png');  
+                        $(".person_name_span").append(' ' + String(teamName));
+                        $('#regtitle').html("Ready To Play");
+                        step = step + 2;
+                    }
                 }
-            });
-            $('#teamName').hide();
-            $('#personName').show();
-            $('#userinfoSubmit').children('img').attr('src','images/next-color.png');  
-            $(".person_name_span").append(' ' + String(teamName));
-            $('#regtitle').html("Ready To Play");			
-            step = step + 2;
+            });     			        
         } else if (step === -4) {
             $('#personName').hide();
             $('#welcome_page').show();       
