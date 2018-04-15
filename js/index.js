@@ -87,7 +87,16 @@ $(document).ready(function() {
         //This is page 1
         if (step === -5) {
             teamName = $('#team_infor').val();
-            $.ajax({
+            if (teamName.length === 0) {
+                $('#erro').remove();
+                $('#teamName').append('<div id="erro" style="text-align: center; font-size:18px; color:#FE1717;">Username Cannot Be Empty</div>');
+                $('#erro').fadeOut(1500);   
+            } else if (teamName.length > 30) {
+                $('#erro').remove();
+                $('#teamName').append('<div id="erro" style="text-align: center; font-size:18px; color:#FE1717;">Your Username Cannot Exceed 20 Characters</div>');
+                $('#erro').fadeOut(1500); 
+            } else {
+                $.ajax({
                 url: '/',
                 type: 'POST',
                 data: JSON.stringify({
@@ -98,9 +107,9 @@ $(document).ready(function() {
                 cache: false,
                 contentType: 'application/json;charset=UTF-8',
                 success: function(state) {
-                    if (state['error'] == 'true') {
+                    if (state['error'] === 'true') {
                         $('#erro').remove();
-                        $('#teamName').append('<div id="erro" style="text-align: center; font-size:25px; color:#FE1717;">Username already existed. Please use a different username</div>');
+                        $('#teamName').append('<div id="erro" style="text-align: center; font-size:18px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
                         $('#erro').fadeOut(1500);
                     } else {
                         $('#teamName').hide();
@@ -111,7 +120,9 @@ $(document).ready(function() {
                         step = step + 2;
                     }
                 }
-            });     			        
+                });
+            }
+                 			        
         } else if (step === -4) {
             $('#personName').hide();
             $('#welcome_page').show();       
