@@ -85,11 +85,25 @@ $(document).ready(function() {
     $('#userinfoSubmit').click(function() {
         //This is new pages for our projects
         //This is page 1
-        if (step === -5) { 
+        if (step === -5) {
+            teamName = $('#team_infor').val();
+            $.ajax({
+                url: '/',
+                type: 'POST',
+                data: JSON.stringify({
+                    'username': teamName,
+                    'step': step 
+                }), 
+                dataType: 'json',
+                cache: false,
+                contentType: 'application/json;charset=UTF-8',
+                success: function() {
+                    console.log('GOT EM');
+                }
+            });
             $('#teamName').hide();
             $('#personName').show();
-            $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
-            teamName = $('#team_infor').val();
+            $('#userinfoSubmit').children('img').attr('src','images/next-color.png');  
             $(".person_name_span").append(' ' + String(teamName));
             $('#regtitle').html("Ready To Play");			
             step = step + 2;
@@ -169,18 +183,19 @@ $(document).ready(function() {
                 $('#media_page').append('<p style="font-weight:bold;position:absolute; left:12%;top:32%; ">' + String(title_selected) + '<p/>');
 
                 $('#regtitle').html("FaceBook");
-                if (img_selected == 1) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%; "></div>');
-                } else if (img_selected == 2) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
-                } else if (img_selected == 3) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
-                } else if (img_selected == 4) {
-                    $("#media_page").append('<div style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
-                } 
+                if (img_selected === 1) {
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                } else if (img_selected === 2) {
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                } else if (img_selected === 3) {
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                } else if (img_selected === 4) {
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                }
                 step++;
             }
         }  else if (step === 5) {
+                $('#image').remove();
                 $('#media_page > p').remove();
                 console.log(target_audience);
                 var ratio = calculation
@@ -235,8 +250,15 @@ $(document).ready(function() {
                 $.ajax({
                     url: '/',
                     type: 'POST',
-                    data: JSON.stringify({'point': point, 
-                       'username': teamName}), 
+                    data: JSON.stringify({
+                        'point': point, 
+                        'username': teamName, 
+                        'title': title_selected, 
+                        'hashtag' : hashtags_selected,
+                        'img' : img_selected,
+                        'source' : source_option,
+                        'step': step 
+                    }), 
                     dataType: 'json',
                     cache: false,
                     contentType: 'application/json;charset=UTF-8',

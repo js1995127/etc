@@ -136,7 +136,10 @@ class Game(ndb.Model):
 
 class User(ndb.Model):
     name = ndb.StringProperty()
-    # team = ndb.IntegerProperty()
+    img = ndb.IntegerProperty()
+    title = ndb.StringProperty()
+    hashtag = ndb.StringProperty()
+    source = ndb.IntegerProperty()
     point = ndb.IntegerProperty()
     # step = ndb.IntegerProperty()
     # headlines = ndb.JsonProperty()
@@ -317,45 +320,29 @@ class LoginHandler(webapp2.RequestHandler):
     def post(self):
         # global selectedNum
         data = json.loads(self.request.body)
-        point = data['point']
+        step = data['step']
         username = data['username']
-        # global userNum
-        user = User(name=username, point=int(point))
-        user.put()
-        # user = User.query(User.name == username).get()
-        # user.point = point
-        # if step == 0:
-        #     user.gender = selection
-        # elif step == 1:
-        #     user.age = selection
-        # elif step == 2:
-        #     user.race = selection
-        # elif step >= 4:
-        #     match = MatchSelection.query(MatchSelection.name == 'student' + str(step - 3)).get()
-        #     if selection == 'A':
-        #         match.selA += 1
-        #     elif selection == 'B':
-        #         match.selB += 1
-        #     elif selection == 'C':
-        #         match.selC += 1
-        #     elif selection == 'D':
-        #         match.selD += 1
-        #     elif selection == 'E':
-        #         match.selE += 1
-        #     match.put()
-        #     if step == 8:
-        #         selectedNum += 1
+        user = User.query(User.name == username).get()
+        if int(step) == -5:
+            if user is not None:
 
-        # user.put()
-        # login_template = JINJA_ENV.get_template('index.html')
-        # self.response.out.write(login_template.render({
-        #     'username': username,
-        # }))
+        else:point = data['point']
+            img = data['img']
+            source = data['source']
+            title = data['title']
+            hashtag = data['hashtag']      
+            if user is not None:
+                point = int(point) + user.point
+                user.point = point
+                user.img = img
+                user.title = title
+                user.source = source
+                user.hashtag = hashtag
+            else:
+                user = User(name=username, point=int(point), img=int(img), title=title, source=int(source), hashtag=hashtag)
+            user.put()
+    
     def get(self):
-        #User.testCreate()
-        #Game.createGame()
-        # userNum += 1
-        # username = user.name
         login_template = JINJA_ENV.get_template('index0.html')
         self.response.out.write(login_template.render({
             # 'username': username,
