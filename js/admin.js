@@ -1,33 +1,33 @@
 $(document).ready(function() {
-    $('#inc').click(function() {
-        console.log("NEXT ROUND LET'S GO");
-        $.ajax({
-            url: '/increment-round',
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function() {
-                console.log('NAILED IT');
-            }
-        });
-    });
+    // $('#inc').click(function() {
+    //     console.log("NEXT ROUND LET'S GO");
+    //     $.ajax({
+    //         url: '/increment-round',
+    //         type: 'POST',
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function() {
+    //             console.log('NAILED IT');
+    //         }
+    //     });
+    // });
 
-    $('#clear').click(function() {
-        console.log("WAX ON");
-        $.ajax({
-            url: '/clear-page',
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function() {
-                console.log('WAX OFF');
-            }
-        });
-    });
+    // $('#clear').click(function() {
+    //     console.log("WAX ON");
+    //     $.ajax({
+    //         url: '/clear-page',
+    //         type: 'POST',
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function() {
+    //             console.log('WAX OFF');
+    //         }
+    //     });
+    // });
 
-    $('#reset').click(function() {
+    $('#game_end').click(function() {
         console.log("REBOOT");
         $.ajax({
             url: '/reset',
@@ -41,8 +41,8 @@ $(document).ready(function() {
         });
     });
 
-    $('#match').click(function() {
-        console.log("MATCH");
+    $('#game_start').click(function() {
+        console.log("Game Start");
         $.ajax({
             url: '/matchstate',
             type: 'POST',
@@ -55,21 +55,21 @@ $(document).ready(function() {
         });
     });
 
-    setInterval(function() {
-        $.ajax({
-            url: '/unity-read',
-            type: 'GET',
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(state) {
-                var state = JSON.parse(state);
-                $('#showInfo').empty();
-                for (var i in state['public_headlines']) {
-                    $('#showInfo').append('<h4 class="col s6">'+state['public_headlines'][i]+'</h4>');
-                    $('#showInfo').append('<h4 class="col s6">'+state['likes'][state['public_headlines'][i]]+'</h4>');
-                }
-            }
-        });
-    }, 1000);
+    // setInterval(function() {
+    //     $.ajax({
+    //         url: '/unity-read',
+    //         type: 'GET',
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function(state) {
+    //             var state = JSON.parse(state);
+    //             $('#showInfo').empty();
+    //             for (var i in state['public_headlines']) {
+    //                 $('#showInfo').append('<h4 class="col s6">'+state['public_headlines'][i]+'</h4>');
+    //                 $('#showInfo').append('<h4 class="col s6">'+state['likes'][state['public_headlines'][i]]+'</h4>');
+    //             }
+    //         }
+    //     });
+    // }, 1000);
 });

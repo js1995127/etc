@@ -109,8 +109,8 @@ $(document).ready(function() {
                 success: function(state) {
                     if (state['error'] === 'true') {
                         $('#erro').remove();
-                        $('#teamName').append('<div id="erro" style="text-align: center; font-size:18px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
-                        $('#erro').fadeOut(1500);
+                        $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
+                        $('#erro').fadeOut(3000);
                     } else {
                         $('#teamName').hide();
                         $('#personName').show();
@@ -251,10 +251,6 @@ $(document).ready(function() {
                 $('#regtitle').html("Final Result");
                 $('#res > h2').append(String(point));
                 $('#res > h3').append(String(final_score));
-
-                if (round === 3) {
-                    $('#play_again').hide();
-                }
                 if (point < 500000) {
                     $('#res').append('<img src="images/less.png" style="height: 100px">');
                 } else if (point < 500000 && point >= 5000000) {
@@ -262,6 +258,7 @@ $(document).ready(function() {
                 } else {
                     $('#res').append('<img src="images/more.png" style="height: 100px">');
                 }
+                console.log("Could get here")
                 //pass the data to the server by using ajax 
                 $.ajax({
                     url: '/',
@@ -283,6 +280,27 @@ $(document).ready(function() {
                     }
                 });
                 step++;
+                if (round === 3) {
+                    $('#play_again').hide();
+                    var interval = setInterval(function() {
+                        $.ajax({
+                            url: '/status',
+                            type: 'POST',
+                            dataType: 'json',
+                            cache: false,
+                            contentType: 'application/json;charset=UTF-8',
+                            success: function(state) {
+                                if (state['state'] === 'true') {
+                                    clearInterval(interval);
+                                    console.log('Now Let Play Phase 3')
+                                } else {
+                                    console.log('Some Guests Are Still Playing Phase 1');
+                                }
+                            }
+                        });
+                    }, 1000)
+                    //need to tell guest to Wait other players
+                }
             }       
     });
     
@@ -405,29 +423,29 @@ $(document).ready(function() {
     }
 
     // store username and userType in local storage
-    function StoreUser() {
-        // check if the browser supports local storage
-        // notice that you cannot test multiple accounts in one browser. Their data will overwrite each other.
-        // use different browsers to test multiple accounts.
-        if (typeof(Storage) !== 'undefined') {
-            // if supported, store username
-            localStorage.setItem('user', $('#user').text().toLowerCase());   
-            console.log("input username is " + $('#user').text().toLowerCase());
-            localStorage.setItem('postMade', 'NO');
-            // check and store user type
-            if ($('#user').text().toLowerCase().substring(0, 5) === "media") {
-                localStorage.setItem('userType', "media");
-                setCookie("userType", "media", 1);
-            } else if ($('#user').text().toLowerCase().substring(0, 7) === "citizen") {
-                localStorage.setItem('userType', "citizen");
-                setCookie("userType", "citizen", 1);
-            } else {
-                console.log('Oops! Invalid userType.');
-            }
-        } else {
-            console.log('Oops! No Web Storage support...');
-        } 
-    }
+    // function StoreUser() {
+    //     // check if the browser supports local storage
+    //     // notice that you cannot test multiple accounts in one browser. Their data will overwrite each other.
+    //     // use different browsers to test multiple accounts.
+    //     if (typeof(Storage) !== 'undefined') {
+    //         // if supported, store username
+    //         localStorage.setItem('user', $('#user').text().toLowerCase());   
+    //         console.log("input username is " + $('#user').text().toLowerCase());
+    //         localStorage.setItem('postMade', 'NO');
+    //         // check and store user type
+    //         if ($('#user').text().toLowerCase().substring(0, 5) === "media") {
+    //             localStorage.setItem('userType', "media");
+    //             setCookie("userType", "media", 1);
+    //         } else if ($('#user').text().toLowerCase().substring(0, 7) === "citizen") {
+    //             localStorage.setItem('userType', "citizen");
+    //             setCookie("userType", "citizen", 1);
+    //         } else {
+    //             console.log('Oops! Invalid userType.');
+    //         }
+    //     } else {
+    //         console.log('Oops! No Web Storage support...');
+    //     } 
+    // }
 });
 
 

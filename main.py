@@ -328,6 +328,8 @@ class LoginHandler(webapp2.RequestHandler):
                 state = {'error': 'true'}
             else:
                 state = {'error': 'false'}
+                user = User(name=username, point=0, img=0, title="no_title", source=0, hashtag="no_hashtag");
+                user.put()
             self.response.write(json.dumps(state))
         else:
             point = data['point']
@@ -335,15 +337,12 @@ class LoginHandler(webapp2.RequestHandler):
             source = data['source']
             title = data['title']
             hashtag = data['hashtag']      
-            if user is not None:
-                point = int(point) + user.point
-                user.point = point
-                user.img = img
-                user.title = title
-                user.source = source
-                user.hashtag = hashtag
-            else:
-                user = User(name=username, point=int(point), img=int(img), title=title, source=int(source), hashtag=hashtag)
+            point = int(point) + user.point
+            user.point = point
+            user.img = img
+            user.title = title
+            user.source = source
+            user.hashtag = hashtag
             user.put()
     
     def get(self):
@@ -444,31 +443,32 @@ class UnityReadHandler2(webapp2.RequestHandler):
             'points': points,
         }
         self.response.write(json.dumps(state))
-#reset the game state
+#Change the status to false
 class ResetHandler(webapp2.RequestHandler):
     def post(self):
         game = Game.query().get()
-        game.reset()
-        game.disableMatch()
+        game.cleared = False
         game.put()
-        for i in range(1, 6):
-            match = MatchSelection.query(MatchSelection.name == 'student' + str(i)).get()
-            match.selA = 0
-            match.selB = 0
-            match.selC = 0
-            match.selD = 0
-            match.selE = 0
-            match.put()
-        #q = taskqueue.Queue('headlines')
-        #q.add(taskqueue.Task(payload='reset', method='PULL'))
 
-#start the mentor match
+
+#Change the status to true 
 class MatchStateHandler(webapp2.RequestHandler):
     def post(self):
         game = Game.query().get()
-        game.setMatch()
-        game.cleared = False
+        # game.setMatch()
+        game.cleared = True
         game.put()
+        
+#Judge status and decide whether the new game goona start or not
+class StatusHandler(webapp2.RequestHandler):
+    def post(self):
+        game = Game.query().get()
+        status = game.cleared
+        if status == True:
+            state = {'state': 'true'}
+        else:
+            state = {'state': 'false'}
+        self.response.write(json.dumps(state))
 
 #return the mentor match static page
 class MatchMentorHandler(webapp2.RequestHandler):
@@ -635,6 +635,7 @@ app = webapp2.WSGIApplication(
         ('/', LoginHandler),
         #('/', SideHandler),
         ('/user', UserHandler),
+        ('/status', StatusHandler),
         ('/admin', AdminHandler),
         ('/read-state', ReadStateHandler),
         ('/unity-read', UnityReadHandler),
