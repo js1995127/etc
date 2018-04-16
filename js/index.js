@@ -91,9 +91,9 @@ $(document).ready(function() {
                 $('#erro').remove();
                 $('#teamName').append('<div id="erro" style="text-align: center; font-size:18px; color:#FE1717;">Username Cannot Be Empty</div>');
                 $('#erro').fadeOut(1500);   
-            } else if (teamName.length > 30) {
+            } else if (teamName.length > 10) {
                 $('#erro').remove();
-                $('#teamName').append('<div id="erro" style="text-align: center; font-size:18px; color:#FE1717;">Your Username Cannot Exceed 20 Characters</div>');
+                $('#teamName').append('<div id="erro" style="text-align: center; font-size:18px; color:#FE1717;">Your Username Cannot Exceed 10 Characters</div>');
                 $('#erro').fadeOut(1500); 
             } else {
                 $.ajax({
@@ -292,7 +292,7 @@ $(document).ready(function() {
                             success: function(state) {
                                 if (state['state'] === 'true') {
                                     clearInterval(interval);
-                                    console.log('Now Let Play Phase 3')
+                                    window.location.href = '/phase3';
                                 } else {
                                     console.log('Some Guests Are Still Playing Phase 1');
                                 }

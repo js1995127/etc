@@ -66,6 +66,16 @@ class MatchSelection(ndb.Model):
 #cleared indicates whether the web page is waiting the questions
 #matched indicates whether the web page is in mentor match session.
 #headlines are all the selections made in this round, likes are the number of selection.
+class Hashtag(ndb.Model):
+    point = ndb.IntegerProperty(default=0)
+    hashtag = ndb.StringProperty(default={})
+
+    @staticmethod
+    def createHashtag():
+        Hashtag(point = 0,
+            hashtag = {}).put()
+
+    
 class Game(ndb.Model):
     gameround = ndb.IntegerProperty(default=0)
     cleared = ndb.BooleanProperty(default=False)
@@ -348,7 +358,16 @@ class LoginHandler(webapp2.RequestHandler):
     def get(self):
         login_template = JINJA_ENV.get_template('index0.html')
         self.response.out.write(login_template.render({
-            # 'erro': erro,
+        }))
+
+#Phase3 render a new page 
+class Phase3Handler(webapp2.RequestHandler) :
+    def get(self):
+        hashtag = Hashtag.query().get()
+        hashtag.hashtag = "This is only for testing"
+        hashtag.point = 100
+        login_template = JINJA_ENV.get_template('side.html')
+        self.response.out.write(login_template.render({
         }))
 
 class UserHandler(webapp2.RequestHandler):
@@ -637,6 +656,7 @@ app = webapp2.WSGIApplication(
         ('/user', UserHandler),
         ('/status', StatusHandler),
         ('/admin', AdminHandler),
+        ('/phase3', Phase3Handler),
         ('/read-state', ReadStateHandler),
         ('/unity-read', UnityReadHandler),
         ('/unity-read2', UnityReadHandler2),
