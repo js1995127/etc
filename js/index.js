@@ -121,8 +121,7 @@ $(document).ready(function() {
                     }
                 }
                 });
-            }
-                 			        
+            }                			        
         } else if (step === -4) {
             $('#personName').hide();
             $('#welcome_page').show();       

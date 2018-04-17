@@ -12,23 +12,14 @@ $(document).ready(function() {
     //         }
     //     });
     // });
-    var array = [];
-    $('#hashtag').find('.userinfo').each(function() {
-        var text = $(this).text();
-        array.push(text);
-    });
-
+    
     $('#creat_data').click(function() {
-        console.log("WAX ON");
         $.ajax({
-            url: '/',
+            url: '/create_data',
             type: 'POST',
-            data: JSON.stringify({
-                'array': array, 
-            }), 
-            dataType: 'json',
             cache: false,
-            contentType: 'application/json;charset=UTF-8',
+            contentType: false,
+            processData: false,
             success: function() {
                 console.log('GOT EM');
             }

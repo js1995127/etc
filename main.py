@@ -645,25 +645,57 @@ def update_schema_task(cursor=None, num_updated=0, batch_size=100):
 
     # Save the updated entities.
     if to_put:
-        ndb.put_multi(to_put)9
+        ndb.put_multi(to_put)
         num_updated += len(to_put)
         logging.info(
             'Put {} entities to Datastore for a total of {}'.format(
                 len(to_put), num_updated))
 
+class HashtagUpdateHandle(webapp2.RequestHandler):
+    def post(self):
+        hashtag = data['hashtag']
+        point = data['point']
+        game = Hashtag.query(Hash.hashtag == hashtag).get()
+        game.point = game.point + int(point)
+        game.put();
+
 
 class HashtagHandle(webapp2.RequestHandler):
     def post(self):
-        data = json.loads(self.request.body)
-        hashtag = data['array']
-        print(hashtag)
-        Hashtag(point = 0,
-            hashtag="Try").put()
+        Hashtag(point = 1,
+            hashtag="#Cute").put()
+        Hashtag(point = 2,
+            hashtag="#LOL").put()
+        Hashtag(point = 3,
+            hashtag="#Scandal").put()
+        Hashtag(point = 4,
+            hashtag="#LittleFinger").put()
+        Hashtag(point = 5,
+            hashtag="#Sad").put()
+        Hashtag(point = 6,
+            hashtag="#DrillBabyDrill").put()
+        Hashtag(point = 7,
+            hashtag="#Lolcats").put()
+        Hashtag(point = 8,
+            hashtag="#Awwwww").put()
+        Hashtag(point = 9,
+            hashtag="#Jobs").put()
+        Hashtag(point = 10,
+            hashtag="#Winning").put()
+
+
+class HashtagDropHandle(webapp2.RequestHandler):
+    def post(self):
+       games = Hashtag.query().get() 
+       for game in games:
+            game.point = game.point * 0.97
 
 app = webapp2.WSGIApplication(
     [
         ('/', LoginHandler),
         ('/create_data', HashtagHandle),
+        ('/update_hashtag', HashtagUpdateHandle),
+        ('/update', HashtagDropHandle),
         ('/user', UserHandler),
         ('/status', StatusHandler),
         ('/admin', AdminHandler),
