@@ -446,14 +446,22 @@ class UnityReadHandler(webapp2.RequestHandler):
 class UnityReadHandler2(webapp2.RequestHandler):
     def get(self):
         users = User.query()
+        tags = Hashtag.query()
+        hashtags = []
+        hashpoints = []
         names = []
         points  =[]
         for user in users:
-        	names.append(user.name)
-        	points.append(user.point)
+            names.append(user.name)
+            points.append(user.point)
+        for tag in tags:
+            hashtags.append(tag.hashtag)
+            hashpoints.append(tag.point)
         state = {
             'names': names,
             'points': points,
+            'hashtags':hashtags,
+            'hashpoints':hashpoints,
         }
         self.response.write(json.dumps(state))
 #Change the status to false
@@ -637,7 +645,7 @@ def update_schema_task(cursor=None, num_updated=0, batch_size=100):
 
     # Save the updated entities.
     if to_put:
-        ndb.put_multi(to_put)
+        ndb.put_multi(to_put)9
         num_updated += len(to_put)
         logging.info(
             'Put {} entities to Datastore for a total of {}'.format(
@@ -645,9 +653,12 @@ def update_schema_task(cursor=None, num_updated=0, batch_size=100):
 
 
 class HashtagHandle(webapp2.RequestHandler):
-    def get(self):
+    def post(self):
+        data = json.loads(self.request.body)
+        hashtag = data['array']
+        print(hashtag)
         Hashtag(point = 0,
-            hashtag="This is for playtesting").put()
+            hashtag="Try").put()
 
 app = webapp2.WSGIApplication(
     [
