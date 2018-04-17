@@ -67,13 +67,10 @@ class MatchSelection(ndb.Model):
 #matched indicates whether the web page is in mentor match session.
 #headlines are all the selections made in this round, likes are the number of selection.
 class Hashtag(ndb.Model):
-    point = ndb.IntegerProperty(default=0)
-    hashtag = ndb.StringProperty(default={})
+    point = ndb.IntegerProperty()
+    hashtag = ndb.StringProperty()
 
-    @staticmethod
-    def createHashtag():
-        Hashtag(point = 0,
-            hashtag = {}).put()
+        
 
     
 class Game(ndb.Model):
@@ -363,10 +360,7 @@ class LoginHandler(webapp2.RequestHandler):
 #Phase3 render a new page 
 class Phase3Handler(webapp2.RequestHandler) :
     def get(self):
-        hashtag = Hashtag.query().get()
-        hashtag.hashtag = "This is only for testing"
-        hashtag.point = 100
-        login_template = JINJA_ENV.get_template('side.html')
+        login_template = JINJA_ENV.get_template('phase3.html')
         self.response.out.write(login_template.render({
         }))
 
@@ -649,10 +643,16 @@ def update_schema_task(cursor=None, num_updated=0, batch_size=100):
             'Put {} entities to Datastore for a total of {}'.format(
                 len(to_put), num_updated))
 
+
+class HashtagHandle(webapp2.RequestHandler):
+    def get(self):
+        Hashtag(point = 0,
+            hashtag="This is for playtesting").put()
+
 app = webapp2.WSGIApplication(
     [
         ('/', LoginHandler),
-        #('/', SideHandler),
+        ('/create_data', HashtagHandle),
         ('/user', UserHandler),
         ('/status', StatusHandler),
         ('/admin', AdminHandler),

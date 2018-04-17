@@ -213,7 +213,6 @@ $(document).ready(function() {
         }  else if (step === 5) {
                 $('#image').remove();
                 $('#media_page > p').remove();
-                console.log(target_audience);
                 var ratio = calculation
                 if (target_audience === 1) {
                     var view1 = (ratio * (300000 * 0.05 * 2) * 1.03 * 0.2);
@@ -240,9 +239,7 @@ $(document).ready(function() {
                     var view4 = (ratio * (300000 * 0.25 * 2) * 1.02 * 0.21);
                     point = (view1 + view2 + view3 + view4).toFixed();
                 }
-                console.log("before adding ratio" + point);
                 point = (Math.random() * (point * 0.1) + (point * 0.95)).toFixed();
-                console.log("after adding ratio" + point);
                 final_score = final_score + parseInt(point);
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#media_page').hide();

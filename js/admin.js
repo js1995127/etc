@@ -13,19 +13,19 @@ $(document).ready(function() {
     //     });
     // });
 
-    // $('#clear').click(function() {
-    //     console.log("WAX ON");
-    //     $.ajax({
-    //         url: '/clear-page',
-    //         type: 'POST',
-    //         cache: false,
-    //         contentType: false,
-    //         processData: false,
-    //         success: function() {
-    //             console.log('WAX OFF');
-    //         }
-    //     });
-    // });
+    $('#creat_data').click(function() {
+        console.log("WAX ON");
+        $.ajax({
+            url: '/create_data',
+            type: 'GET',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function() {
+                console.log('');
+            }
+        });
+    });
 
     $('#game_end').click(function() {
         console.log("REBOOT");
