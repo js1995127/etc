@@ -69,7 +69,7 @@ $(document).ready(function() {
             console.log(followers)
             console.log(transRatio)
             console.log(average_news_point)
-            hashtag_heat_increase =  (followers * transRatio * average_news_point).toFiexed();
+            hashtag_heat_increase =  (followers * transRatio * average_news_point).toFixed();
             $('#res > h2').append(String(hashtag_heat_increase));
             step++;                 
              $.ajax({
@@ -176,7 +176,7 @@ $(document).ready(function() {
                 hashtags = hashtags + 2;
             } else if (str === 'nly') {
                 hashtags = hashtags + 2;
-            } else if (str === 'ess') {
+            } else if (str ===  'ess') {
                 hashtags = hashtags + 3;
             } 
         } else if (step === 2) {
