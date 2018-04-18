@@ -1,18 +1,13 @@
 $(document).ready(function() {
-
-    setInterval(function(){
-        $.ajax({
-            url: '/update',
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function() {
-                console.log('GOT EM');
-            }
-        });
-    }, 1000);
     
+    // get username from phase1 by using localstorage
+    var followers = localStorage.getItem('point');
+   
+    var average_news_point = 0;
+    var transRatio = 0.1
+    var hashtag_heat_increase = 0
+    var hashtag = ''
+
     //could get the value from thing that got selected
     $('.userinfo').click(function() {
         if (selected === false) {
@@ -46,7 +41,6 @@ $(document).ready(function() {
     $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
     var selected = false;
     var step = 0;
-    calculation = 0;
     $('#userinfoSubmit').click(function() {
          if (step === 0) {
             selected = false;
@@ -58,6 +52,7 @@ $(document).ready(function() {
             step++; 
         } else if (step === 1) {
             selected = false;
+            hashtag = selection_to_post
             countStore();
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
             $('#hashtag').hide();
@@ -70,14 +65,19 @@ $(document).ready(function() {
             $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
             $('#photo').hide();
             $('#res').show();
-            $('#regtitle').html("Result"); 
+            $('#regtitle').html("Result");
+            console.log(followers)
+            console.log(transRatio)
+            console.log(average_news_point)
+            hashtag_heat_increase =  (followers * transRatio * average_news_point).toFiexed();
+            $('#res > h2').append(String(hashtag_heat_increase));
             step++;                 
              $.ajax({
-                url: '/',
+                url: '/update_hashtag',
                 type: 'POST',
                 data: JSON.stringify({
-                    'username': teamName,
-                    'step': step 
+                    'hashtag_heat_increase' :hashtag_heat_increase,
+                    'hashtag': hashtag
                 }), 
                 dataType: 'json',
                 cache: false,
@@ -87,6 +87,7 @@ $(document).ready(function() {
 
         } else if (step === 3) {
             selected = false;
+            $('#res > h2').empty();
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
             $(".picture_info").find("img").css("opacity", 1);
             $('.userinfo').css({"background-color":"#3B75B3"});
@@ -96,10 +97,11 @@ $(document).ready(function() {
             step = 0; 
         }       
     });
+
     
     function countStore() {
          var str = String(selection_to_post)
-         str = str.substr(str.length - 3, str.length)
+         str = str.substr(str.length - 3, str.length)       
          var title_of_news = 0;
          var hashtags = 0;
          var img = 0;
@@ -107,84 +109,125 @@ $(document).ready(function() {
             if (str === 'day') {
                 title_of_news = title_of_news + 0.1;
             } else if  (str === 'go?') {
-                title_of_news = title_of_news + 1;
+                title_of_news = title_of_news + 0.3;
             } else if (str === 'ons') {
-                title_of_news = title_of_news + 1;
+                title_of_news = title_of_news + 0.2;
             } else if (str === 'ime') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.2;
             } else if (str === 'ds?') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.2;
             } else if (str === 'OAT') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.3;
             } else if (str === 're!') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.1;
             } else if (str === 'us!') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.3;
             } else if (str === 'es!') {
-                title_of_news = title_of_news + 2;
-            } else if (str === 'ob!') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.2;
+            } else if (str === 'NOW') {
+                title_of_news = title_of_news + 0.3;
             } else if (str === 'RS!') {
-                title_of_news = title_of_news + 2;
-            } else if (str === ' it') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.2;
+            } else if (str === 'ook') {
+                title_of_news = title_of_news + 0.1;
             } else if (str === 'ath') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.1;
             } else if (str === 'ING') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.2;
             } else if (str === 'ers') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.3;
             } else if (str === 'ket') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.3;
             } else if (str === ' in') {
-                title_of_news = title_of_news + 2;
-            } else if (str === 'ase') {
-                title_of_news = title_of_news + 2;
-            } else if (str === 'aph') {
-                title_of_news = title_of_news + 2;
+                title_of_news = title_of_news + 0.2;
+            } else if (str === 'ion') {
+                title_of_news = title_of_news + 0.3;
+            } else if (str === 'why') {
+                title_of_news = title_of_news + 0.2;
+            } else if (str === 'an!') {
+                title_of_news = title_of_news + 0.2;
             }
-            calculation = calculation + (Math.pow(title_of_news, 3) * 3);
+            title_of_news = title_of_news * 0.5 
+            console.log("title_of_news" + title_of_news)
         } else if (step === 1) {
             if (str === 'ute') {
-                hashtags = hashtags + 0.1;
-            } else if  (str === 'LOL') {
-                hashtags = hashtags + 0.1;
-            } else if (str === 'dal') {
-                hashtags = hashtags + 0.1;
-            } else if (str === 'ger') {
-                hashtags = hashtags + 0.1;
-            } else if (str === 'Sad') {
                 hashtags = hashtags + 1;
+            } else if  (str === 'LOL') {
+                hashtags = hashtags + 1;
+            } else if (str === 'dal') {
+                hashtags = hashtags + 3;
+            } else if (str === 'est') {
+                hashtags = hashtags + 2;
+            } else if (str === 'Sad') {
+                hashtags = hashtags + 3;
             } else if (str === 'ill') {
                 hashtags = hashtags + 2;
             } else if (str === 'ats') {
-                hashtags = hashtags + 2;
+                hashtags = hashtags + 1;
             } else if (str === 'www') {
-                hashtags = hashtags + 2;
+                hashtags = hashtags + 1;
             } else if (str === 'obs') {
                 hashtags = hashtags + 2;
             } else if (str === 'ing') {
                 hashtags = hashtags + 2;
+            } else if (str === 'USA') {
+                hashtags = hashtags + 2;
+            } else if (str === 'eMe') {
+                hashtags = hashtags + 2;
+            } else if (str === 'nly') {
+                hashtags = hashtags + 2;
+            } else if (str === 'ess') {
+                hashtags = hashtags + 3;
             } 
-            calculation = calculation + (Math.pow(hashtags, 3) * 2);
         } else if (step === 2) {
-            if (String(selection_to_post) === 'image_1.jpg') {
+            if (String(selection_to_post) === 'image_14.png') {
                 img = 0.1;
                 img_selected = 1;
-            } else if (String(selection_to_post) === 'image_2.jpg') {
+            } else if (String(selection_to_post) === 'image_17.png') {
                 img = 0.1;
                 img_selected = 2;
-            } else if (String(selection_to_post) === 'image_3.jpg') {
-                img = 1;
+            } else if (String(selection_to_post) === 'image_5.png') {
+                img = 0.3;
                 img_selected = 3;
-            } else if (String(selection_to_post) === 'image_4.jpg') {
-                img = 2
+            } else if (String(selection_to_post) === 'image_16.png') {
+                img = 0.1
                 img_selected = 4;
-            }
-            console.log(img_selected);
-            calculation = calculation + (Math.pow(img, 3) * 3);
-        }
-       
+            } else if (String(selection_to_post) === 'image_6.png') {
+                img = 0.1
+                img_selected = 5;
+            } else if (String(selection_to_post) === 'image_7.png') {
+                img = 0.2
+                img_selected = 6;
+            } else if (String(selection_to_post) === 'image_8.png') {
+                img = 0.3
+                img_selected = 7;
+            } else if (String(selection_to_post) === 'image_15.png') {
+                img = 0.3
+                img_selected = 8;
+            } else if (String(selection_to_post) === 'image_9.png') {
+                img = 0.1
+                img_selected = 9;
+            } else if (String(selection_to_post) === 'image_10.png') {
+                img = 0.1
+                img_selected = 10;
+            } else if (String(selection_to_post) === 'image_11.png') {
+                img = 0.1
+                img_selected = 11;
+            } else if (String(selection_to_post) === 'image_12.png') {
+                img = 0.1
+                img_selected = 12;
+            } else if (String(selection_to_post) === 'image_13.png') {
+                img = 0.2
+                img_selected = 13;
+            } else if (String(selection_to_post) === 'image_18.png') {
+                img = 0.1
+                img_selected = 14;
+            } 
+            img = img * 0.5 * 3 ;
+            console.log("img" + img)
+            console.log("average_news_point" + (img + title_of_news))
+            average_news_point = (img + title_of_news);
+        }   
     }
 });
 

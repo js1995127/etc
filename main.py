@@ -651,44 +651,56 @@ def update_schema_task(cursor=None, num_updated=0, batch_size=100):
             'Put {} entities to Datastore for a total of {}'.format(
                 len(to_put), num_updated))
 
+# 
 class HashtagUpdateHandle(webapp2.RequestHandler):
     def post(self):
+        data = json.loads(self.request.body)
+        hashtag_heat_increase = data['hashtag_heat_increase']
         hashtag = data['hashtag']
-        point = data['point']
-        game = Hashtag.query(Hash.hashtag == hashtag).get()
-        game.point = game.point + int(point)
-        game.put();
+        tags = Hashtag.query(Hashtag.hashtag == hashtag).get()
+        print(tags.hashtag)
+        print(tags.point)
+        cur_point = tags.point + int(hashtag_heat_increase)
+        print(cur_point)
+        tags.point = cur_point
+        tags.put();
 
 
+# initialize hashtag data in database
 class HashtagHandle(webapp2.RequestHandler):
     def post(self):
-        Hashtag(point = 1,
+        tags = Hashtag.query()
+        for tag in tags:
+            tag.key.delete()
+        Hashtag(point = 375000,
             hashtag="#Cute").put()
-        Hashtag(point = 2,
+        Hashtag(point = 375000,
             hashtag="#LOL").put()
-        Hashtag(point = 3,
+        Hashtag(point = 375000,
             hashtag="#Scandal").put()
-        Hashtag(point = 4,
+        Hashtag(point = 375000,
             hashtag="#LittleFinger").put()
-        Hashtag(point = 5,
+        Hashtag(point = 375000,
             hashtag="#Sad").put()
-        Hashtag(point = 6,
+        Hashtag(point = 375000,
             hashtag="#DrillBabyDrill").put()
-        Hashtag(point = 7,
+        Hashtag(point = 375000,
             hashtag="#Lolcats").put()
-        Hashtag(point = 8,
+        Hashtag(point = 375000,
             hashtag="#Awwwww").put()
-        Hashtag(point = 9,
+        Hashtag(point = 375000,
             hashtag="#Jobs").put()
-        Hashtag(point = 10,
+        Hashtag(point = 375000,
             hashtag="#Winning").put()
 
 
 class HashtagDropHandle(webapp2.RequestHandler):
     def post(self):
-       games = Hashtag.query().get() 
-       for game in games:
-            game.point = game.point * 0.97
+       tags = Hashtag.query()
+       for tag in tags:
+            tag.point = int(tag.point * 0.97)
+            tag.put()
+
 
 app = webapp2.WSGIApplication(
     [

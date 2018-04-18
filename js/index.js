@@ -277,6 +277,8 @@ $(document).ready(function() {
                 });
                 step++;
                 if (round === 3) {
+                    localStorage.setItem('point', final_score);
+                    localStorage.setItem('order', 1);
                     $('#play_again').hide();
                     var interval = setInterval(function() {
                         $.ajax({

@@ -1,18 +1,6 @@
 $(document).ready(function() {
-    // $('#inc').click(function() {
-    //     console.log("NEXT ROUND LET'S GO");
-    //     $.ajax({
-    //         url: '/increment-round',
-    //         type: 'POST',
-    //         cache: false,
-    //         contentType: false,
-    //         processData: false,
-    //         success: function() {
-    //             console.log('NAILED IT');
-    //         }
-    //     });
-    // });
     
+
     $('#creat_data').click(function() {
         $.ajax({
             url: '/create_data',
@@ -52,6 +40,20 @@ $(document).ready(function() {
                 console.log('MATCH');
             }
         });
+
+        setInterval(function(){
+            console.log("Start Dropping Down")
+            $.ajax({
+                url: '/update',
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function() {
+                    console.log('GOT EM');
+                }
+            });
+        }, 1000); 
     });
 
     // setInterval(function() {
