@@ -66,11 +66,13 @@ $(document).ready(function() {
             $('#photo').hide();
             $('#res').show();
             $('#regtitle').html("Result");
-            hashtag_heat_increase =  (followers * transRatio * average_news_point / 10).toFixed();
-            $('#res > h2').append(String(hashtag_heat_increase));
-            $('#res > span').append(hashtag);
+            console.log('average_news_point' + average_news_point);
+            hashtag_heat_increase =  (followers * transRatio * average_news_point / 2).toFixed();
+              console.log('hashtag_heat_increase' + hashtag_heat_increase); 
+            $('#res span').text('(' + hashtag + ')');
+            $('#res').append('<h2>' + String(hashtag_heat_increase) + '<h2/>');
             step++; 
-            console.log(hashtag)                
+                        
              $.ajax({
                 url: '/update_hashtag',
                 type: 'POST',
@@ -87,7 +89,7 @@ $(document).ready(function() {
         } else if (step === 3) {
             selected = false;
             $('#res > h2').remove();
-            $('#res > span').remove();
+            $('#res > span').text();
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
             $(".picture_info").find("img").css("opacity", 1);
             $('.userinfo').css({"background-color":"#3B75B3"});

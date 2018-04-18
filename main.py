@@ -670,8 +670,9 @@ class HashtagUpdateHandle(webapp2.RequestHandler):
 class HashtagHandle(webapp2.RequestHandler):
     def post(self):
         tags = Hashtag.query()
-        for tag in tags:
-            tag.key.delete()
+        if tags != None:
+            for tag in tags:
+                tag.key.delete()
         Hashtag(point = 0,
             hashtag="#Cute").put()
         Hashtag(point = 0,
