@@ -66,12 +66,11 @@ $(document).ready(function() {
             $('#photo').hide();
             $('#res').show();
             $('#regtitle').html("Result");
-            console.log(followers)
-            console.log(transRatio)
-            console.log(average_news_point)
-            hashtag_heat_increase =  (followers * transRatio * average_news_point).toFixed();
+            hashtag_heat_increase =  (followers * transRatio * average_news_point / 10).toFixed();
             $('#res > h2').append(String(hashtag_heat_increase));
-            step++;                 
+            $('#res > span').append(hashtag);
+            step++; 
+            console.log(hashtag)                
              $.ajax({
                 url: '/update_hashtag',
                 type: 'POST',
@@ -87,7 +86,8 @@ $(document).ready(function() {
 
         } else if (step === 3) {
             selected = false;
-            $('#res > h2').empty();
+            $('#res > h2').remove();
+            $('#res > span').remove();
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
             $(".picture_info").find("img").css("opacity", 1);
             $('.userinfo').css({"background-color":"#3B75B3"});
@@ -147,9 +147,8 @@ $(document).ready(function() {
             } else if (str === 'an!') {
                 title_of_news = title_of_news + 0.2;
             }
-            title_of_news = title_of_news * 0.5 
-            console.log("title_of_news" + title_of_news)
-        } else if (step === 1) {
+            title_of_news = title_of_news * 0.5 * 3
+             } else if (step === 1) {
             if (str === 'ute') {
                 hashtags = hashtags + 1;
             } else if  (str === 'LOL') {
@@ -224,8 +223,6 @@ $(document).ready(function() {
                 img_selected = 14;
             } 
             img = img * 0.5 * 3 ;
-            console.log("img" + img)
-            console.log("average_news_point" + (img + title_of_news))
             average_news_point = (img + title_of_news);
         }   
     }

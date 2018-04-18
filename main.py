@@ -672,26 +672,34 @@ class HashtagHandle(webapp2.RequestHandler):
         tags = Hashtag.query()
         for tag in tags:
             tag.key.delete()
-        Hashtag(point = 375000,
+        Hashtag(point = 0,
             hashtag="#Cute").put()
-        Hashtag(point = 375000,
+        Hashtag(point = 0,
             hashtag="#LOL").put()
-        Hashtag(point = 375000,
+        Hashtag(point = 0,
             hashtag="#Scandal").put()
-        Hashtag(point = 375000,
-            hashtag="#LittleFinger").put()
-        Hashtag(point = 375000,
+        Hashtag(point = 0,
+            hashtag="#TheGreatest").put()
+        Hashtag(point = 0,
             hashtag="#Sad").put()
-        Hashtag(point = 375000,
+        Hashtag(point = 0,
             hashtag="#DrillBabyDrill").put()
-        Hashtag(point = 375000,
+        Hashtag(point = 0,
             hashtag="#Lolcats").put()
-        Hashtag(point = 375000,
-            hashtag="#Awwwww").put()
-        Hashtag(point = 375000,
+        Hashtag(point = 0,
+            hashtag="#awwwwww").put()
+        Hashtag(point = 0,
             hashtag="#Jobs").put()
-        Hashtag(point = 375000,
+        Hashtag(point = 0,
             hashtag="#Winning").put()
+        Hashtag(point = 0,
+            hashtag="#USA").put()
+        Hashtag(point = 0,
+            hashtag="#ThePeopleLoveMe").put()
+        Hashtag(point = 0,
+            hashtag="#WinnersOnly").put()
+        Hashtag(point = 0,
+            hashtag="#PhonyPress").put()
 
 
 class HashtagDropHandle(webapp2.RequestHandler):

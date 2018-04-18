@@ -53,7 +53,7 @@ $(document).ready(function() {
                     console.log('GOT EM');
                 }
             });
-        }, 1000); 
+        }, 3000); 
     });
 
     // setInterval(function() {
