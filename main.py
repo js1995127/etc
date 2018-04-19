@@ -6,7 +6,7 @@ import logging
 import jinja2
 import webapp2
 import newModel
-
+import threadings
 
 from google.appengine.api import taskqueue
 from google.appengine.ext import ndb
@@ -670,9 +670,13 @@ class HashtagUpdateHandle(webapp2.RequestHandler):
         # tags.put();
 
 
+
 # initialize hashtag data in database
 class HashtagHandle(webapp2.RequestHandler):
+    mutexTest = threading.lock()
     def post(self):
+        global mutexTest
+        mutexTest.acquire()
         tags = Hashtag.query()
         if tags != None:
             for tag in tags:
@@ -705,6 +709,7 @@ class HashtagHandle(webapp2.RequestHandler):
             hashtag="#WinnersOnly").put()
         Hashtag(point = 0,
             hashtag="#PhonyPress").put()
+        mutexTest.releas  e()
 
 
 class HashtagDropHandle(webapp2.RequestHandler):
