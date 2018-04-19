@@ -68,11 +68,10 @@ $(document).ready(function() {
             $('#regtitle').html("Result");
             console.log('average_news_point' + average_news_point);
             hashtag_heat_increase =  (followers * transRatio * average_news_point / 2).toFixed();
-              console.log('hashtag_heat_increase' + hashtag_heat_increase); 
+            console.log('hashtag_heat_increase' + hashtag_heat_increase); 
             $('#res span').text('(' + hashtag + ')');
             $('#res').append('<h2>' + String(hashtag_heat_increase) + '<h2/>');
-            step++; 
-                        
+            step++;             
              $.ajax({
                 url: '/update_hashtag',
                 type: 'POST',
@@ -83,8 +82,10 @@ $(document).ready(function() {
                 dataType: 'json',
                 cache: false,
                 contentType: 'application/json;charset=UTF-8',
-                success: function(state) {}
-                })
+                success: function(state) {
+                    console.log("update");
+                }
+                });
 
         } else if (step === 3) {
             selected = false;

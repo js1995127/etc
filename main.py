@@ -651,19 +651,23 @@ def update_schema_task(cursor=None, num_updated=0, batch_size=100):
             'Put {} entities to Datastore for a total of {}'.format(
                 len(to_put), num_updated))
 
-# 
+
 class HashtagUpdateHandle(webapp2.RequestHandler):
+    @ndb.transactional(retries=1)
     def post(self):
         data = json.loads(self.request.body)
         hashtag_heat_increase = data['hashtag_heat_increase']
         hashtag = data['hashtag']
-        tags = Hashtag.query(Hashtag.hashtag == hashtag).get()
-        print(tags.hashtag)
-        print(tags.point)
-        cur_point = tags.point + int(hashtag_heat_increase)
-        print(cur_point)
-        tags.point = cur_point
-        tags.put();
+        # tags = Hashtag.query(Hashtag.hashtag == hashtag).get()
+        key = ndb.Key('Hashtag', hashtag)
+        existing_hashtag = key.get()
+        print(existing_hashtag)
+        # print(tags.hashtag)
+        # print(tags.point)
+        # cur_point = tags.point + int(hashtag_heat_increase)
+        # print(cur_point)
+        # tags.point = cur_point
+        # tags.put();
 
 
 # initialize hashtag data in database
