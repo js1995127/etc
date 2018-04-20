@@ -583,8 +583,8 @@ class ClearRoundHandler(webapp2.RequestHandler):
 class InitializeHandler(webapp2.RequestHandler):
     def post(self):
         #User.testCreate()
-        #Game.createGame()
-        MatchSelection.createMatch()
+        Game.createGame()
+        # MatchSelection.createMatch()
 
 
 class HeadlinesWorker(webapp2.RequestHandler):

@@ -8,6 +8,7 @@ $(document).ready(function() {
     "There could be a strike any day now; are we going to just sit back and wait?",
     "Our government is keeping us in the dark: What do they know that we don’t?"
     ]
+
     var title_round_3 = [
     "Treaty undergoing review process, is now on the verge of passing",
     "U.S. Defense Secretary spotted storming out of talks",
@@ -16,6 +17,27 @@ $(document).ready(function() {
     "Strange contrails spotted over Pacific; is the end nigh??",
     "They’ve broken our cease-fire; now, we break them"
     ]
+
+    var title_map = new Map();
+    title_map.set("Diplomats address recent spike in nuclear activity, plans for peace talks underway", 0.1);
+    title_map.set("Prospects for de-escalation of nuclear tensions look increasingly bleak", 1);
+    title_map.set("Secretary of Defense stuns presser: 'We gotta get them before they get us", 1);
+    title_map.set("Studies show it’s only a matter of time before ballistic missiles reach our shores", 2);
+    title_map.set("Talking won’t solve anything; what ever happened to a good old-fashioned American butt-kicking", 2);
+    title_map.set("Fire away, fire away: the time for patience is over", 2);
+    title_map.set(title_round_2[0], 0.1);
+    title_map.set(title_round_2[1], 1);
+    title_map.set(title_round_2[2], 1);
+    title_map.set(title_round_2[3], 1);
+    title_map.set(title_round_2[4], 2);
+    title_map.set(title_round_2[5], 2);
+    title_map.set(title_round_3[0], 0.1);
+    title_map.set(title_round_3[1], 1);
+    title_map.set(title_round_3[2], 1);
+    title_map.set(title_round_3[3], 2);
+    title_map.set(title_round_3[4], 2);
+    title_map.set(title_round_3[5], 2);
+
 
     var selected = false;
     var selection_to_post;
@@ -93,44 +115,45 @@ $(document).ready(function() {
                 $('#erro').fadeOut(1500); 
             } 
             else {
-                // $.ajax({
-                // url: '/',
-                // type: 'POST',
-                // data: JSON.stringify({
-                //     'username': teamName,
-                //     'step': step 
-                // }), 
-                // dataType: 'json',
-                // cache: false,
-                // contentType: 'application/json;charset=UTF-8',
-                // success: function(state) {
-                //     if (state['error'] === 'true') {
-                //         $('#erro').remove();
-                //         $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
-                //         $('#erro').fadeOut(3000);
-                //     } else {
+                $.ajax({
+                url: '/',
+                type: 'POST',
+                data: JSON.stringify({
+                    'username': teamName,
+                    'step': step 
+                }), 
+                dataType: 'json',
+                cache: false,
+                contentType: 'application/json;charset=UTF-8',
+                success: function(state) {
+                    if (state['error'] === 'true') {
+                        $('#erro').remove();
+                        $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
+                        $('#erro').fadeOut(3000);
+                    } else {
                         $('#teamName').hide();
                         $('#personName').show();
                         $('#userinfoSubmit').children('img').attr('src','images/next-color.png');  
-                        $(".person_name_span").append(' ' + String(teamName));
-                        $('#regtitle').html("Ready To Play");
-                        step = step + 2;
-                //     }
-                // }
-                // });
+                        $(".person_name_span").append(' ' + String(teamName) + '!');
+                        $('#regtitle').html("Welcome");
+                        step++;
+                    }
+                }
+                });
             }                			        
         } else if (step === -4) {
             $('#personName').hide();
-            $('#welcome_page').show();       
-            $('#regtitle').html("Welcome");
+            $('#story_page').show();
+            $('#regtitle').html("Trending on Woofer");	 
             step++;
         } else if (step === -3) {
-            $('#personName').hide();
-            $('#story_page').show();
-            $('#regtitle').html("Hot News");	 
+            $('#userinfoSubmit').find('img').attr('src','images/LetsDoIt.png');
+            $('#story_page').hide();
+            $('#intruction_page').show();
+            $('#regtitle').html("Ready to Play");
             step++;
         } else if (step === -2) {
-            $('#story_page').hide();
+            $('#intruction_page').hide();
             $('#title').show();
             $('#regtitle').html("Choose Your Title");
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -162,18 +185,17 @@ $(document).ready(function() {
                 $('#age').hide();
                 $('#source').show();
                 $('#regtitle').html("Choose Your Source");
+                var count = 1;
+                $('#photo .picture_info').each(function() {
+                    $(this).children('img').attr('src', 'images/image_' + ((round - 1) * 4 + count) + '.jpg')
+                    count++;
+                });
                 step = step + 2;
             } else if (step === 3) {
                 countStore();
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#source').hide();
-
-                var count = 1;
-                $('#photo .picture_info').each(function() {
-                    $(this).children('img').attr('src', 'images/image_' + ((round - 1) * 4 + count) + '.jpg')
-                    count++;
-                })
                 $('#photo').show();
                 $('#regtitle').html("Choose A Photo");
                 step++;
@@ -200,7 +222,7 @@ $(document).ready(function() {
                 $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;position:absolute; left:8%;top:26%; ">' + String(hashtags_selected) + '<p/>');
                 $('#media_page').append('<p style="font-weight:bold;position:absolute; left:12%;top:32%; ">' + String(title_selected) + '<p/>');
 
-                $('#regtitle').html("FaceBook");
+                $('#regtitle').text("Overview");
 
                 if (img_selected === 1) {
                     $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 1) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
@@ -216,6 +238,7 @@ $(document).ready(function() {
         }  else if (step === 5) {
                 $('#image').remove();
                 $('#media_page > p').remove();
+                $('#userinfoSubmit').find('img').attr('src','images/CreatNewPost.png');
                 var ratio = calculation
                 if (target_audience === 1) {
                     var view1 = (ratio * (300000 * 0.05 * 2) * 1.03 * 0.2);
@@ -244,13 +267,12 @@ $(document).ready(function() {
                 }
                 point = (Math.random() * (point * 0.1) + (point * 0.95)).toFixed();
                 final_score = final_score + parseInt(point);
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+                $('#userinfoSubmit').children('img').attr('src','images/CreatNewPost.png');
                 $('#media_page').hide();
                 $('#res').show();
-                $('#userinfoSubmit').hide();
                 $('#regtitle').html("Final Result");
-                $('#res > h2').append(String(point));
-                $('#res > h3').append(String(final_score));
+                $('#res > h2').append(String(point) + " Followers");
+                $('#res > h3').append(String(final_score) + " Followers");
                 if (point < 500000) {
                     $('#res').append('<img src="images/less.png" style="height: 100px">');
                 } else if (point < 500000 && point >= 5000000) {
@@ -281,6 +303,7 @@ $(document).ready(function() {
                 });
                 step++;
                 if (round === 3) {
+                    $('#userinfoSubmit').hide();
                     localStorage.setItem('point', final_score);
                     localStorage.setItem('order', 1);
                     $('#play_again').hide();
@@ -303,10 +326,13 @@ $(document).ready(function() {
                     }, 1000)
                     //need to tell guest to Wait other players
                 }
+            } else if (step === 6) {
+                console.log("suppose to go back")
+                crete_new_post();
             }       
     });
     
-    $('#play_again').click(function(){
+    function crete_new_post() {
         round++
         hashtags_selected = undefined;
         title_selected = undefined;  
@@ -338,29 +364,18 @@ $(document).ready(function() {
         $('#regtitle').html("Choose Your Title");
         $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
         $('.posted_content').remove();
-     });
+    }
+        
 
     function countStore() {
-         var str = String(selection_to_post).substring(0,3);
-         var title_of_news = 0;
-         var hashtags = 0;
-         var source = 0;
-         var img = 0;
+        var str_title = String(selection_to_post);
+        var str = String(selection_to_post).substring(0,3);
+        var title_of_news = 0;
+        var hashtags = 0;
+        var source = 0;
+        var img = 0;
         if (step === -1) {
-            if (str === 'Dip') {
-                title_of_news = title_of_news + 0.1;
-            } else if  (str === 'Pro') {
-                title_of_news = title_of_news + 1;
-            } else if (str === 'Sec') {
-                title_of_news = title_of_news + 1;
-            } else if (str === 'Stu') {
-                title_of_news = title_of_news + 2;
-            } else if (str === 'Tal') {
-                title_of_news = title_of_news + 2;
-            } else if (str === 'Fir') {
-                title_of_news = title_of_news + 2;
-            } 
-            console.log(title_of_news); 
+            title_of_news = title_map.get(str_title);
             calculation = calculation + (Math.pow(title_of_news, 3) * 3);
         } else if (step === 0) {
             if (str === '#De') {

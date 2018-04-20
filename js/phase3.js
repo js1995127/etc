@@ -42,66 +42,69 @@ $(document).ready(function() {
     var selected = false;
     var step = 0;
     $('#userinfoSubmit').click(function() {
-         if (step === 0) {
-            selected = false;
-            countStore();
-            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $('#title').hide();
-            $('#hashtag').show();
-            $('#regtitle').html("Choose Your Hashtags");
-            step++; 
-        } else if (step === 1) {
-            selected = false;
-            hashtag = selection_to_post
-            countStore();
-            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $('#hashtag').hide();
-            $('#photo').show();
-            $('#regtitle').html("Choose A Photo");
-            step++;
-        } else if (step === 2) {
-            selected = false;
-            countStore();
-            $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
-            $('#photo').hide();
-            $('#res').show();
-            $('#regtitle').html("Result");
-            console.log('average_news_point' + average_news_point);
-            hashtag_heat_increase =  (followers * transRatio * average_news_point / 2).toFixed();
-            console.log('hashtag_heat_increase' + hashtag_heat_increase); 
-            $('#res span').text('(' + hashtag + ')');
-            $('#res').append('<h2>' + String(hashtag_heat_increase) + '<h2/>');
-            step++; 
-            setTimeout(function() {
-                console.log("Get In")
-                $.ajax({
-                url: '/update_hashtag',
-                type: 'POST',
-                data: JSON.stringify({
-                    'hashtag_heat_increase' :hashtag_heat_increase,
-                    'hashtag': hashtag
-                }), 
-                dataType: 'json',
-                cache: false,
-                contentType: 'application/json;charset=UTF-8',
-                success: function(state) {
-                    console.log("update");
+         if (selected === true) {
+             if (step === 0) {
+                selected = false;
+                countStore();
+                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+                $('#title').hide();
+                $('#hashtag').show();
+                $('#regtitle').html("Choose Your Hashtags");
+                step++; 
+            } else if (step === 1) {
+                selected = false;
+                hashtag = selection_to_post
+                countStore();
+                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+                $('#hashtag').hide();
+                $('#photo').show();
+                $('#regtitle').html("Choose A Photo");
+                step++;
+            } else if (step === 2) {
+                selected = false;
+                countStore();
+                $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
+                $('#photo').hide();
+                $('#res').show();
+                $('#regtitle').html("Result");
+                console.log('average_news_point' + average_news_point);
+                hashtag_heat_increase =  (followers * transRatio * average_news_point / 2).toFixed();
+                console.log('hashtag_heat_increase' + hashtag_heat_increase); 
+                $('#res span').text('(' + hashtag + ')');
+                $('#res').append('<h2>' + String(hashtag_heat_increase) + '<h2/>');
+                step++; 
+                setTimeout(function() {
+                    console.log("Get In")
+                    $.ajax({
+                    url: '/update_hashtag',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        'hashtag_heat_increase' :hashtag_heat_increase,
+                        'hashtag': hashtag
+                    }), 
+                    dataType: 'json',
+                    cache: false,
+                    contentType: 'application/json;charset=UTF-8',
+                    success: function(state) {
+                        console.log("update");
+                    }
+                    });
+                }, 3000);            
                 }
-                });
-            }, 3000);            
-        } else if (step === 3) {
-            selected = false;
-            $('#res > h2').remove();
-            $('#res > span').text();
-            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $(".picture_info").find("img").css("opacity", 1);
-            $('.userinfo').css({"background-color":"#3B75B3"});
-            $('#res').hide();
-            $('#title').show();
-            $('#regtitle').html("Choose Your Title");
-            step = 0; 
-        }       
+            }  else if (step === 3) {
+                selected = false;
+                $('#res > h2').remove();
+                $('#res > span').text();
+                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+                $(".picture_info").find("img").css("opacity", 1);
+                $('.userinfo').css({"background-color":"#3B75B3"});
+                $('#res').hide();
+                $('#title').show();
+                $('#regtitle').html("Choose Your Title");
+                step = 0; 
+            }      
     });
+ 
 
     
     function countStore() {
