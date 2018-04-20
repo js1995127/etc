@@ -71,8 +71,10 @@ $(document).ready(function() {
             console.log('hashtag_heat_increase' + hashtag_heat_increase); 
             $('#res span').text('(' + hashtag + ')');
             $('#res').append('<h2>' + String(hashtag_heat_increase) + '<h2/>');
-            step++;             
-             $.ajax({
+            step++; 
+            setTimeout(function() {
+                console.log("Get In")
+                $.ajax({
                 url: '/update_hashtag',
                 type: 'POST',
                 data: JSON.stringify({
@@ -86,7 +88,7 @@ $(document).ready(function() {
                     console.log("update");
                 }
                 });
-
+            }, 3000);            
         } else if (step === 3) {
             selected = false;
             $('#res > h2').remove();

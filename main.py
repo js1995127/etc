@@ -6,7 +6,7 @@ import logging
 import jinja2
 import webapp2
 import newModel
-import threadings
+import threading
 
 from google.appengine.api import taskqueue
 from google.appengine.ext import ndb
@@ -651,32 +651,27 @@ def update_schema_task(cursor=None, num_updated=0, batch_size=100):
             'Put {} entities to Datastore for a total of {}'.format(
                 len(to_put), num_updated))
 
-
+lock = threading.Lock()
 class HashtagUpdateHandle(webapp2.RequestHandler):
-    @ndb.transactional(retries=1)
     def post(self):
+        global lock
+        lock.acquire()
         data = json.loads(self.request.body)
         hashtag_heat_increase = data['hashtag_heat_increase']
         hashtag = data['hashtag']
-        # tags = Hashtag.query(Hashtag.hashtag == hashtag).get()
-        key = ndb.Key('Hashtag', hashtag)
-        existing_hashtag = key.get()
-        print(existing_hashtag)
-        # print(tags.hashtag)
-        # print(tags.point)
-        # cur_point = tags.point + int(hashtag_heat_increase)
-        # print(cur_point)
-        # tags.point = cur_point
-        # tags.put();
+        print(hashtag_heat_increase)
+        hashtag_filter = Hashtag.query(Hashtag.hashtag == hashtag).get()
+        hashtag_filter.point = hashtag_filter.point  + int(hashtag_heat_increase)
+        hashtag_filter.put()
+        lock.release()
 
 
 
 # initialize hashtag data in database
 class HashtagHandle(webapp2.RequestHandler):
-    mutexTest = threading.lock()
     def post(self):
-        global mutexTest
-        mutexTest.acquire()
+        global lock
+        lock.acquire()
         tags = Hashtag.query()
         if tags != None:
             for tag in tags:
@@ -709,15 +704,18 @@ class HashtagHandle(webapp2.RequestHandler):
             hashtag="#WinnersOnly").put()
         Hashtag(point = 0,
             hashtag="#PhonyPress").put()
-        mutexTest.releas  e()
+        lock.release()
 
 
 class HashtagDropHandle(webapp2.RequestHandler):
     def post(self):
-       tags = Hashtag.query()
-       for tag in tags:
-            tag.point = int(tag.point * 0.97)
+        global lock
+        lock.acquire()
+        tags = Hashtag.query()
+        for tag in tags:
+            tag.point = int(tag.point * 0.98)
             tag.put()
+        lock.release()
 
 
 app = webapp2.WSGIApplication(

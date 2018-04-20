@@ -95,32 +95,33 @@ $(document).ready(function() {
                 $('#erro').remove();
                 $('#teamName').append('<div id="erro" style="text-align: center; font-size:18px; color:#FE1717;">Your Username Cannot Exceed 10 Characters</div>');
                 $('#erro').fadeOut(1500); 
-            } else {
-                $.ajax({
-                url: '/',
-                type: 'POST',
-                data: JSON.stringify({
-                    'username': teamName,
-                    'step': step 
-                }), 
-                dataType: 'json',
-                cache: false,
-                contentType: 'application/json;charset=UTF-8',
-                success: function(state) {
-                    if (state['error'] === 'true') {
-                        $('#erro').remove();
-                        $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
-                        $('#erro').fadeOut(3000);
-                    } else {
+            } 
+            else {
+                // $.ajax({
+                // url: '/',
+                // type: 'POST',
+                // data: JSON.stringify({
+                //     'username': teamName,
+                //     'step': step 
+                // }), 
+                // dataType: 'json',
+                // cache: false,
+                // contentType: 'application/json;charset=UTF-8',
+                // success: function(state) {
+                //     if (state['error'] === 'true') {
+                //         $('#erro').remove();
+                //         $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
+                //         $('#erro').fadeOut(3000);
+                //     } else {
                         $('#teamName').hide();
                         $('#personName').show();
                         $('#userinfoSubmit').children('img').attr('src','images/next-color.png');  
                         $(".person_name_span").append(' ' + String(teamName));
                         $('#regtitle').html("Ready To Play");
                         step = step + 2;
-                    }
-                }
-                });
+                //     }
+                // }
+                // });
             }                			        
         } else if (step === -4) {
             $('#personName').hide();
@@ -134,6 +135,9 @@ $(document).ready(function() {
             step++;
         } else if (step === -2) {
             $('#story_page').hide();
+            if (round === 2) {
+
+            }
             $('#title').show();
             $('#regtitle').html("Choose Your Title");
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -171,6 +175,13 @@ $(document).ready(function() {
                 selected = false;
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#source').hide();
+
+                var count = 1;
+                $('#photo .picture_info').each(function() {
+                    $(this).children('img').attr('src', 'images/image_' + ((round - 1) * 4 + count) + '.jpg')
+                    count++;
+                    console.log(count);
+                })
                 $('#photo').show();
                 $('#regtitle').html("Choose A Photo");
                 step++;
@@ -198,14 +209,21 @@ $(document).ready(function() {
                 $('#media_page').append('<p style="font-weight:bold;position:absolute; left:12%;top:32%; ">' + String(title_selected) + '<p/>');
 
                 $('#regtitle').html("FaceBook");
+
+
+                var count = 0
                 if (img_selected === 1) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_1.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                    count = count2 + 1;
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + count2) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 } else if (img_selected === 2) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_2.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                    count = count2 + 2;
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + count2) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 } else if (img_selected === 3) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_3.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                    count = count2 + 3;
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + count2) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 } else if (img_selected === 4) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_4.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                    count = count2 + 4
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + count2) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 }
                 step++;
             }
@@ -401,16 +419,21 @@ $(document).ready(function() {
             console.log(source);
             calculation = calculation + (Math.pow(source, 3) * 2);
         } else if (step === 4) {
-            if (String(selection_to_post) === 'image_1.jpg') {
+            count = 0
+            if (String(selection_to_post) === 'image_' + ((round - 1) + count) + '.jpg') {
+                count = count + 1;
                 img = 0.1;
                 img_selected = 1;
-            } else if (String(selection_to_post) === 'image_2.jpg') {
+            } else if (String(selection_to_post) === 'image_' + ((round - 1) + count) + '.jpg') {
+                count  = count + 2;
                 img = 0.1;
                 img_selected = 2;
-            } else if (String(selection_to_post) === 'image_3.jpg') {
+            } else if (String(selection_to_post) === 'image_' + ((round - 1) + count) + '.jpg') {
+                count = count + 3;
                 img = 1;
                 img_selected = 3;
-            } else if (String(selection_to_post) === 'image_4.jpg') {
+            } else if (String(selection_to_post) === 'image_' + ((round - 1) + count) + '.jpg') {
+                count = count + 4;
                 img = 2
                 img_selected = 4;
             }
