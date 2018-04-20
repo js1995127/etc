@@ -1,26 +1,22 @@
 $(document).ready(function() {
-
-    "use strict";
     
-    $('#user').keydown(function(e) {
-        if (e.keyCode === 13) {
-            e.preventDefault();
-        }
-    });
+    var title_round_2 = [
+    "Despite initial setbacks, nuclear treaty appears to be making progress",
+    "Defense Department urging U.S. to pull out of talks, employees claim",
+    "17 reasons why weapons deals don’t work out",
+    "Satellite images leaked, appear to show alarming increase in overseas ballistic missile construction",
+    "There could be a strike any day now; are we going to just sit back and wait?",
+    "Our government is keeping us in the dark: What do they know that we don’t?"
+    ]
+    var title_round_3 = [
+    "Treaty undergoing review process, is now on the verge of passing",
+    "U.S. Defense Secretary spotted storming out of talks",
+    "We’re hearing less and less from the UN on peace talks: here’s why that’s scary",
+    "More foreign missile tests reported; Mr. President, do something!",
+    "Strange contrails spotted over Pacific; is the end nigh??",
+    "They’ve broken our cease-fire; now, we break them"
+    ]
 
-    $('#user').keyup(function(e) {
-        e.preventDefault();
-        if (e.keyCode === 13) {
-            StoreUser();
-            window.location.href = 'side';
-        }
-    });
-    
-    $('#usernameSubmit').click(function(k) {
-        k.preventDefault();
-        StoreUser();
-        window.location.href = 'side';
-    });
     var selected = false;
     var selection_to_post;
     var step = -5;
@@ -135,9 +131,6 @@ $(document).ready(function() {
             step++;
         } else if (step === -2) {
             $('#story_page').hide();
-            if (round === 2) {
-
-            }
             $('#title').show();
             $('#regtitle').html("Choose Your Title");
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -180,7 +173,6 @@ $(document).ready(function() {
                 $('#photo .picture_info').each(function() {
                     $(this).children('img').attr('src', 'images/image_' + ((round - 1) * 4 + count) + '.jpg')
                     count++;
-                    console.log(count);
                 })
                 $('#photo').show();
                 $('#regtitle').html("Choose A Photo");
@@ -210,20 +202,14 @@ $(document).ready(function() {
 
                 $('#regtitle').html("FaceBook");
 
-
-                var count = 0
                 if (img_selected === 1) {
-                    count = count2 + 1;
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + count2) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 1) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 } else if (img_selected === 2) {
-                    count = count2 + 2;
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + count2) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 2) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 } else if (img_selected === 3) {
-                    count = count2 + 3;
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + count2) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 3) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 } else if (img_selected === 4) {
-                    count = count2 + 4
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + count2) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 4) + '.jpg" style="text-align:center;height: 200px;position:absolute; left:8%;top:42%;"></div>');
                 }
                 step++;
             }
@@ -321,6 +307,7 @@ $(document).ready(function() {
     });
     
     $('#play_again').click(function(){
+        round++
         hashtags_selected = undefined;
         title_selected = undefined;  
         selection_to_post = undefined;
@@ -337,11 +324,20 @@ $(document).ready(function() {
         $('.userinfo').css({"background-color":"#3B75B3"});
         $('#res').hide();
         $('#title').show();
+        if (round === 2) {
+            console.log($('#title .userinfo').length)
+            $('#title .userinfo').each(function(index){
+                $(this).children('p').text(title_round_2[index])
+            })
+        } else if (round === 3) {
+            $('#title .userinfo').each(function(index){
+                $(this).children('p').text(title_round_3[index])
+            })
+        }
         $('#userinfoSubmit').show();
         $('#regtitle').html("Choose Your Title");
         $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
         $('.posted_content').remove();
-        round++
      });
 
     function countStore() {
@@ -419,21 +415,16 @@ $(document).ready(function() {
             console.log(source);
             calculation = calculation + (Math.pow(source, 3) * 2);
         } else if (step === 4) {
-            count = 0
-            if (String(selection_to_post) === 'image_' + ((round - 1) + count) + '.jpg') {
-                count = count + 1;
+            if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 1) + '.jpg') {
                 img = 0.1;
                 img_selected = 1;
-            } else if (String(selection_to_post) === 'image_' + ((round - 1) + count) + '.jpg') {
-                count  = count + 2;
+            } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 2) + '.jpg') {
                 img = 0.1;
                 img_selected = 2;
-            } else if (String(selection_to_post) === 'image_' + ((round - 1) + count) + '.jpg') {
-                count = count + 3;
+            } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 3) + '.jpg') {
                 img = 1;
                 img_selected = 3;
-            } else if (String(selection_to_post) === 'image_' + ((round - 1) + count) + '.jpg') {
-                count = count + 4;
+            } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 4) + '.jpg') {
                 img = 2
                 img_selected = 4;
             }
