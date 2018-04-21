@@ -455,21 +455,29 @@ class UnityReadHandler2(webapp2.RequestHandler):
     def get(self):
         users = User.query()
         tags = Hashtag.query()
+        scores = ScoreBoard.query()
         hashtags = []
         hashpoints = []
         names = []
         points  =[]
+        scorenames = []
+        scorepoints = []
         for user in users:
             names.append(user.name)
             points.append(user.point)
         for tag in tags:
             hashtags.append(tag.hashtag)
             hashpoints.append(tag.point)
+        for score in scores:
+            scorenames.append(score.username)
+            scorepoints.append(score.score)
         state = {
             'names': names,
             'points': points,
             'hashtags':hashtags,
             'hashpoints':hashpoints,
+            'scorenames':scorenames,
+            'scorepoints':scorepoints,
         }
         self.response.write(json.dumps(state))
 #Change the status to false
