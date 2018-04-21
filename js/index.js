@@ -292,7 +292,8 @@ $(document).ready(function() {
                         'hashtag' : hashtags_selected,
                         'img' : img_selected,
                         'source' : source_option,
-                        'step': step 
+                        'step': step,
+                        'round': round
                     }), 
                     dataType: 'json',
                     cache: false,
@@ -305,7 +306,7 @@ $(document).ready(function() {
                 if (round === 3) {
                     $('#userinfoSubmit').hide();
                     localStorage.setItem('point', final_score);
-                    localStorage.setItem('order', 1);
+                    localStorage.setItem('username', teamName);
                     $('#play_again').hide();
                     var interval = setInterval(function() {
                         $.ajax({

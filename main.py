@@ -70,8 +70,10 @@ class Hashtag(ndb.Model):
     point = ndb.IntegerProperty()
     hashtag = ndb.StringProperty()
 
-        
 
+class ScoreBoard(ndb.Model):
+    score = ndb.IntegerProperty()
+    username = ndb.StringProperty()
     
 class Game(ndb.Model):
     gameround = ndb.IntegerProperty(default=0)
@@ -339,12 +341,18 @@ class LoginHandler(webapp2.RequestHandler):
                 user.put()
             self.response.write(json.dumps(state))
         else:
+            round_num = data['round']
+            if round_num == 3:
+                ScoreBoard(score=0, username=username).put()
             point = data['point']
             img = data['img']
             source = data['source']
             title = data['title']
-            hashtag = data['hashtag']      
-            point = int(point) + user.point
+            hashtag = data['hashtag']
+            if user.point == None:
+                user.point = point    
+            else:
+                point = int(point) + user.point
             user.point = point
             user.img = img
             user.title = title
@@ -659,10 +667,13 @@ class HashtagUpdateHandle(webapp2.RequestHandler):
         data = json.loads(self.request.body)
         hashtag_heat_increase = data['hashtag_heat_increase']
         hashtag = data['hashtag']
-        print(hashtag_heat_increase)
+        username = data['username']
+        personal_score = ScoreBoard.query(ScoreBoard.username == username).get()
+        personal_score.score = personal_score.score + int(hashtag_heat_increase)
         hashtag_filter = Hashtag.query(Hashtag.hashtag == hashtag).get()
         hashtag_filter.point = hashtag_filter.point  + int(hashtag_heat_increase)
         hashtag_filter.put()
+        personal_score.put()
         lock.release()
 
 

@@ -2,7 +2,7 @@ $(document).ready(function() {
     
     // get username from phase1 by using localstorage
     var followers = localStorage.getItem('point');
-   
+    var username = localStorage.getItem('username')
     var average_news_point = 0;
     var transRatio = 0.1
     var hashtag_heat_increase = 0
@@ -80,7 +80,8 @@ $(document).ready(function() {
                     type: 'POST',
                     data: JSON.stringify({
                         'hashtag_heat_increase' :hashtag_heat_increase,
-                        'hashtag': hashtag
+                        'hashtag': hashtag,
+                        'username': username
                     }), 
                     dataType: 'json',
                     cache: false,
