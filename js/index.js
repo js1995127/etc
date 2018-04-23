@@ -92,7 +92,6 @@ $(document).ready(function() {
         }  
     })
 
-
     //temp variable for store information for future use 
     var teamName;
     var point;
@@ -132,8 +131,8 @@ $(document).ready(function() {
                         $('#erro').fadeOut(3000);
                     } else {
                         $('#teamName').hide();
-                        $('#personName').show();
-                        $('#userinfoSubmit').children('img').attr('src','images/next-color.png');  
+                        $('#userinfoSubmit').children('img').attr('src','images/next.png'); 
+                        $('#personName').show();  
                         $(".person_name_span").append(' ' + String(teamName) + '!');
                         $('#regtitle').html("Welcome");
                         step++;
@@ -144,7 +143,7 @@ $(document).ready(function() {
         } else if (step === -4) {
             $('#personName').hide();
             $('#story_page').show();
-            $('#regtitle').html("Trending on Woofer");	 
+            $('#regtitle').html("Breaking News");	 
             step++;
         } else if (step === -3) {
             $('#userinfoSubmit').find('img').attr('src','images/LetsDoIt.png');
@@ -304,6 +303,7 @@ $(document).ready(function() {
                 });
                 step++;
                 if (round === 3) {
+                    $('#res').append("You,ve made all 3 of your posts! Stick around to see what posts are trending on Woofer");
                     $('#userinfoSubmit').hide();
                     localStorage.setItem('point', final_score);
                     localStorage.setItem('username', teamName);

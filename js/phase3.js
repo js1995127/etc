@@ -38,10 +38,18 @@ $(document).ready(function() {
         }
     });
 
-    $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+    $('#userinfoSubmit').find('img').attr('src','images/LetsDoIt.png');
+    $('#regtitle').html("Oops");
     var selected = false;
-    var step = 0;
+    var step = -1;
     $('#userinfoSubmit').click(function() {
+        if (step === -1) {
+            $('#instruction').hide();
+            $('#title').show();
+            $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
+            $('#regtitle').html("Choose Your Titles");
+            step++;
+        }
          if (selected === true) {
              if (step === 0) {
                 selected = false;
@@ -70,8 +78,8 @@ $(document).ready(function() {
                 console.log('average_news_point' + average_news_point);
                 hashtag_heat_increase =  (followers * transRatio * average_news_point / 2).toFixed();
                 console.log('hashtag_heat_increase' + hashtag_heat_increase); 
-                $('#res span').text('(' + hashtag + ')');
-                $('#res').append('<h2>' + String(hashtag_heat_increase) + '<h2/>');
+                $('#res span').text(hashtag);
+                $('#res').append('<h2>' + String(hashtag_heat_increase) + " " + "times" + '<h2/>');
                 step++; 
                 setTimeout(function() {
                     console.log("Get In")

@@ -15,6 +15,28 @@ h3{
   margin-right:0;
   padding-top:0;
 }
+
+.scroll {
+  overflow: auto;
+  height:400px;  
+}
+
+div::-webkit-scrollbar {
+    width: 10px;
+}
+
+div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+div::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 3px rgba(1,1,1,0.5);
+    background-color: #77a1cf; 
+}
+
+/*#scroll :: -webkit-scrollbar {
+  width: 20px;
+}*/
 h3 span{
   background-color: #faf7e4;
   padding: 2vh 2vh;
