@@ -114,31 +114,31 @@ $(document).ready(function() {
                 $('#erro').fadeOut(1500); 
             } 
             else {
-                // $.ajax({
-                // url: '/',
-                // type: 'POST',
-                // data: JSON.stringify({
-                //     'username': teamName,
-                //     'step': step 
-                // }), 
-                // dataType: 'json',
-                // cache: false,
-                // contentType: 'application/json;charset=UTF-8',
-                // success: function(state) {
-                //     if (state['error'] === 'true') {
-                //         $('#erro').remove();
-                //         $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
-                //         $('#erro').fadeOut(3000);
-                //     } else {
+                $.ajax({
+                url: '/',
+                type: 'POST',
+                data: JSON.stringify({
+                'username': teamName,
+                'step': step 
+                 }), 
+                 dataType: 'json',
+                 cache: false,
+                 contentType: 'application/json;charset=UTF-8',
+                 success: function(state) {
+                     if (state['error'] === 'true') {
+                        $('#erro').remove();
+                        $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
+                        $('#erro').fadeOut(3000);
+                   } else {
                         $('#teamName').hide();
                         $('#userinfoSubmit').children('img').attr('src','images/next.png'); 
                         $('#personName').show();  
                         $(".person_name_span").append(' ' + String(teamName) + '!');
                         $('#regtitle').html("Welcome");
                         step++;
-                //     }
-                // }
-                // });
+                   }
+                }
+                });
             }                			        
         } else if (step === -4) {
             $('#personName').hide();
