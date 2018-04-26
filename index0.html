@@ -26,17 +26,17 @@
             Type Your Name
         </div>
 
-        <div class="" style="height:100%; margin-top:5%;">
+        <div id="page_layout">
           <div data-headlines="private" class="row" style="font-family:axonContentFont;">
           
             <div id="teamName" class="row">  
-                <a style="cursor: pointer;margin-right:35%;margin-left:35%;">
-                <div style="text-align: center;">
+                <a style="cursor: pointer;">
+                <div style="text-align: center; margin: 0 auto;">
                 <div style=" margin-left:auto; margin-right:auto;border-radius: 50%;    height: 125px;    width: 125px;      background: #CCC; ">  
                     <h1 id = "first_letter" style="color:#5C93CD ; font-size:100px; font-weight:bold;"></h1>  
                 </div>
                     <input id="team_infor" type="" style="position: relative; text-align: center; width: 55%;height: 40px; margin-top: 20%;background-color: #FFC;font-size:25px;color:#000;">
-                    </div>
+                </div>
                 </a>
             </div>
             <div hidden id="personName" class="row">
@@ -206,8 +206,7 @@
                 </a>
             </div>
             <div hidden id="photo" class="row" style="margin:0;">
-                <div style=" margin: 0 auto;  width: 70%;">
-                   <div class="scroll">
+                <div style="margin:0 auto; width: 70%;">
                     <a style="cursor: pointer;">
                         <div class="picture_info" style="text-align: center;" >
                             <img src="" style="width: 100%;margin-bottom: 5%" />
@@ -229,20 +228,21 @@
                             <img src="" style="width: 100%;margin-bottom: 5%">
                         </div>   
                     </a >
-                    </div>
                 </div>
             </div>
             <div hidden id="media_page" class="row" style="margin:0;">
-                <a style="cursor: pointer;">
-                
-                <img src="images/head.png" width="80" height="80" style="position:absolute;left:8%;top:16%">
-                <h1 class="person_name_span" style="font-size:22px; color:#000; position:absolute; left:40%;top:12%; font-weight:bold;"></h1>
-                <h2 style="font-size:12px; color: #999; position:absolute; left:40%;top:18%; font-weight:bold;">Your personal account</h1>
-
-                <div style="margin-left: 12%;">
-                <h3 id="title_selected"></h3>
+                <div id="first_part" style="height: 50%; background-color: red">
+                <!--     <a style="cursor: pointer;">
+                    <img src="images/head.png" width="80" height="80" style="position:absolute;left:8%;">
+                    <h1 class="person_name_span" style="font-size:22px; color:#000; position:absolute; left:40%; font-weight:bold;"></h1>
+                    <h2 style="font-size:12px; color: #999; position:absolute; left:40%;top:15%; font-weight:bold;">Your personal account</h2>
+                    <h3 id="title_selected"></h3> -->
+                </div> 
                 </div>
-                </a>
+                <div id="second_part">
+                    
+                </div>
+                           
             </div>
             <div hidden id="res" class="row" style="margin:0 auto; text-align: center;">
                 <h1 class="person_name_span" style="color: #36C;font-size:30px;">Congrats!</h1>
@@ -251,13 +251,12 @@
                 <p style="font-size:22px; color:#666;">You now have</p>
                 <h3 style="font-size: 20px"></h3>
             </div>
-            <div>
-              <div class="row" style="margin-top:10%; text-align: center;">
+            </div>
+            </div>
+              <div class="row" style="margin:10%; text-align: center;">
                   <a id="userinfoSubmit"><img src="images/next-color.png" alt="post_confirm_button" style="width:50%; cursor: pointer;width: 60%;position:absolute;left:20%;top:90%;"></a>
                   <p hidden id="user">{{username}}</p>
               </div>
-            </div>
-        </div>
       </main>
 
       <!--Import jQuery before materialize.js-->

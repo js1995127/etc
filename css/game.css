@@ -16,9 +16,14 @@ h3{
   padding-top:0;
 }
 
-.scroll {
+
+#page_layout {
+  margin: 5% auto;
+  position: absolute;
+  height: 70%;
+  width: 100%;
+  display: block;
   overflow: auto;
-  height:300px;  
 }
 
 div::-webkit-scrollbar {
@@ -222,6 +227,7 @@ h3 span{
   padding-top: 50px;
   font-size: 20px;
 }
+
 .popupBox p{
   position: absolute;
   width: 80%; 

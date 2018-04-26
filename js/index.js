@@ -114,31 +114,31 @@ $(document).ready(function() {
                 $('#erro').fadeOut(1500); 
             } 
             else {
-                $.ajax({
-                url: '/',
-                type: 'POST',
-                data: JSON.stringify({
-                'username': teamName,
-                'step': step 
-                 }), 
-                 dataType: 'json',
-                 cache: false,
-                 contentType: 'application/json;charset=UTF-8',
-                 success: function(state) {
-                     if (state['error'] === 'true') {
-                        $('#erro').remove();
-                        $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
-                        $('#erro').fadeOut(3000);
-                   } else {
+                // $.ajax({
+                // url: '/',
+                // type: 'POST',
+                // data: JSON.stringify({
+                // 'username': teamName,
+                // 'step': step 
+                //  }), 
+                //  dataType: 'json',
+                //  cache: false,
+                //  contentType: 'application/json;charset=UTF-8',
+                //  success: function(state) {
+                //      if (state['error'] === 'true') {
+                //         $('#erro').remove();
+                //         $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
+                //         $('#erro').fadeOut(3000);
+                //    } else {
                         $('#teamName').hide();
                         $('#userinfoSubmit').children('img').attr('src','images/next.png'); 
                         $('#personName').show();  
                         $(".person_name_span").append(' ' + String(teamName) + '!');
                         $('#regtitle').html("Welcome");
                         step++;
-                   }
-                }
-                });
+                //    }
+                // }
+                // });
             }                			        
         } else if (step === -4) {
             $('#personName').hide();
@@ -218,19 +218,19 @@ $(document).ready(function() {
                     $('#media_page').find('h1').text(teamName);
                     $('#media_page').find('h2').text('Your Personal Account');
                 }
-                $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;position:absolute; left:8%;top:30%; ">' + String(hashtags_selected) + '<p/>');
-                $('#media_page').append('<p style="font-weight:bold;position:absolute; left:8%;top:36%; ">' + String(title_selected) + '<p/>');
+                $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;position:absolute; left:8%;top:25%;">' + String(hashtags_selected) + '<p/>');
+                $('#media_page').append('<p style="font-weight:bold;position:absolute; left:8%;top:30%; ">' + String(title_selected) + '<p/>');
 
                 $('#regtitle').text("Overview");
 
                 if (img_selected === 1) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 1) + '.jpg" style="text-align:center;width: 50%;position:absolute; left:25%;top:55%;"></div>');
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 1) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
                 } else if (img_selected === 2) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 2) + '.jpg" style="text-align:center;width: 50%;position:absolute; left:25%;top:55%;"></div>');
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 2) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
                 } else if (img_selected === 3) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 3) + '.jpg" style="text-align:center;width: 50%;position:absolute; left:25%;top:55%;"></div>');
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 3) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
                 } else if (img_selected === 4) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 4) + '.jpg" style="text-align:center;width: 50%;position:absolute; left:25%;top:55%;"></div>');
+                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 4) + '.jpg" style="text-align:center;position:absolute; left:25%;top:55%;"></div>');
                 }
                 step++;
             }
