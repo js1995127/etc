@@ -205,32 +205,31 @@ $(document).ready(function() {
                 $('#photo').hide();
                 $('#media_page').show();
                 if (source_option === 2) {
-                    console.log("get in to the media page");
-                    $('#media_page').find('img:first').attr('src', 'images/fake.png')
-                    $('#media_page').find('h1').text('The OutSider');
-                    $('#media_page').find('h2').text('A Self-Published News Site');
+                    $('#media_page').find('img:first').attr('src', 'images/fake.png');
+                    $('#username').text('The OutSider');
+                    $('#username_description').text('A Self-Published News Site');
                 } else if (source_option === 3) {
                     $('#media_page').find('img:first').attr('src', 'images/eagle.png')
-                    $('#media_page').find('h1').text('DeptOfDefence');
-                    $('#media_page').find('h2').text('A Fake Version of Offical Account');
+                    $('#username').text('DeptOfDefence');
+                    $('#username_description').text('A Fake Version of Offical Account');
                 } else {
                     $('#media_page').find('img:first').attr('src', 'images/head.png')
-                    $('#media_page').find('h1').text(teamName);
-                    $('#media_page').find('h2').text('Your Personal Account');
+                    $('#username').text(teamName);
+                    $('#username_description').text('Your Personal Account');
                 }
-                $('#media_page').append('<p style="color:#03a9f4; font-weight:bold;position:absolute; left:8%;top:25%;">' + String(hashtags_selected) + '<p/>');
-                $('#media_page').append('<p style="font-weight:bold;position:absolute; left:8%;top:30%; ">' + String(title_selected) + '<p/>');
+                $('#hashtags_selected').text(String(hashtags_selected));
+                $('#title_selected').text(String(title_selected));
 
                 $('#regtitle').text("Overview");
 
                 if (img_selected === 1) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 1) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
+                    // $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 1) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
                 } else if (img_selected === 2) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 2) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
+                    // $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 2) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
                 } else if (img_selected === 3) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 3) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
+                    // $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 3) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
                 } else if (img_selected === 4) {
-                    $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 4) + '.jpg" style="text-align:center;position:absolute; left:25%;top:55%;"></div>');
+                    // $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 4) + '.jpg" style="text-align:center;position:absolute; left:25%;top:55%;"></div>');
                 }
                 step++;
             }
