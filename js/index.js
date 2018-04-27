@@ -133,7 +133,7 @@ $(document).ready(function() {
                         $('#teamName').hide();
                         $('#userinfoSubmit').children('img').attr('src','images/next.png'); 
                         $('#personName').show();  
-                        $(".person_name_span").append(' ' + String(teamName) + '!');
+                        $(".person_name_span").text(String(teamName) + '!');
                         $('#regtitle').html("Welcome");
                         step++;
                 //    }
@@ -217,19 +217,19 @@ $(document).ready(function() {
                     $('#username').text(teamName);
                     $('#username_description').text('Your Personal Account');
                 }
-                $('#hashtags_selected').text(String(hashtags_selected));
+                $('#hashtag_selected').text(String(hashtags_selected));
                 $('#title_selected').text(String(title_selected));
 
                 $('#regtitle').text("Overview");
 
                 if (img_selected === 1) {
-                    // $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 1) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
+                    $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 1) + '.jpg');
                 } else if (img_selected === 2) {
-                    // $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 2) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
+                    $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 2) + '.jpg');
                 } else if (img_selected === 3) {
-                    // $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 3) + '.jpg" style="text-align:center; margin-top:38%; width:83%"></div>');
+                    $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 3) + '.jpg');
                 } else if (img_selected === 4) {
-                    // $("#media_page").append('<div id="image" style="text-align: center;"><img src="images/image_' + ((round -  1) * 4 + 4) + '.jpg" style="text-align:center;position:absolute; left:25%;top:55%;"></div>');
+                    $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 4) + '.jpg');
                 }
                 step++;
             }

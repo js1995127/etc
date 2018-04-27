@@ -114,12 +114,9 @@ h3 span{
 }*/
 .userinfo
 {
-  text-align: center;
-  border: 1px solid #85849f;
   width: 85%;
-  height: 10%;
-  margin: 3% auto;
-  line-height: 110%;
+  margin: 5% auto;
+  text-align: center;
   color: #FFF;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
@@ -146,7 +143,8 @@ h3 span{
 }
 .userinfo p
 {
-
+  display: inline-block;
+  vertical-align: middle;
 }
 /* mobile */
 @media (max-width: 800px) {
