@@ -268,6 +268,9 @@
             final_score = final_score + parseInt(point);
             $('#userinfoSubmit').children('img').attr('src','images/CreatNewPost.png');
             $('#media_page').hide();
+            $('#skip_btn').show();
+            $('#replay_btn').show();
+            $('#userinfoSubmit').hide();
             $('#res').show();
             $('#regtitle').html("Final Result");
             $('#res > h2').append(String(point) + " Followers");
@@ -300,19 +303,17 @@
                     console.log('GOT EM');
                 }
             });
-            step++;
-            } else if (step === 6) {
-                console.log("suppose to go back")
-                crete_new_post();
             }       
         });
 
 
-    $('#skip').click(function(){
+    $('#skip_btn').click(function(){
         $('#res').hide();
         $('#waiting_page').show();
         $('#regtitle').html("Waiting Page");
         $('#userinfoSubmit').hide();
+        $('#skip_btn').hide();
+        $('#replay_btn').hide();
         $('#skip').append("You,ve made all 3 of your posts! Stick around to see what posts are trending on Woofer");
         $('#userinfoSubmit').hide();
         localStorage.setItem('point', final_score);
@@ -338,7 +339,7 @@
                         //need to tell guest to Wait other players
         })
 
-    function crete_new_post() {
+    $('#replay_btn').click(function(){
         round++
         hashtags_selected = undefined;
         title_selected = undefined;  
@@ -370,7 +371,9 @@
         $('#regtitle').html("Choose Your Title");
         $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
         $('.posted_content').remove();
-    }
+        $('#replay_btn').hide();
+        $('#skip_btn').hide();
+    });
 
 
     function countStore() {
