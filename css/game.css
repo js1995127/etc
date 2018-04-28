@@ -1,6 +1,11 @@
 @charset "utf-8";
 /* CSS Document for game.html*/
 
+html{
+    background-color: rgb(232,229,229);
+}
+
+/*rgb(232,229,229)*/
 h2 span{
     font-size: 5vh;
     margin-top: 0;
@@ -16,6 +21,9 @@ h3{
   padding-top:0;
 }
 
+.carousel-item > img {
+    margin: 0 auto;
+}
 
 #page_layout {
   margin: 5% auto;

@@ -25,94 +25,69 @@ $(document).ready(function() {
         }
     });
 
-    $('.picture_info').click(function() {
+    $('.carousel-item').click(function() {
         if (selected === false) {
             selected = true;
             selection_to_post = $(this).children('img').attr('src').split('/').pop();
+            selection_to_post = selection_to_post.substring(0, selection_to_post.lastIndexOf('.'));
             $(this).children('img').css("opacity", 0.5);
             $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
         } else if (selected === true) {
             selection_to_post = $(this).children('img').attr('src').split('/').pop();
-            $(".picture_info").find("img").css("opacity", 1);
+            selection_to_post = selection_to_post.substring(0, selection_to_post.lastIndexOf('.'));
+            $(".carousel-item").find("img").css("opacity", 1);
             $(this).children('img').css("opacity", 0.5);
         }
+        console.log(selection_to_post);
     });
 
     $('#userinfoSubmit').find('img').attr('src','images/LetsDoIt.png');
     $('#regtitle').html("Oops");
     var selected = false;
-    var step = -1;
+    var step = 0;
     $('#userinfoSubmit').click(function() {
-        if (step === -1) {
+        if (step === 0) {
             $('#instruction').hide();
-            $('#title').show();
+            $('#hashtag').show();
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $('#regtitle').html("Choose Your Titles");
+            $('#regtitle').html("Choose Your Hashtags");          
             step++;
         }
-         if (selected === true) {
-             if (step === 0) {
-                selected = false;
-                countStore();
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#title').hide();
-                $('#hashtag').show();
-                $('#regtitle').html("Choose Your Hashtags");
-                step++; 
-            } else if (step === 1) {
-                selected = false;
-                hashtag = selection_to_post
-                countStore();
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $('#hashtag').hide();
-                $('#photo').show();
-                $('#regtitle').html("Choose A Photo");
-                step++;
-            } else if (step === 2) {
-                selected = false;
-                countStore();
-                $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
-                $('#photo').hide();
-                $('#res').show();
-                $('#regtitle').html("Result");
-                console.log('average_news_point' + average_news_point);
-                hashtag_heat_increase =  (followers * transRatio * average_news_point / 2).toFixed();
-                console.log('hashtag_heat_increase' + hashtag_heat_increase); 
-                $('#res span').text(hashtag);
-                $('#res').append('<h2>' + String(hashtag_heat_increase) + " " + "times" + '<h2/>');
-                step++; 
-                setTimeout(function() {
-                    console.log("Get In")
-                    $.ajax({
-                    url: '/update_hashtag',
-                    type: 'POST',
-                    data: JSON.stringify({
-                        'hashtag_heat_increase' :hashtag_heat_increase,
-                        'hashtag': hashtag,
-                        'username': username
-                    }), 
-                    dataType: 'json',
-                    cache: false,
-                    contentType: 'application/json;charset=UTF-8',
-                    success: function(state) {
-                        console.log("update");
-                    }
-                    });
-                }, 3000);            
+     if (selected === true) {    
+       if (step === 1) {
+            selected = false;
+            countStore();
+            $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
+            $('#photo').hide();
+            $('#res').show();
+            $('#regtitle').html("Result");
+            console.log('average_news_point' + average_news_point);
+            hashtag_heat_increase =  (followers * transRatio * average_news_point / 2).toFixed();
+            console.log('hashtag_heat_increase' + hashtag_heat_increase); 
+            $('#res span').text(hashtag);
+            $('#res').append('<h2>' + String(hashtag_heat_increase) + " " + "times" + '<h2/>');
+            step++; 
+            setTimeout(function() {
+                console.log("Get In")
+                $.ajax({
+                url: '/update_hashtag',
+                type: 'POST',
+                data: JSON.stringify({
+                    'hashtag_heat_increase' :hashtag_heat_increase,
+                    'hashtag': hashtag,
+                    'username': username
+                }), 
+                dataType: 'json',
+                cache: false,
+                contentType: 'application/json;charset=UTF-8',
+                success: function(state) {
+                    console.log("update");
                 }
-            }  else if (step === 3) {
-                selected = false;
-                $('#res > h2').remove();
-                $('#res > span').text();
-                $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-                $(".picture_info").find("img").css("opacity", 1);
-                $('.userinfo').css({"background-color":"#3B75B3"});
-                $('#res').hide();
-                $('#title').show();
-                $('#regtitle').html("Choose Your Title");
-                step = 0; 
-            }      
-    });
+                });
+            }, 3000);            
+            }
+        }
+        })     
  
 
     

@@ -115,31 +115,32 @@
                     $('#erro').fadeOut(1500); 
                 } 
                 else {
-                    // $.ajax({
-                    // url: '/',
-                    // type: 'POST',
-                    // data: JSON.stringify({
-                    // 'username': teamName,
-                    // 'step': step 
-                    //  }), 
-                    //  dataType: 'json',
-                    //  cache: false,
-                    //  contentType: 'application/json;charset=UTF-8',
-                    //  success: function(state) {
-                    //      if (state['error'] === 'true') {
-                    //         $('#erro').remove();
-                    //         $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
-                    //         $('#erro').fadeOut(3000);
-                    //    } else {
+                    console.log("get in here")
+                    $.ajax({
+                    url: '/',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        'username': teamName,
+                        'step': step 
+                     }), 
+                     dataType: 'json',
+                     cache: false,
+                     contentType: 'application/json;charset=UTF-8',
+                     success: function(state) {
+                         if (state['error'] === 'true') {
+                            $('#erro').remove();
+                            $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
+                            $('#erro').fadeOut(3000);
+                       } else {
                         $('#teamName').hide();
                         $('#userinfoSubmit').children('img').attr('src','images/next.png'); 
                         $('#personName').show();  
                         $(".person_name_span").text(String(teamName) + '!');
                         $('#regtitle').html("Welcome");
                         step++;
-                    //    }
-                    // }
-                    // });
+                       }
+                    }
+                    });
                 }                			        
             } else if (step === -4) {
                 $('#personName').hide();
@@ -268,9 +269,6 @@
             final_score = final_score + parseInt(point);
             $('#userinfoSubmit').children('img').attr('src','images/CreatNewPost.png');
             $('#media_page').hide();
-            $('#skip_btn').show();
-            $('#replay_btn').show();
-            $('#userinfoSubmit').hide();
             $('#res').show();
             $('#regtitle').html("Final Result");
             $('#res > h2').append(String(point) + " Followers");
@@ -282,7 +280,11 @@
             } else {
                 $('#res').append('<img src="images/more.png" style="width: 320px">');
             }
-                    //pass the data to the server by using ajax 
+            if (round === 3) {
+                $('#userinfoSubmit').hide();
+                $('#last_page_reminding').show();
+            }
+            //pass the data to the server by using ajax 
             $.ajax({
                 url: '/',
                 type: 'POST',
@@ -303,23 +305,14 @@
                     console.log('GOT EM');
                 }
             });
+            step++;
+            } else if (step === 6) {
+                backToSelection();
             }       
         });
 
 
-    $('#skip_btn').click(function(){
-        $('#res').hide();
-        $('#waiting_page').show();
-        $('#regtitle').html("Waiting Page");
-        $('#userinfoSubmit').hide();
-        $('#skip_btn').hide();
-        $('#replay_btn').hide();
-        $('#skip').append("You,ve made all 3 of your posts! Stick around to see what posts are trending on Woofer");
-        $('#userinfoSubmit').hide();
-        localStorage.setItem('point', final_score);
-        localStorage.setItem('username', teamName);
-        $('#play_again').hide();
-        var interval = setInterval(function() {
+    var interval = setInterval(function() {
             $.ajax({
                 url: '/status',
                 type: 'POST',
@@ -328,6 +321,8 @@
                 contentType: 'application/json;charset=UTF-8',
                 success: function(state) {
                     if (state['state'] === 'true') {
+                        localStorage.setItem('point', final_score);
+                        localStorage.setItem('username', teamName);
                         clearInterval(interval);
                         window.location.href = '/phase3';
                     } else {
@@ -336,10 +331,8 @@
                 }
             });
         }, 1000)
-                        //need to tell guest to Wait other players
-        })
 
-    $('#replay_btn').click(function(){
+    function backToSelection() {
         round++
         hashtags_selected = undefined;
         title_selected = undefined;  
@@ -358,7 +351,6 @@
         $('#res').hide();
         $('#title').show();
         if (round === 2) {
-            console.log($('#title .userinfo').length)
             $('#title .userinfo').each(function(index){
                 $(this).children('p').text(title_round_2[index])
             })
@@ -367,13 +359,10 @@
                 $(this).children('p').text(title_round_3[index])
             })
         }
-        $('#userinfoSubmit').show();
         $('#regtitle').html("Choose Your Title");
         $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
         $('.posted_content').remove();
-        $('#replay_btn').hide();
-        $('#skip_btn').hide();
-    });
+    };
 
 
     function countStore() {
