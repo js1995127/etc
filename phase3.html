@@ -10,23 +10,17 @@
               <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
               <title>Login</title>
-
-              <style>
-              html{
-                  color: #5f5248;    
-              }  
-            </style>
         </head>
 
         <body>
       <!-- HACKED -->
-        <main style="background-color: rgb(232,229,229)">
+        <main>
             <div id="regtitle" style=" text-align: center; padding:2vh 2vh; font-size: 4.2vh; color:#FFFFFF; background-color: #5C93CD;">
                 Choose Your Title
             </div>
 
-            <div id="page_layout_page" style="position: relative; margin: 5% auto;">
-                <div id="instruction" class="row" style="margin-left: 10%;margin-right: 20%;">
+            <div id="page_layout">
+                <div id="instruction" style="margin: 10%;">
                     <p style="color:#83a4cd; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, 'sans-serif';font-size: 14px;">Well, that got a little...out of hand</p>
                     <p style="color:#83a4cd; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, 'sans-serif';font-size: 14px;">But don’t worry! We can fix this! It looks like our president has been paying a great deal of attention to his Woofer account. If we can flood his feed with posts and distract him long enough for the secret service to sort him out, we might be able to make it through this!
                     </p>
@@ -35,7 +29,7 @@
                     <p style="color:#83a4cd; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, 'sans-serif';font-size: 14px;">Oh boy, looks like he’s getting ready to launch! Are you ready?
                     </p>
                 </div>
-                <div id="hashtag" style="display: none;">
+                <div id="hashtag" style="padding-left: 10%; padding-right: 10%; display: none;">
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="" data-interval="false">
                         <ol class="carousel-indicators">
                             <li data-target="#carousel-example-captions" data-slide-to="0" class="active"></li>
@@ -75,9 +69,8 @@
                     <div>Nice</div>
                 </div>
             </div>
-            <div class="row" style="margin-top:10%; text-align: center;">
-              <a id="userinfoSubmit"><img src="images/next-color.png" alt="post_confirm_button" style="width:50%; cursor: pointer;width: 60%;position:absolute;left:20%;top:90%;"></a>
-              <p hidden id="user">{{username}}</p>
+            <div class="row" style="text-align: center;">
+              <a id="userinfoSubmit"><img src="images/next-color.png" alt="post_confirm_button" style="  position: absolute; top: 80%; left: 0; right: 0; bottom:5%; margin: auto; width: 50%;"></a>
             </div>
             </div>
         </main>

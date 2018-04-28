@@ -1,10 +1,6 @@
 @charset "utf-8";
 /* CSS Document for game.html*/
 
-html{
-    background-color: rgb(232,229,229);
-}
-
 /*rgb(232,229,229)*/
 h2 span{
     font-size: 5vh;
@@ -28,7 +24,7 @@ h3{
 #page_layout {
   margin: 5% auto;
   position: absolute;
-  height: 70%;
+  height: 60%;
   width: 100%;
   display: block;
   overflow: auto;
