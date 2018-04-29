@@ -337,13 +337,12 @@ class LoginHandler(webapp2.RequestHandler):
                 state = {'error': 'true'}
             else:
                 state = {'error': 'false'}
+                ScoreBoard(score=0, username=username).put()
                 user = User(name=username, point=0, img=0, title="no_title", source=0, hashtag="no_hashtag");
                 user.put()
             self.response.write(json.dumps(state))
         else:
-            round_num = data['round']
-            if round_num == 3:
-                ScoreBoard(score=0, username=username).put()
+            round_num = data['round']          
             point = data['point']
             img = data['img']
             source = data['source']
@@ -676,6 +675,9 @@ class HashtagUpdateHandle(webapp2.RequestHandler):
         hashtag_heat_increase = data['hashtag_heat_increase']
         hashtag = data['hashtag']
         username = data['username']
+        print(hashtag);
+        print(username);
+        print(hashtag_heat_increase);
         personal_score = ScoreBoard.query(ScoreBoard.username == username).get()
         personal_score.score = personal_score.score + int(hashtag_heat_increase)
         hashtag_filter = Hashtag.query(Hashtag.hashtag == hashtag).get()
@@ -698,31 +700,15 @@ class HashtagHandle(webapp2.RequestHandler):
         Hashtag(point = 0,
             hashtag="#Cute").put()
         Hashtag(point = 0,
-            hashtag="#LOL").put()
+            hashtag="#visascare").put()
         Hashtag(point = 0,
-            hashtag="#Scandal").put()
+            hashtag="#yourethelier").put()
         Hashtag(point = 0,
-            hashtag="#TheGreatest").put()
+            hashtag="#bevigilant").put()
         Hashtag(point = 0,
-            hashtag="#Sad").put()
+            hashtag="#justatheory").put()
         Hashtag(point = 0,
-            hashtag="#DrillBabyDrill").put()
-        Hashtag(point = 0,
-            hashtag="#Lolcats").put()
-        Hashtag(point = 0,
-            hashtag="#awwwwww").put()
-        Hashtag(point = 0,
-            hashtag="#Jobs").put()
-        Hashtag(point = 0,
-            hashtag="#Winning").put()
-        Hashtag(point = 0,
-            hashtag="#USA").put()
-        Hashtag(point = 0,
-            hashtag="#ThePeopleLoveMe").put()
-        Hashtag(point = 0,
-            hashtag="#WinnersOnly").put()
-        Hashtag(point = 0,
-            hashtag="#PhonyPress").put()
+            hashtag="#justice").put()
         lock.release()
 
 

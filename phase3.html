@@ -29,7 +29,7 @@
                     <p style="color:#83a4cd; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, 'sans-serif';font-size: 14px;">Oh boy, looks like he’s getting ready to launch! Are you ready?
                     </p>
                 </div>
-                <div id="hashtag" style="padding-left: 10%; padding-right: 10%; display: none;">
+                <div id="hashtag" style="padding-left: 10%; padding-right: 10%; display: none; position: relative; top: 50%; transform: translateY(-50%); ">
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="" data-interval="false">
                         <ol class="carousel-indicators">
                             <li data-target="#carousel-example-captions" data-slide-to="0" class="active"></li>
@@ -65,8 +65,18 @@
                       </a>
                     </div>
                 </div>    
-                <div hidden id="photo"style="margin:0;">
-                    <div>Nice</div>
+                <div id="loadingPage" style="display: none">
+                      <div class="spinner">
+                        <ul>
+                          <li></li>
+                          <li></li>
+                          <li></li>
+                          <li></li>
+                          <li></li>
+                          <li></li>
+                          <li></li>
+                        </ul>
+                      </div>
                 </div>
             </div>
             <div class="row" style="text-align: center;">

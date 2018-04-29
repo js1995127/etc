@@ -30,6 +30,13 @@ h3{
   overflow: auto;
 }
 
+.carousel-control-prev {
+  margin-left: -10%;
+}
+
+.carousel-control-next {
+  margin-right: -10%;
+}
 div::-webkit-scrollbar {
     width: 10px;
 }
@@ -287,3 +294,90 @@ h3 span{
   overflow: hidden;
   line-height: 3.9vmin;
 }
+
+#loadingPage {
+  position: absolute; 
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+ul{
+/*  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 300px;
+  height: 240px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0,0,0,.2);*/
+}
+
+ul li {
+  border-radius: 50%;
+  list-style: none;
+  border: 6px solid #000;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  border-bottom-color: transparent !important;
+  border-left-color: transparent !important;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  animation: animate 5s infinite alternate;
+  transform: translate(-50%, -50%);
+}
+
+ul > li:nth-child(1) {
+  width: 10px;
+  height: 10px;
+  border-color: #FF0000;
+  animation-delay: .2s;
+}
+ul li:nth-child(2) {
+  width: 30px;
+  height: 30px;
+  border-color: #FF7F00;
+  animation-delay: .4s;
+}
+ul li:nth-child(3) {
+  width: 50px;
+  height: 50px;
+  border-color: #FFFF00;
+  animation-delay: .6s;
+}
+ul li:nth-child(4) {
+  width:70px;
+  height: 70px;
+  border-color: #00FF00;
+  animation-delay: .8s;
+}
+ul li:nth-child(5) {
+  width: 90px;
+  height: 90px;
+  border-color: #0000FF;
+  animation-delay: 1s;
+}
+ul li:nth-child(6) {
+  width: 110px;
+  height: 110px;
+  border-color: #4B0082;
+  animation-delay: 1.2s;
+}
+ul li:nth-child(7) {
+  width:130px;
+  height: 130px;
+  border-color: #9400D3;
+  animation-delay: 1.4s;
+}
+
+@keyframes animate {
+  0%
+  {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+  100%
+  {
+    transform: translate(-50%, -50%) rotate(315deg);
+  }
+}
+
+
