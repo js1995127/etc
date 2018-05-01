@@ -2,7 +2,7 @@ $(document).ready(function() {
     
     // get username from phase1 by using localstorage
     var followers = localStorage.getItem('point');
-    var username = localStorage.getItem('username')
+    // var username = localStorage.getItem('username')
     var hashtag_heat_increase = 0
     var hashtag = ''
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
             $('#instruction').hide();
             $('#hashtag').show();
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
-            $('#regtitle').html("Choose Your Hashtags");          
+            $('#regtitle').html("Choose Your Posts");          
             step++;
         }
      if (selected === true) {    
@@ -38,7 +38,7 @@ $(document).ready(function() {
             selected = false;
             countStore();
             step++; 
-            hashtag_heat_increase = hashtag_heat_increase * 0.1 * followers;
+            hashtag_heat_increase = hashtag_heat_increase * 0.1 * followers / 10;
             setTimeout(function() {
                 $.ajax({
                 url: '/update_hashtag',
@@ -46,7 +46,7 @@ $(document).ready(function() {
                 data: JSON.stringify({
                     'hashtag_heat_increase' :hashtag_heat_increase,
                     'hashtag': hashtag,
-                    'username': username
+                    // 'username': username
                 }), 
                 dataType: 'json',
                 cache: false,
@@ -61,7 +61,7 @@ $(document).ready(function() {
         if (step === 2) {           
             $('#hashtag').hide();
             $('#loadingPage').show();
-            $('#regtitle').html("Waiting");
+            $('#regtitle').html("Posting");
             $('#userinfoSubmit').hide();
             loadingPage();
         }
@@ -84,21 +84,17 @@ $(document).ready(function() {
         console.log(str);    
         if (step === 1) {        
             if (str === "visascare") {
-                hashtag_heat_increase = 0.5;
-                hashtag = "#visascare"
+                hashtag = "#VisaScare"
             } else if(str == "yourethelier"){
-                hashtag_heat_increase = 0.6;
-                hashtag = "#yourethelier"
+                hashtag = "#YoureTheLiar"
             } else if(str == "bevigilant") {
-                hashtag_heat_increase = 0.7;
-                hashtag = "#bevigilant"
+                hashtag = "#BeVigilant"
             } else if(str == "justatheory") {
-                hashtag_heat_increase = 0.8;
-                hashtag = "#justatheory"
+                hashtag = "#JustATheory"
             } else if(str == "justice") {
-                hashtag_heat_increase = 0.9;
-                hashtag = "#justice"
+                hashtag = "#Justice"
             } 
+            hashtag_heat_increase = 0.9 + (Math.random() * 20) / 10;
         } 
     }
 });

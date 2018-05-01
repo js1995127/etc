@@ -41,12 +41,6 @@
 
         var selected = false;
         var selection_to_post;
-        var step = -5;
-        var point = 0;
-        var hashtags_selected;
-        var title_selected;  
-        var round = 1;
-        var final_score = 0; 
         //could get the value from thing that got selected
         $('.userinfo').click(function() {
             if (selected === false) {
@@ -93,13 +87,21 @@
         })
 
         //temp variable for store information for future use 
+        var hashtag_selected;
+        var title_selected; 
         var teamName;
         var point;
-        var calculation = 0; 
-        var target_audience = 0;
+        var source_score;
+        var img_score;
+        var target_audience_option;
         var img_selected; 
-        var source_option = 1;
+        var hashtag_score;
+        var source_option;
+        var title_score;
+        var calculation = 0; 
         var final_score = 0;
+        var step = -5; 
+        var round = 1;
         $('#userinfoSubmit').click(function() {
             //This is new pages for our projects
             //This is page 1
@@ -115,32 +117,32 @@
                     $('#erro').fadeOut(1500); 
                 } 
                 else {
-                    console.log("get in here")
-                    $.ajax({
-                    url: '/',
-                    type: 'POST',
-                    data: JSON.stringify({
-                        'username': teamName,
-                        'step': step 
-                     }), 
-                     dataType: 'json',
-                     cache: false,
-                     contentType: 'application/json;charset=UTF-8',
-                     success: function(state) {
-                         if (state['error'] === 'true') {
-                            $('#erro').remove();
-                            $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
-                            $('#erro').fadeOut(3000);
-                       } else {
+                    // console.log("get in here")
+                    // $.ajax({
+                    // url: '/',
+                    // type: 'POST',
+                    // data: JSON.stringify({
+                    //     'username': teamName,
+                    //     'step': step 
+                    //  }), 
+                    //  dataType: 'json',
+                    //  cache: false,
+                    //  contentType: 'application/json;charset=UTF-8',
+                    //  success: function(state) {
+                    //      if (state['error'] === 'true') {
+                    //         $('#erro').remove();
+                    //         $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
+                    //         $('#erro').fadeOut(3000);
+                    //    } else {
                         $('#teamName').hide();
                         $('#userinfoSubmit').children('img').attr('src','images/next.png'); 
                         $('#personName').show();  
                         $(".person_name_span").text(String(teamName) + '!');
                         $('#regtitle').html("Welcome");
                         step++;
-                       }
-                    }
-                    });
+                    //    }
+                    // }
+                    // });
                 }                			        
             } else if (step === -4) {
                 $('#personName').hide();
@@ -161,27 +163,26 @@
                 step++;
             } else if (step > -2 && step < 5 &&  selected === true) {
                if (step === -1) {
-                console.log("get in");
+                title_selected = selection_to_post;
                 selected = false;
-                countStore();
+                count_title_score();
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#title').hide();
                 $('#hashtag').show();
-                $('#regtitle').html("Choose Your Hashtags");
-                title_selected = selection_to_post;
+                $('#regtitle').html("Choose Your Hashtag");
                 step++; 
             } else if(step === 0) {
-                countStore();
                 selected = false;
+                hashtag_selected = selection_to_post;
+                count_hashtag_score();
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#hashtag').hide();
-                hashtags_selected = selection_to_post;
                 $('#age').show();
                 $('#regtitle').html("Target Audience");
                 step++;
-            } else if(step === 1) {
-                countStore();
+            } else if(step === 1) {          
                 selected = false;
+                count_audience_score()
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#age').hide();
                 $('#source').show();
@@ -193,72 +194,41 @@
                 });
                 step = step + 2;
             } else if (step === 3) {
-                countStore();
                 selected = false;
+                count_source_score()
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#source').hide();
                 $('#photo').show();
                 $('#regtitle').html("Choose A Photo");
                 step++;
             } else if (step === 4) {
-                countStore();
-                selected = false;
-                $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
                 $('#photo').hide();
-                $('#media_page').show();
-                if (source_option === 2) {
-                    $('#media_page').find('img:first').attr('src', 'images/fake.png');
-                    $('#username').text('The OutSider');
-                    $('#username_description').text('A Self-Published News Site');
-                } else if (source_option === 3) {
-                    $('#media_page').find('img:first').attr('src', 'images/eagle.png')
-                    $('#username').text('DeptOfDefence');
-                    $('#username_description').text('A Fake Version of Offical Account');
-                } else {
-                    $('#media_page').find('img:first').attr('src', 'images/head.png')
-                    $('#username').text(teamName);
-                    $('#username_description').text('Your Personal Account');
-                }
-                $('#hashtag_selected').text(String(hashtags_selected));
-                $('#title_selected').text(String(title_selected));
-
-                $('#regtitle').text("Overview");
-
-                if (img_selected === 1) {
-                    $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 1) + '.jpg');
-                } else if (img_selected === 2) {
-                    $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 2) + '.jpg');
-                } else if (img_selected === 3) {
-                    $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 3) + '.jpg');
-                } else if (img_selected === 4) {
-                    $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 4) + '.jpg');
-                }
-                step++;
+                posting();
             }
         }  else if (step === 5) {
             $('#image').remove();
             $('#media_page > p').remove();
             $('#userinfoSubmit').find('img').attr('src','images/CreatNewPost.png');
-            var ratio = calculation
-            if (target_audience === 1) {
+            var ratio = title_score +  hashtag_score + source_score + img_score;
+            if (target_audience_option === 1) {
                 var view1 = (ratio * (300000 * 0.05 * 2) * 1.03 * 0.2);
                 var view2 = (ratio * (300000 * 0.1 * 1) * 1.03 * 0.26);
                 var view3 = (ratio * (300000 * 0.6 * 1) * 1.03 * 0.33);
                 var view4 = (ratio * (300000 * 0.25 * 1) * 1.03 * 0.21);
                 point = (view1 + view2 + view3 + view4).toFixed();
-            } else if (target_audience === 2) {
+            } else if (target_audience_option === 2) {
                 var view1 = (ratio * (300000 * 0.05 * 1) * 1.07 * 0.2);
                 var view2 = (ratio * (300000 * 0.1 * 2) * 1.07 * 0.26);
                 var view3 = (ratio * (300000 * 0.6 * 1) * 1.07 * 0.33);
                 var view4 = (ratio * (300000 * 0.25 * 1) * 1.07 * 0.21);
                 point = (view1 + view2 + view3 + view4).toFixed();
-            } else if (target_audience === 3) {
+            } else if (target_audience_option === 3) {
                 var view1 = (ratio * (300000 * 0.05 * 1) * 0.91 * 0.2);
                 var view2 = (ratio * (300000 * 0.1 * 1) * 0.91 * 0.26);
                 var view3 = (ratio * (300000 * 0.6 * 2) * 0.91 * 0.33);
                 var view4 = (ratio * (300000 * 0.25 * 1) * 0.91 * 0.21);
                 point = (view1 + view2 + view3 + view4).toFixed();
-            } else if (target_audience === 4) {
+            } else if (target_audience_option === 4) {
                 var view1 = (ratio * (300000 * 0.05 * 1) * 1.02 * 0.2);
                 var view2 = (ratio * (300000 * 0.1 * 1) * 1.02 * 0.26);
                 var view3 = (ratio * (300000 * 0.6 * 1) * 1.02 * 0.33);
@@ -292,7 +262,7 @@
                     'point': point, 
                     'username': teamName, 
                     'title': title_selected, 
-                    'hashtag' : hashtags_selected,
+                    'hashtag' : hashtag_selected,
                     'img' : img_selected,
                     'source' : source_option,
                     'step': step,
@@ -312,34 +282,143 @@
         });
 
 
-    var interval = setInterval(function() {
-            $.ajax({
-                url: '/status',
-                type: 'POST',
-                dataType: 'json',
-                cache: false,
-                contentType: 'application/json;charset=UTF-8',
-                success: function(state) {
-                    if (state['state'] === 'true') {
-                        localStorage.setItem('point', final_score);
-                        localStorage.setItem('username', teamName);
-                        clearInterval(interval);
-                        window.location.href = '/phase3';
-                    } else {
-                        console.log('Some Guests Are Still Playing Phase 1');
-                    }
-                }
-            });
-        }, 1000)
+    // var interval = setInterval(function() {
+    //         $.ajax({
+    //             url: '/status',
+    //             type: 'POST',
+    //             dataType: 'json',
+    //             cache: false,
+    //             contentType: 'application/json;charset=UTF-8',
+    //             success: function(state) {
+    //                 if (state['state'] === 'true') {
+    //                     localStorage.setItem('point', final_score);
+    //                     localStorage.setItem('username', teamName);
+    //                     clearInterval(interval);
+    //                     window.location.href = '/phase3';
+    //                 } else {
+    //                     console.log('Some Guests Are Still Playing Phase 1');
+    //                 }
+    //             }
+    //         });
+    //     }, 1000)
+    var photo_case = true;
+
+    function posting() {
+        if (photo_case) {
+            count_photo_score(); 
+            photo_case = false; 
+        }     
+        selected = false;
+        $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
+        $('#media_page').show();
+        if (source_option === 2) {
+            $('#media_page').find('img:first').attr('src', 'images/fake.png');
+            $('#username').text('The OutSider');
+            $('#username_description').text('A Self-Published News Site');
+        } else if (source_option === 3) {
+            $('#media_page').find('img:first').attr('src', 'images/eagle.png')
+            $('#username').text('DeptOfDefence');
+            $('#username_description').text('A Fake Version of Offical Account');
+        } else if(source_option === 1){
+            $('#media_page').find('img:first').attr('src', 'images/head.png')
+            $('#username').text(teamName);
+            $('#username_description').text('Your Personal Account');
+        }
+        $('#hashtag_selected').text(String(hashtag_selected));
+        $('#title_selected').text(String(title_selected));
+
+        $('#regtitle').text("Overview: Click to Edit!");
+
+        if (img_selected === 1) {
+            $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 1) + '.jpg');
+        } else if (img_selected === 2) {
+            $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 2) + '.jpg');
+        } else if (img_selected === 3) {
+            $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 3) + '.jpg');
+        } else if (img_selected === 4) {
+            $("#second_part").children('img').attr('src', 'images/image_' + ((round -  1) * 4 + 4) + '.jpg');
+        }
+        step++;
+    }
+
+    var back_page_case = 1;
+    $('#userinfoSubmit_modify').click(function() {
+        step--;
+        if (back_page_case === 1) {
+            count_source_score();
+            $('#source').hide();
+            posting();
+        } else if (back_page_case === 2) {
+            hashtag_selected = selection_to_post;
+            count_hashtag_score();
+            $('#hashtag').hide();
+            posting();
+        } else if (back_page_case === 3) {
+            title_selected = selection_to_post;
+            count_title_score();
+            $('#title').hide();
+            posting();
+        } else{
+            $('#photo').hide();
+            count_photo_score();
+            posting();
+        }
+        $('#userinfoSubmit_modify').hide();
+        $('#userinfoSubmit').show();
+    })
+        
+
+    $('#media_page').find('img:first').click(function(){
+        $('#media_page').hide();
+        $('#source').show();
+        $(".picture_info").find("img").css("opacity", 1);
+        $('#regtitle').text("Choose Your Source");
+        $('#userinfoSubmit').hide();
+        $('#userinfoSubmit_modify').show();
+        back_page_case = 1;
+        selected = true;
+    })
+
+    $('#hashtag_selected').click(function(){
+        $('#media_page').hide();
+        $('#hashtag').show();
+        $('#regtitle').text("Choose Your Hashtag");
+        $('#userinfoSubmit').hide();
+        $('#userinfoSubmit_modify').show();
+        back_page_case = 2;
+        selected = true;
+    })
+
+    $('#title_selected').click(function(){
+        $('#media_page').hide();
+        $('#title').show();
+        $('#regtitle').text("Chosse Your Title");
+        $('#userinfoSubmit').hide();
+        $('#userinfoSubmit_modify').show();
+        back_page_case = 3;
+        selected = true;
+
+    })
+
+    $("#second_part").children('img').click(function(){
+        $('#media_page').hide();
+        $('#photo').show();
+        $('#regtitle').text("Choose A Photo");
+        $('#userinfoSubmit').hide();
+        $('#userinfoSubmit_modify').show();
+        back_page_case = 4;
+        selected = true;
+    })
 
     function backToSelection() {
+        photo_case = true;
         round++
         hashtags_selected = undefined;
         title_selected = undefined;  
         selection_to_post = undefined;
+        img_selected = undefined; 
         calculation = 0; 
         target_audience = 0;
-        img_selected = undefined; 
         point = 0;
         step = -1;
         $(".picture_info").find("img").css("opacity", 1);
@@ -364,88 +443,177 @@
         $('.posted_content').remove();
     };
 
+    function count_title_score() {
+         var str_title = String(selection_to_post);
+         title_of_news = title_map.get(str_title);
+         title_score = Math.pow(title_of_news, 3) * 3;
+    }
 
-    function countStore() {
-        var str_title = String(selection_to_post);
+    function count_hashtag_score() {
         var str = String(selection_to_post).substring(0,3);
-        var title_of_news = 0;
-        var hashtags = 0;
-        var source = 0;
-        var img = 0;
-        if (step === -1) {
-            title_of_news = title_map.get(str_title);
-            calculation = calculation + (Math.pow(title_of_news, 3) * 3);
-        } else if (step === 0) {
-            if (str === '#De') {
-                hashtags = hashtags + 0.1;
+        if (str === '#De') {
+                hashtag_score = 0.1;
             } else if  (str === '#No') {
-                hashtags = hashtags + 0.1;
+                hashtag_score = 0.1;
             } else if (str === '#Pe') {
-                hashtags = hashtags + 0.1;
+                hashtag_score = 0.1;
             } else if (str === '#Se') {
-                hashtags = hashtags + 0.1;
+                hashtag_score = 0.1;
             } else if (str === '#It') {
-                hashtags = hashtags + 1;
+                hashtag_score = 1;
             } else if (str === '#Im') {
-                hashtags = hashtags + 2;
+                hashtag_score = 2;
             } else if (str === '#Sh') {
-                hashtags = hashtags + 2;
+                hashtag_score = 2;
             } else if (str === '#No') {
-                hashtags = hashtags + 2;
+                hashtag_score = 2;
             } else if (str === '#Fi') {
-                hashtags = hashtags + 2;
+                hashtag_score = 2;
             } else if (str === '#Ap') {
-                hashtags = hashtags + 2;
+                hashtag_score = 2;
             } else if (str === '#Mo') {
-                hashtags = hashtags + 2;
+                hashtag_score = 2;
             } else if (str === '#Tr') {
-                hashtags = hashtags + 2;
+                hashtag_score = 2;
             }
-            console.log(hashtags);
-            calculation = calculation + (Math.pow(hashtags, 3) * 2);
-        } else if (step === 1) {
-            if (str === 'Tee') {
-                target_audience = 1;
-            } else if (str === 'You') {
-                target_audience = 2;
-            } else if (str === 'Mid') {
-                target_audience = 3;
-            } else if (str === 'Sen') {
-                target_audience = 4;
-            }
-            console.log(target_audience);
-        } else if (step === 3) {
-            if (str === 'hea') {
-                source = 0.1;
+            console.log(hashtag_score)
+            hashtag_score = Math.pow(hashtag_score, 3) * 2;
+    }
+
+    function count_source_score() {
+        var str = String(selection_to_post).substring(0,3);
+        if (str === 'hea') {
+                source_score = 0.1;
                 source_option = 1;
             } else if (str === 'fak') {
-                source = 1;
+                source_score = 1;
                 source_option = 2;
             } else if (str === 'eag') {
-                source = 2;
+                source_score = 2;
                 source_option = 3;
-            } 
-            console.log(source);
-            calculation = calculation + (Math.pow(source, 3) * 2);
-        } else if (step === 4) {
-            if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 1) + '.jpg') {
-                img = 0.1;
+            }
+            console.log(source_score)
+            source_score = Math.pow(source_score, 3) * 2;
+            
+    }
+
+    function count_photo_score() {
+        var str_title = String(selection_to_post);
+        if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 1) + '.jpg') {
+                img_score = 0.1;
                 img_selected = 1;
             } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 2) + '.jpg') {
-                img = 0.1;
+                img_score = 0.1;
                 img_selected = 2;
             } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 3) + '.jpg') {
-                img = 1;
+                img_score = 1;
                 img_selected = 3;
             } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 4) + '.jpg') {
-                img = 2
+                img_score = 2
                 img_selected = 4;
-            }
-            console.log(img_selected);
-            calculation = calculation + (Math.pow(img, 3) * 3);
         }
-
+        console.log(img_score)
+        img_score = Math.pow(img_score, 3) * 3;
+        
     }
+
+    function count_audience_score() {
+        var str = String(selection_to_post).substring(0,3);
+         if (step === 1) {
+            if (str === 'Tee') {
+                target_audience_option = 1;
+            } else if (str === 'You') {
+                target_audience_option = 2;
+            } else if (str === 'Mid') {
+                target_audience_option = 3;
+            } else if (str === 'Sen') {
+                target_audience_option = 4;
+            }
+        }
+        console.log(target_audience_option)
+    }
+
+
+    // function countStore() {
+       
+    //     var str = String(selection_to_post).substring(0,3);
+    //     var title_of_news = 0;
+    //     var hashtags = 0;
+    //     var source = 0;
+    //     var img = 0;
+    //     if (step === -1) {
+            
+    //         calculation = calculation + (Math.pow(title_of_news, 3) * 3);
+    //     } else if (step === 0) {
+    //         if (str === '#De') {
+    //             hashtags = hashtags + 0.1;
+    //         } else if  (str === '#No') {
+    //             hashtags = hashtags + 0.1;
+    //         } else if (str === '#Pe') {
+    //             hashtags = hashtags + 0.1;
+    //         } else if (str === '#Se') {
+    //             hashtags = hashtags + 0.1;
+    //         } else if (str === '#It') {
+    //             hashtags = hashtags + 1;
+    //         } else if (str === '#Im') {
+    //             hashtags = hashtags + 2;
+    //         } else if (str === '#Sh') {
+    //             hashtags = hashtags + 2;
+    //         } else if (str === '#No') {
+    //             hashtags = hashtags + 2;
+    //         } else if (str === '#Fi') {
+    //             hashtags = hashtags + 2;
+    //         } else if (str === '#Ap') {
+    //             hashtags = hashtags + 2;
+    //         } else if (str === '#Mo') {
+    //             hashtags = hashtags + 2;
+    //         } else if (str === '#Tr') {
+    //             hashtags = hashtags + 2;
+    //         }
+    //         console.log(hashtags);
+    //         // calculation = calculation + (Math.pow(hashtags, 3) * 2);
+    //     } else if (step === 1) {
+    //         if (str === 'Tee') {
+    //             target_audience = 1;
+    //         } else if (str === 'You') {
+    //             target_audience = 2;
+    //         } else if (str === 'Mid') {
+    //             target_audience = 3;
+    //         } else if (str === 'Sen') {
+    //             target_audience = 4;
+    //         }
+    //         console.log(target_audience);
+    //     } else if (step === 3 || back_page_case === 1) {
+    //         if (str === 'hea') {
+    //             source = 0.1;
+    //             source_option = 1;
+    //         } else if (str === 'fak') {
+    //             source = 1;
+    //             source_option = 2;
+    //         } else if (str === 'eag') {
+    //             source = 2;
+    //             source_option = 3;
+    //         } 
+    //         // calculation = calculation + (Math.pow(source, 3) * 2);
+    //     } else if (step === 4) {
+    //         if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 1) + '.jpg') {
+    //             img = 0.1;
+    //             img_selected = 1;
+    //         } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 2) + '.jpg') {
+    //             img = 0.1;
+    //             img_selected = 2;
+    //         } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 3) + '.jpg') {
+    //             img = 1;
+    //             img_selected = 3;
+    //         } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 4) + '.jpg') {
+    //             img = 2
+    //             img_selected = 4;
+    //         }
+    //         console.log(img_selected);
+    //         // calculation = calculation + (Math.pow(img, 3) * 3);
+    //     }
+
+    // }
 
         // store username and userType in local storage
         // function StoreUser() {

@@ -71,9 +71,9 @@ class Hashtag(ndb.Model):
     hashtag = ndb.StringProperty()
 
 
-class ScoreBoard(ndb.Model):
-    score = ndb.IntegerProperty()
-    username = ndb.StringProperty()
+# class ScoreBoard(ndb.Model):
+#     score = ndb.IntegerProperty()
+#     username = ndb.StringProperty()
     
 class Game(ndb.Model):
     gameround = ndb.IntegerProperty(default=0)
@@ -337,12 +337,13 @@ class LoginHandler(webapp2.RequestHandler):
                 state = {'error': 'true'}
             else:
                 state = {'error': 'false'}
-                ScoreBoard(score=0, username=username).put()
                 user = User(name=username, point=0, img=0, title="no_title", source=0, hashtag="no_hashtag");
                 user.put()
             self.response.write(json.dumps(state))
         else:
-            round_num = data['round']          
+            round_num = data['round']
+            # if round_num == 3:
+            #     ScoreBoard(score=0, username=username).put()
             point = data['point']
             img = data['img']
             source = data['source']
@@ -454,7 +455,7 @@ class UnityReadHandler2(webapp2.RequestHandler):
     def get(self):
         users = User.query()
         tags = Hashtag.query()
-        scores = ScoreBoard.query()
+        # scores = ScoreBoard.query()
         hashtags = []
         hashpoints = []
         names = []
@@ -467,16 +468,16 @@ class UnityReadHandler2(webapp2.RequestHandler):
         for tag in tags:
             hashtags.append(tag.hashtag)
             hashpoints.append(tag.point)
-        for score in scores:
-            scorenames.append(score.username)
-            scorepoints.append(score.score)
+        # for score in scores:
+        #     scorenames.append(score.username)
+        #     scorepoints.append(score.score)
         state = {
             'names': names,
             'points': points,
             'hashtags':hashtags,
             'hashpoints':hashpoints,
-            'scorenames':scorenames,
-            'scorepoints':scorepoints,
+            # 'scorenames':scorenames,
+            # 'scorepoints':scorepoints,
         }
         self.response.write(json.dumps(state))
 #Change the status to false
@@ -674,16 +675,15 @@ class HashtagUpdateHandle(webapp2.RequestHandler):
         data = json.loads(self.request.body)
         hashtag_heat_increase = data['hashtag_heat_increase']
         hashtag = data['hashtag']
-        username = data['username']
-        print(hashtag);
-        print(username);
-        print(hashtag_heat_increase);
-        personal_score = ScoreBoard.query(ScoreBoard.username == username).get()
-        personal_score.score = personal_score.score + int(hashtag_heat_increase)
+        # username = data['username']
+        # personal_score = User.query(User.name == username).get()
+        # personal_score.score = personal_score.score + int(hashtag_heat_increase)
         hashtag_filter = Hashtag.query(Hashtag.hashtag == hashtag).get()
+        print(hashtag_heat_increase)
         hashtag_filter.point = hashtag_filter.point  + int(hashtag_heat_increase)
+        print(hashtag_filter.point)
         hashtag_filter.put()
-        personal_score.put()
+        # personal_score.put()
         lock.release()
 
 
@@ -696,19 +696,9 @@ class HashtagHandle(webapp2.RequestHandler):
         tags = Hashtag.query()
         if tags != None:
             for tag in tags:
-                tag.key.delete()
-        Hashtag(point = 0,
-            hashtag="#Cute").put()
-        Hashtag(point = 0,
-            hashtag="#visascare").put()
-        Hashtag(point = 0,
-            hashtag="#yourethelier").put()
-        Hashtag(point = 0,
-            hashtag="#bevigilant").put()
-        Hashtag(point = 0,
-            hashtag="#justatheory").put()
-        Hashtag(point = 0,
-            hashtag="#justice").put()
+                if tag.hashtag != "#Cute":
+                    tag.point = 0
+                    tag.put()
         lock.release()
 
 
@@ -718,8 +708,8 @@ class HashtagDropHandle(webapp2.RequestHandler):
         lock.acquire()
         tags = Hashtag.query()
         for tag in tags:
-            tag.point = int(tag.point * 0.98)
-            tag.put()
+            tag.point = int (tag.point *0.98)
+        ndb.put_multi(tags)
         lock.release()
 
 
