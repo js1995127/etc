@@ -46,7 +46,6 @@ $(document).ready(function() {
                 data: JSON.stringify({
                     'hashtag_heat_increase' :hashtag_heat_increase,
                     'hashtag': hashtag,
-                    // 'username': username
                 }), 
                 dataType: 'json',
                 cache: false,
@@ -80,8 +79,7 @@ $(document).ready(function() {
     }
     
     function countStore() {
-        var str = String(selection_to_post) 
-        console.log(str);    
+        var str = String(selection_to_post)   
         if (step === 1) {        
             if (str === "visascare") {
                 hashtag = "#VisaScare"

@@ -145,10 +145,10 @@ class Game(ndb.Model):
 
 class User(ndb.Model):
     name = ndb.StringProperty()
-    img = ndb.IntegerProperty()
+    img = ndb.StringProperty()
     title = ndb.StringProperty()
     hashtag = ndb.StringProperty()
-    source = ndb.IntegerProperty()
+    source = ndb.StringProperty()
     point = ndb.IntegerProperty()
     # step = ndb.IntegerProperty()
     # headlines = ndb.JsonProperty()
@@ -337,13 +337,11 @@ class LoginHandler(webapp2.RequestHandler):
                 state = {'error': 'true'}
             else:
                 state = {'error': 'false'}
-                user = User(name=username, point=0, img=0, title="no_title", source=0, hashtag="no_hashtag");
+                user = User(name=username, point=0, img="no_image", title="no_title", source="no_source", hashtag="no_hashtag");
                 user.put()
             self.response.write(json.dumps(state))
         else:
             round_num = data['round']
-            # if round_num == 3:
-            #     ScoreBoard(score=0, username=username).put()
             point = data['point']
             img = data['img']
             source = data['source']
@@ -483,9 +481,19 @@ class UnityReadHandler2(webapp2.RequestHandler):
 #Change the status to false
 class ResetHandler(webapp2.RequestHandler):
     def post(self):
+        global lock
+        lock.acquire()
         game = Game.query().get()
         game.cleared = False
         game.put()
+        tags = Hashtag.query()
+        if tags != None:
+            for tag in tags:
+                if tag.hashtag != "#Cute":
+                    tag.point = 0
+            ndb.put_multi(tags)  
+        ndb.delete_multi(User.query().fetch(keys_only=True))
+        lock.release()
 
 
 #Change the status to true 
@@ -675,31 +683,26 @@ class HashtagUpdateHandle(webapp2.RequestHandler):
         data = json.loads(self.request.body)
         hashtag_heat_increase = data['hashtag_heat_increase']
         hashtag = data['hashtag']
-        # username = data['username']
-        # personal_score = User.query(User.name == username).get()
-        # personal_score.score = personal_score.score + int(hashtag_heat_increase)
         hashtag_filter = Hashtag.query(Hashtag.hashtag == hashtag).get()
-        print(hashtag_heat_increase)
         hashtag_filter.point = hashtag_filter.point  + int(hashtag_heat_increase)
-        print(hashtag_filter.point)
         hashtag_filter.put()
-        # personal_score.put()
         lock.release()
 
 
 
 # initialize hashtag data in database
-class HashtagHandle(webapp2.RequestHandler):
-    def post(self):
-        global lock
-        lock.acquire()
-        tags = Hashtag.query()
-        if tags != None:
-            for tag in tags:
-                if tag.hashtag != "#Cute":
-                    tag.point = 0
-                    tag.put()
-        lock.release()
+# class HashtagHandle(webapp2.RequestHandler):
+#     def post(self):
+#         global lock
+#         lock.acquire()
+#         tags = Hashtag.query()
+#         if tags != None:
+#             for tag in tags:
+#                 if tag.hashtag != "#Cute":
+#                     tag.point = 0
+#                     tag.put()
+
+#         lock.release()
 
 
 class HashtagDropHandle(webapp2.RequestHandler):
@@ -716,7 +719,7 @@ class HashtagDropHandle(webapp2.RequestHandler):
 app = webapp2.WSGIApplication(
     [
         ('/', LoginHandler),
-        ('/create_data', HashtagHandle),
+        # ('/create_data', HashtagHandle),
         ('/update_hashtag', HashtagUpdateHandle),
         ('/update', HashtagDropHandle),
         ('/user', UserHandler),

@@ -1,42 +1,37 @@
     $(document).ready(function() {
 
         var title_round_2 = [
-        "Despite initial setbacks, nuclear treaty appears to be making progress",
-        "Defense Department urging U.S. to pull out of talks, employees claim",
+        "Despite initial setbacks, nuclear treaty makes progress",
+        "Defense Department allegedly urging U.S. to cease talks",
         "17 reasons why weapons deals don’t work out",
-        "Satellite images leaked, appear to show alarming increase in overseas ballistic missile construction",
-        "There could be a strike any day now; are we going to just sit back and wait?",
-        "Our government is keeping us in the dark: What do they know that we don’t?"
+        "Evidence shows alarming increase in overseas missile construction",
+        "Our government is keeping us in the DARK",
         ]
 
         var title_round_3 = [
-        "Treaty undergoing review process, is now on the verge of passing",
+        "Treaty on the verge of passing",
         "U.S. Defense Secretary spotted storming out of talks",
-        "We’re hearing less and less from the UN on peace talks: here’s why that’s scary",
-        "More foreign missile tests reported; Mr. President, do something!",
-        "Strange contrails spotted over Pacific; is the end nigh??",
+        "Peace talk coverage drops: here’s why that’s scary",
+        "Strange contrails spotted over Pacific; is the end nigh",
         "They’ve broken our cease-fire; now, we break them"
         ]
 
         var title_map = new Map();
-        title_map.set("Diplomats address recent spike in nuclear activity, plans for peace talks underway", 0.1);
+        title_map.set("Plans for peace talks underway", 0.1);
         title_map.set("Prospects for de-escalation of nuclear tensions look increasingly bleak", 1);
-        title_map.set("Secretary of Defense stuns presser: 'We gotta get them before they get us", 1);
-        title_map.set("Studies show it’s only a matter of time before ballistic missiles reach our shores", 2);
-        title_map.set("Talking won’t solve anything; what ever happened to a good old-fashioned American butt-kicking", 2);
+        title_map.set("Studies show: missiles will eventually reach our shores", 2);
+        title_map.set("More foreign missile tests reported", 1);
         title_map.set("Fire away, fire away: the time for patience is over", 2);
         title_map.set(title_round_2[0], 0.1);
         title_map.set(title_round_2[1], 1);
         title_map.set(title_round_2[2], 1);
         title_map.set(title_round_2[3], 1);
         title_map.set(title_round_2[4], 2);
-        title_map.set(title_round_2[5], 2);
         title_map.set(title_round_3[0], 0.1);
         title_map.set(title_round_3[1], 1);
         title_map.set(title_round_3[2], 1);
         title_map.set(title_round_3[3], 2);
         title_map.set(title_round_3[4], 2);
-        title_map.set(title_round_3[5], 2);
 
 
         var selected = false;
@@ -58,19 +53,75 @@
             }
         });
 
+        var title_selection;
+
+        $('.userinfo_title').click(function() {
+            if (selected === false) {
+                selected = true;
+                title_selection = $(this).children('p').text();
+                $(this).css({"background-color":"#5f5248"})
+                $(this).children('p').css({"color":"#fff"});
+                $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
+            } else if (selected === true) {
+                title_selection = $(this).children('p').text();
+                $(this).closest('a').siblings().children('div').css({"background-color":"#3B75B3"})
+                $(this).closest('a').siblings().children('div').children('p').css({"color":"#fff"});
+                $(this).css({"background-color":"#5f5248"});
+                $(this).children('p').css({"color":"#fff"});
+            }
+        });
+
+        var hashtag_selection;
+
+        $('.userinfo_hashtag').click(function() {
+            if (selected === false) {
+                selected = true;
+                hashtag_selection = $(this).children('p').text();
+                $(this).css({"background-color":"#5f5248"})
+                $(this).children('p').css({"color":"#fff"});
+                $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
+            } else if (selected === true) {
+                hashtag_selection = $(this).children('p').text();
+                $(this).closest('a').siblings().children('div').css({"background-color":"#3B75B3"})
+                $(this).closest('a').siblings().children('div').children('p').css({"color":"#fff"});
+                $(this).css({"background-color":"#5f5248"});
+                $(this).children('p').css({"color":"#fff"});
+            }
+        });
+
+        var picture_selection;
+
         $('.picture_info').click(function() {
             if (selected === false) {
                 selected = true;
-                selection_to_post = $(this).children('img').attr('src').split('/').pop();
+                picture_selection = $(this).children('img').attr('src').split('/').pop();
                 $(this).children('img').css("opacity", 0.5);
                 $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
             } else if (selected === true) {
-                selection_to_post = $(this).children('img').attr('src').split('/').pop();
+                picture_selection = $(this).children('img').attr('src').split('/').pop();
                 $(".picture_info").find("img").css("opacity", 1);
                 $(this).children('img').css("opacity", 0.5);
             }
         });
 
+        var picture_source_selection;
+
+        $('.picture_info_source').click(function() {
+            if (selected === false) {
+                selected = true;
+                picture_source_selection = $(this).children('img').attr('src').split('/').pop();
+                $(this).children('img').css("opacity", 0.5);
+                $('#userinfoSubmit').children('img').attr('src','images/next-color.png');
+            } else if (selected === true) {
+                picture_source_selection = $(this).children('img').attr('src').split('/').pop();
+                $(".picture_info_source").find("img").css("opacity", 1);
+                $(this).children('img').css("opacity", 0.5);
+            }
+        });
+
+
+
+        window.onbeforeunload = function() { return "Are you sure you want to leave?"; }
 
         //initial state of the button
         $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -87,8 +138,6 @@
         })
 
         //temp variable for store information for future use 
-        var hashtag_selected;
-        var title_selected; 
         var teamName;
         var point;
         var source_score;
@@ -117,32 +166,32 @@
                     $('#erro').fadeOut(1500); 
                 } 
                 else {
-                    // console.log("get in here")
-                    // $.ajax({
-                    // url: '/',
-                    // type: 'POST',
-                    // data: JSON.stringify({
-                    //     'username': teamName,
-                    //     'step': step 
-                    //  }), 
-                    //  dataType: 'json',
-                    //  cache: false,
-                    //  contentType: 'application/json;charset=UTF-8',
-                    //  success: function(state) {
-                    //      if (state['error'] === 'true') {
-                    //         $('#erro').remove();
-                    //         $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
-                    //         $('#erro').fadeOut(3000);
-                    //    } else {
+                    console.log("get in here")
+                    $.ajax({
+                    url: '/',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        'username': teamName,
+                        'step': step 
+                     }), 
+                     dataType: 'json',
+                     cache: false,
+                     contentType: 'application/json;charset=UTF-8',
+                     success: function(state) {
+                         if (state['error'] === 'true') {
+                            $('#erro').remove();
+                            $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
+                            $('#erro').fadeOut(3000);
+                       } else {
                         $('#teamName').hide();
                         $('#userinfoSubmit').children('img').attr('src','images/next.png'); 
                         $('#personName').show();  
-                        $(".person_name_span").text(String(teamName) + '!');
+                        $(".person_name_span").text(String(teamName));
                         $('#regtitle').html("Welcome");
                         step++;
-                    //    }
-                    // }
-                    // });
+                       }
+                    }
+                    });
                 }                			        
             } else if (step === -4) {
                 $('#personName').hide();
@@ -163,7 +212,6 @@
                 step++;
             } else if (step > -2 && step < 5 &&  selected === true) {
                if (step === -1) {
-                title_selected = selection_to_post;
                 selected = false;
                 count_title_score();
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -173,7 +221,6 @@
                 step++; 
             } else if(step === 0) {
                 selected = false;
-                hashtag_selected = selection_to_post;
                 count_hashtag_score();
                 $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
                 $('#hashtag').hide();
@@ -261,10 +308,10 @@
                 data: JSON.stringify({
                     'point': point, 
                     'username': teamName, 
-                    'title': title_selected, 
-                    'hashtag' : hashtag_selected,
-                    'img' : img_selected,
-                    'source' : source_option,
+                    'title': title_selection, 
+                    'hashtag' : hashtag_selection,
+                    'img' : picture_selection,
+                    'source' : picture_source_selection,
                     'step': step,
                     'round': round
                 }), 
@@ -281,27 +328,28 @@
             }       
         });
 
+    var interval = setInterval(function() {
+            $.ajax({
+                url: '/status',
+                type: 'POST',
+                dataType: 'json',
+                cache: false,
+                contentType: 'application/json;charset=UTF-8',
+                success: function(state) {
+                    if (state['state'] === 'true') {
+                        localStorage.setItem('point', final_score);
+                        localStorage.setItem('username', teamName);
+                        clearInterval(interval);
+                        window.location.href = '/phase3';
+                    } else {
+                        console.log('Some Guests Are Still Playing Phase 1');
+                    }
+                }
+            });
+        }, 1000)
 
-    // var interval = setInterval(function() {
-    //         $.ajax({
-    //             url: '/status',
-    //             type: 'POST',
-    //             dataType: 'json',
-    //             cache: false,
-    //             contentType: 'application/json;charset=UTF-8',
-    //             success: function(state) {
-    //                 if (state['state'] === 'true') {
-    //                     localStorage.setItem('point', final_score);
-    //                     localStorage.setItem('username', teamName);
-    //                     clearInterval(interval);
-    //                     window.location.href = '/phase3';
-    //                 } else {
-    //                     console.log('Some Guests Are Still Playing Phase 1');
-    //                 }
-    //             }
-    //         });
-    //     }, 1000)
     var photo_case = true;
+
 
     function posting() {
         if (photo_case) {
@@ -324,8 +372,8 @@
             $('#username').text(teamName);
             $('#username_description').text('Your Personal Account');
         }
-        $('#hashtag_selected').text(String(hashtag_selected));
-        $('#title_selected').text(String(title_selected));
+        $('#hashtag_selected').text(String(hashtag_selection));
+        $('#title_selected').text(String(title_selection));
 
         $('#regtitle').text("Overview: Click to Edit!");
 
@@ -422,11 +470,14 @@
         point = 0;
         step = -1;
         $(".picture_info").find("img").css("opacity", 1);
+        $(".picture_info_source").find("img").css("opacity", 1);
         $('img:last-child', '#res').remove();
         $('#res > h1').empty();
         $('#res > h2').empty();
         $('#res > h3').empty();
         $('.userinfo').css({"background-color":"#3B75B3"});
+        $('.userinfo_title').css({"background-color":"#3B75B3"});
+        $('.userinfo_hashtag').css({"background-color":"#3B75B3"});
         $('#res').hide();
         $('#title').show();
         if (round === 2) {
@@ -444,13 +495,14 @@
     };
 
     function count_title_score() {
-         var str_title = String(selection_to_post);
+         var str_title = String(title_selection);
          title_of_news = title_map.get(str_title);
+         console.log(title_of_news)
          title_score = Math.pow(title_of_news, 3) * 3;
     }
 
     function count_hashtag_score() {
-        var str = String(selection_to_post).substring(0,3);
+        var str = String(hashtag_selection).substring(0,3);
         if (str === '#De') {
                 hashtag_score = 0.1;
             } else if  (str === '#No') {
@@ -481,7 +533,7 @@
     }
 
     function count_source_score() {
-        var str = String(selection_to_post).substring(0,3);
+        var str = String(picture_source_selection).substring(0,3);
         if (str === 'hea') {
                 source_score = 0.1;
                 source_option = 1;
@@ -498,17 +550,17 @@
     }
 
     function count_photo_score() {
-        var str_title = String(selection_to_post);
-        if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 1) + '.jpg') {
+        var photo_title = String(picture_selection);
+        if (photo_title === 'image_' + ((round - 1) * 4  + 1) + '.jpg') {
                 img_score = 0.1;
                 img_selected = 1;
-            } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 2) + '.jpg') {
+            } else if (photo_title === 'image_' + ((round - 1) * 4 + 2) + '.jpg') {
                 img_score = 0.1;
                 img_selected = 2;
-            } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 3) + '.jpg') {
+            } else if (photo_title=== 'image_' + ((round - 1) * 4  + 3) + '.jpg') {
                 img_score = 1;
                 img_selected = 3;
-            } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 4) + '.jpg') {
+            } else if (photo_title === 'image_' + ((round - 1) * 4 + 4) + '.jpg') {
                 img_score = 2
                 img_selected = 4;
         }
@@ -530,115 +582,8 @@
                 target_audience_option = 4;
             }
         }
-        console.log(target_audience_option)
     }
 
-
-    // function countStore() {
-       
-    //     var str = String(selection_to_post).substring(0,3);
-    //     var title_of_news = 0;
-    //     var hashtags = 0;
-    //     var source = 0;
-    //     var img = 0;
-    //     if (step === -1) {
-            
-    //         calculation = calculation + (Math.pow(title_of_news, 3) * 3);
-    //     } else if (step === 0) {
-    //         if (str === '#De') {
-    //             hashtags = hashtags + 0.1;
-    //         } else if  (str === '#No') {
-    //             hashtags = hashtags + 0.1;
-    //         } else if (str === '#Pe') {
-    //             hashtags = hashtags + 0.1;
-    //         } else if (str === '#Se') {
-    //             hashtags = hashtags + 0.1;
-    //         } else if (str === '#It') {
-    //             hashtags = hashtags + 1;
-    //         } else if (str === '#Im') {
-    //             hashtags = hashtags + 2;
-    //         } else if (str === '#Sh') {
-    //             hashtags = hashtags + 2;
-    //         } else if (str === '#No') {
-    //             hashtags = hashtags + 2;
-    //         } else if (str === '#Fi') {
-    //             hashtags = hashtags + 2;
-    //         } else if (str === '#Ap') {
-    //             hashtags = hashtags + 2;
-    //         } else if (str === '#Mo') {
-    //             hashtags = hashtags + 2;
-    //         } else if (str === '#Tr') {
-    //             hashtags = hashtags + 2;
-    //         }
-    //         console.log(hashtags);
-    //         // calculation = calculation + (Math.pow(hashtags, 3) * 2);
-    //     } else if (step === 1) {
-    //         if (str === 'Tee') {
-    //             target_audience = 1;
-    //         } else if (str === 'You') {
-    //             target_audience = 2;
-    //         } else if (str === 'Mid') {
-    //             target_audience = 3;
-    //         } else if (str === 'Sen') {
-    //             target_audience = 4;
-    //         }
-    //         console.log(target_audience);
-    //     } else if (step === 3 || back_page_case === 1) {
-    //         if (str === 'hea') {
-    //             source = 0.1;
-    //             source_option = 1;
-    //         } else if (str === 'fak') {
-    //             source = 1;
-    //             source_option = 2;
-    //         } else if (str === 'eag') {
-    //             source = 2;
-    //             source_option = 3;
-    //         } 
-    //         // calculation = calculation + (Math.pow(source, 3) * 2);
-    //     } else if (step === 4) {
-    //         if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 1) + '.jpg') {
-    //             img = 0.1;
-    //             img_selected = 1;
-    //         } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 2) + '.jpg') {
-    //             img = 0.1;
-    //             img_selected = 2;
-    //         } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4  + 3) + '.jpg') {
-    //             img = 1;
-    //             img_selected = 3;
-    //         } else if (String(selection_to_post) === 'image_' + ((round - 1) * 4 + 4) + '.jpg') {
-    //             img = 2
-    //             img_selected = 4;
-    //         }
-    //         console.log(img_selected);
-    //         // calculation = calculation + (Math.pow(img, 3) * 3);
-    //     }
-
-    // }
-
-        // store username and userType in local storage
-        // function StoreUser() {
-        //     // check if the browser supports local storage
-        //     // notice that you cannot test multiple accounts in one browser. Their data will overwrite each other.
-        //     // use different browsers to test multiple accounts.
-        //     if (typeof(Storage) !== 'undefined') {
-        //         // if supported, store username
-        //         localStorage.setItem('user', $('#user').text().toLowerCase());   
-        //         console.log("input username is " + $('#user').text().toLowerCase());
-        //         localStorage.setItem('postMade', 'NO');
-        //         // check and store user type
-        //         if ($('#user').text().toLowerCase().substring(0, 5) === "media") {
-        //             localStorage.setItem('userType', "media");
-        //             setCookie("userType", "media", 1);
-        //         } else if ($('#user').text().toLowerCase().substring(0, 7) === "citizen") {
-        //             localStorage.setItem('userType', "citizen");
-        //             setCookie("userType", "citizen", 1);
-        //         } else {
-        //             console.log('Oops! Invalid userType.');
-        //         }
-        //     } else {
-        //         console.log('Oops! No Web Storage support...');
-        //     } 
-        // }
     });
 
 

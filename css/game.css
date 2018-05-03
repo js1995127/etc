@@ -76,7 +76,7 @@ h3 span{
   left: -40%;
   text-align: center;
 }
-.userinfo,
+/*.userinfo,
 .headline{
   position: relative;
 }
@@ -99,7 +99,7 @@ h3 span{
   height: 80px;
   margin-top: 5px;
 }
-
+*/
 /*.userinfo p
 {
   position: absolute;
@@ -123,9 +123,9 @@ h3 span{
 {
   text-align: center;
 }*/
-.userinfo
+.userinfo_hashtag, .userinfo_title, .userinfo
 {
-  width: 85%;
+  width: 70%;
   margin: 5% auto;
   text-align: center;
   color: #FFF;
@@ -133,6 +133,7 @@ h3 span{
   font-size: 16px;
   background-color:#3B75B3;
   border-radius: 5px;
+  padding: 1px;
 }
 .userinfo a
 {
@@ -152,10 +153,9 @@ h3 span{
   height: 100%; 
   width: 100%;
 }
-.userinfo p
+.userinfo p, .userinfo_hashtag p, .userinfo_titles p
 {
   display: inline-block;
-  vertical-align: middle;
 }
 /* mobile */
 @media (max-width: 800px) {
