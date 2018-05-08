@@ -150,195 +150,46 @@ class User(ndb.Model):
     hashtag = ndb.StringProperty()
     source = ndb.StringProperty()
     point = ndb.IntegerProperty()
-    # step = ndb.IntegerProperty()
-    # headlines = ndb.JsonProperty()
-    # gender = ndb.StringProperty()
-    # age = ndb.StringProperty()
-    # race = ndb.StringProperty()
+
 
     #this part is useless
-    @staticmethod
-    def testCreate():
-        for i in range(1,41):
-            User(name= 'citizen'+str(i), team=1, headlines={
-                0: ['', ''],
-                1: ['', ''],
-                2: ['', ''],
-                3: ['', ''],
-                4: ['', ''],
-                5: ['', ''],
-                6: ['', ''],
-                7: ['', ''],
-                8: ['', '']}).put()
-
-        for i in range(41,81):
-            User(name= 'citizen'+str(i), team=2, headlines={
-                0: ['', ''],
-                1: ['', ''],
-                2: ['', ''],
-                3: ['', ''],
-                4: ['', ''],
-                5: ['', ''],
-                6: ['', ''],
-                7: ['', ''],
-                8: ['', '']}).put()
-
-        User(name='media1', team=1, headlines={
-            0: ['',''],
-            1: question1,
-            2: question2,
-            3: question3,
-            4: question4,
-            5: ['A', 'B', 'C', 'D'],
-            6: ['A', 'B', 'C', 'D'],
-            7: ['A', 'B', 'C', 'D'],
-            8: ['A', 'B', 'C', 'D']}).put()
-        User(name='media2', team=1, headlines={
-            0: ['',''],
-            1: question1,
-            2: question2,
-            3: question3,
-            4: question4,
-            5: ['A', 'B', 'C', 'D'],
-            6: ['A', 'B'],
-            7: ['REAL', 'FAKE'],
-            8: ['REAL', 'FAKE']}).put()
-        User(name='media3', team=1, headlines={
-            0: ['',''],
-            1: ['Roosan Social Security Plan in Trouble', 'Roosan Officials Don\'t Respect Promise of Social Security'],
-            2: ['Roosan Finance Minister Insured Mines', 'Roosan Finance Minister Anticipated Bombing'],
-            3: ['Treasury Security Designed by Roosan Engineers', 'Treasury Security Only Hackable by Roosans'],
-            4: ['Roosan State Minister Stayed Cool During Panic', 'Roosan State Minister Laughed After Poisoning'],
-            5: ['REAL', 'FAKE'],
-            6: ['REAL', 'FAKE'],
-            7: ['REAL', 'FAKE'],
-            8: ['REAL', 'FAKE']}).put()
-        User(name='media4', team=1, headlines={
-            0: ['',''],
-            1: ['More Roosan Elders Outliving Spouses Than Ever Before', 'Most Roosan Elders Die Alone'],
-            2: ['Roosan State Minister Asks to Renegotiate Mining Negotiations', 'Insults Fly from Roosan State Minister'],
-            3: ['Roosan Finance Minister\'s Company Profited After Theft', 'Roosan Finance Minister Orchestrated Robbery'],
-            4: ['Injured Roosan Finance Minister Did Not Stand for Toast', 'Roosan Officials Refused to Make Toast'],
-            5: ['REAL', 'FAKE'],
-            6: ['REAL', 'FAKE'],
-            7: ['REAL', 'FAKE'],
-            8: ['REAL', 'FAKE']}).put()
-        User(name='media5', team=1, headlines={
-            0: ['',''],
-            1: ['Families More Likely to Live Apart in Roosa', 'Family Unit in Roosa Falling Apart'],
-            2: ['Bombers Wore Uniform of Roosan Sports Team', 'Bombers Seen Waving Roosan Flag'],
-            3: ['No Reports of Money Leaving Roosan Borders', 'Stolen Money Seen Still Within Roosan Borders'],
-            4: ['Roosan Prime Minister Sat Closest to Deceased Senator', 'Murdered Senator\'s Glass Poured by Roosan Prime Minister'],
-            5: ['REAL', 'FAKE'],
-            6: ['REAL', 'FAKE'],
-            7: ['REAL', 'FAKE'],
-            8: ['REAL', 'FAKE']}).put()
-        User(name='media6', team=2, headlines={
-            0: ['',''],
-            1: ['Gogan Parents Less Likely to Leave Inheritance to Children', 'Gogan Parents Don\'t Care About Future of Children'],
-            2: ['Gogan Senators Protested Energy Pollution from Mines', 'Gogans Seen Rioting at Energy Mines Before Attack'],
-            3: ['Gogan General Staying Out of Investigation', 'Gogan General Refuses to Talk with Roosan Investigators'],
-            4: ['All Security was Run by Gogan Military', 'Security Run by Gogans was Intentionally Weak'],
-            5: ['REAL', 'FAKE'],
-            6: ['REAL', 'FAKE'],
-            7: ['REAL', 'FAKE'],
-            8: ['REAL', 'FAKE']}).put()
-        User(name='media7', team=2, headlines={
-            0: ['',''],
-            1: ['Education in Gogan State is Mostly Privatized', 'Public Education in Gogan State Lacks Support'],
-            2: ['Terrorists\' Weapons Were Gogan Made', 'Gogan Manufacters Provided Terrorist Weapons'],
-            3: ['Gogan State in Debt and Needed Money', 'Money from Heist Goes Toward Fixing Gogan Debt'],
-            4: ['Gogan President Vetoed Deceased Senator\'s Final Bill', 'Gogan President Hated the Murdered Senator'],
-            5: ['REAL', 'FAKE'],
-            6: ['REAL', 'FAKE'],
-            7: ['REAL', 'FAKE'],
-            8: ['REAL', 'FAKE']}).put()
-        User(name='media8', team=2, headlines={
-            0: ['',''],
-            1: ['Statistics Show Small Rise in Gogan Underage Crime', 'Gogan Children Turn to Crime'],
-            2: ['Military of Gogan State on Retreat During Bombing', 'Gogan General Knew Bombing was Going to Happen'],
-            3: ['Technology Security Experts Work with Gogan Senator', 'Gogan Senator is Friends with Security Hacker'],
-            4: ['Deceased Senator Led Protests Against Gogan President', 'Mudered Senator Called for Gogan President\'s Impeachment'],
-            5: ['REAL', 'FAKE'],
-            6: ['REAL', 'FAKE'],
-            7: ['REAL', 'FAKE'],
-            8: ['REAL', 'FAKE']}).put()
-        User(name='media9', team=2, headlines={
-            0: ['',''],
-            1: ['Gogan Businesses Pull Funding from Questionable Charity', 'Gogan Businesses Stop Supporting Youth Charity Program'],
-            2: ['Gogan President Remains Silent about Bombing', 'Gogan President Refuses to Answer Questions'],
-            3: ['Gogan President at Meeting Near Treasury During Heist', 'Gogan President\'s Ship Seen Fleeing Scene of Crime'],
-            4: ['Gogans Fail to Release Senator\'s Private Records', 'Gogans Deleted All Records of the Senator from Existence'],
-            5: ['REAL', 'FAKE'],
-            6: ['REAL', 'FAKE'],
-            7: ['REAL', 'FAKE'],
-            8: ['REAL', 'FAKE']}).put()
-        User(name='media10', team=2, headlines={
-            0: ['',''],
-            1: ['Surveyed Gogan Children Report Widespread Loneliness', 'Gogan Parents Rarely Spend Time with Children'],
-            2: ['Bomber Used Outdated Gogan Resistance Weapons', 'Bombers Belonged to Known Gogan Resistance Group'],
-            3: ['Ship Used By Thieves Had Gogan License', 'Ship Used By Thieves Belongs to Gogans'],
-            4: ['Gogan General Lead Team to Identify Poison Used', 'Gogan General is Expert on Poison Used'],
-            5: ['REAL', 'FAKE'],
-            6: ['REAL', 'FAKE'],
-            7: ['REAL', 'FAKE'],
-            8: ['REAL', 'FAKE']}).put()
-        # User(name='media1', team=1, headlines={
-        #     1: ['11111111111', '222222222222'],
-        #     2: ['33333333333', '444444444444'],
-        #     3: ['55555555555', '666666666666'],
-        #     4: ['media11', 'media12'],
-        #     5: ['REAL', 'FAKE'],
-        #     6: ['FAKE', 'REAL'],
-        #     7: ['FAKE', 'REAL'],
-        #     8: ['REAL', 'FAKE']}).put()
-
-        # User(name='media2', team=2, headlines={
-        #     1: ['media21', 'media22'],
-        #     2: ['media23', 'media24'],
-        #     3: ['media25', 'media26'],
-        #     4: ['media27', 'media28'],
-        #     5: ['REAL', 'FAKE'],
-        #     6: ['FAKE', 'REAL'],
-        #     7: ['REAL', 'FAKE'],
-        #     8: ['FAKE', 'REAL']}).put()
-
-        # User(name='citizen1', team=1, headlines={
-        #     1: ['', ''],
-        #     2: ['', ''],
-        #     3: ['', ''],
-        #     4: ['', ''],
-        #     5: ['', ''],
-        #     6: ['', ''],
-        #     7: ['', ''],
-        #     8: ['', '']}).put()
-
-        # User(name='citizen2', team=2, headlines={
-        #     1: ['', ''],
-        #     2: ['', ''],
-        #     3: ['', ''],
-        #     4: ['', ''],
-        #     5: ['', ''],
-        #     6: ['', ''],
-        #     7: ['', ''],
-        #     8: ['', '']}).put()
+   
 
 #automatically generate a username for a user and store their information
 #mentor match selection is also handled by this handler: after step>=4
 class LoginHandler(webapp2.RequestHandler):
     def post(self):
         # global selectedNum
+        array = []
+        state = {}
+        with open('filter.txt','r') as f:
+            for line in f:
+                array.append(line.strip())
         data = json.loads(self.request.body)
         step = data['step']
         username = data['username']
+        username = username.lower()
         user = User.query(User.name == username).get()
         if int(step) == -5:
             if user is not None:
                 state = {'error': 'true'}
             else:
-                state = {'error': 'false'}
-                user = User(name=username, point=0, img="no_image", title="no_title", source="no_source", hashtag="no_hashtag");
-                user.put()
+                curState = False
+                if username in array:
+                    curState = True
+                    state = {'badWord': 'true'}
+                if curState == False:
+                    print('Get in here')
+                    for i in range(1, len(username)):
+                        for j in range(i - 1, -1, -1):
+                            if username[j:i] in array:
+                                curState = True
+                                state = {'badWord': 'true'}
+                                break    
+                if curState == False:
+                    state = {'error': 'false'}
+                    user = User(name=username, point=0, img="no_image", title="no_title", source="no_source", hashtag="no_hashtag");
+                    user.put()
             self.response.write(json.dumps(state))
         else:
             round_num = data['round']

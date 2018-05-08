@@ -120,8 +120,14 @@
         });
 
 
+        window.onbeforeunload = function(event) { 
+            var event = event || window.event;
+            if (event) {
+                event.returnVlaue = "Are you sure to exit this page?"
+            } 
 
-        window.onbeforeunload = function() { return "Are you sure you want to leave?"; }
+            return 'Are you sure to exit this page';
+        }
 
         //initial state of the button
         $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
@@ -166,7 +172,6 @@
                     $('#erro').fadeOut(1500); 
                 } 
                 else {
-                    console.log("get in here")
                     $.ajax({
                     url: '/',
                     type: 'POST',
@@ -182,7 +187,12 @@
                             $('#erro').remove();
                             $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Username Already Existed. Please Use A Different Username</div>');
                             $('#erro').fadeOut(3000);
-                       } else {
+                        } else if (state['badWord'] === 'true') {
+                            console.log("get in here")
+                            $('#erro').remove();
+                            $('#teamName').append('<div id="erro" style="text-align: center; font-size:12px; color:#FE1717;">Sorry, our servers detected profanity in this username. Try again!</div>');
+                            $('#erro').fadeOut(3000);
+                        }else {
                         $('#teamName').hide();
                         $('#userinfoSubmit').children('img').attr('src','images/next.png'); 
                         $('#personName').show();  
@@ -440,7 +450,7 @@
     $('#title_selected').click(function(){
         $('#media_page').hide();
         $('#title').show();
-        $('#regtitle').text("Chosse Your Title");
+        $('#regtitle').text("Choose Your Title");
         $('#userinfoSubmit').hide();
         $('#userinfoSubmit_modify').show();
         back_page_case = 3;
