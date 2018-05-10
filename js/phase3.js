@@ -1,8 +1,6 @@
 $(document).ready(function() {
     
-    // get username from phase1 by using localstorage
     var followers = localStorage.getItem('point');
-    // var username = localStorage.getItem('username')
     var hashtag_heat_increase = 0
     var hashtag = ''
 
@@ -39,6 +37,7 @@ $(document).ready(function() {
             countStore();
             step++; 
             hashtag_heat_increase = hashtag_heat_increase * 0.1 * followers / 10;
+            hashtag_heat_increase = hashtag_heat_increase.toFixed();
             setTimeout(function() {
                 $.ajax({
                 url: '/update_hashtag',
@@ -60,6 +59,8 @@ $(document).ready(function() {
         if (step === 2) {           
             $('#hashtag').hide();
             $('#loadingPage').show();
+            $('#hash_heat_increase').show();
+            $('#hash_heat_increase').text("Your hashtag  is: " + hashtag_heat_increase);
             $('#regtitle').html("Posting");
             $('#userinfoSubmit').hide();
             loadingPage();
@@ -69,6 +70,7 @@ $(document).ready(function() {
     function loadingPage() {
         setTimeout(function(){
             $('#loadingPage').hide();
+            $('#hash_heat_increase').hide();
             $('#hashtag').show();
             $('#userinfoSubmit').children('img').attr('src','images/next-grey.png');
             $(".carousel-item").find("img").css("opacity", 1);
