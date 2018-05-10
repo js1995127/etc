@@ -83,13 +83,33 @@ $(document).ready(function() {
         if (step === 1) {        
             if (str === "visascare") {
                 hashtag = "#VisaScare"
-            } else if(str == "yourethelier"){
+			} else if(str == "visascare2"){
+                hashtag = "#VisaScare"
+			} else if(str == "visascare3"){
+                hashtag = "#VisaScare"
+			} else if(str == "youretheliar"){
+                hashtag = "#YoureTheLiar"
+			} else if(str == "youretheliar2"){
+                hashtag = "#YoureTheLiar"
+            } else if(str == "youretheliar3"){
                 hashtag = "#YoureTheLiar"
             } else if(str == "bevigilant") {
                 hashtag = "#BeVigilant"
+			} else if(str == "bevigilant2") {
+                hashtag = "#BeVigilant"
+			} else if(str == "bevigilant3") {
+                hashtag = "#BeVigilant"
             } else if(str == "justatheory") {
                 hashtag = "#JustATheory"
+			} else if(str == "justatheory2") {
+                hashtag = "#JustATheory"
+			} else if(str == "justatheory3") {
+                hashtag = "#JustATheory"
             } else if(str == "justice") {
+                hashtag = "#Justice"
+			} else if(str == "justice2") {
+                hashtag = "#Justice"
+			} else if(str == "justice3") {
                 hashtag = "#Justice"
             } 
             hashtag_heat_increase = 0.9 + (Math.random() * 20) / 10;
